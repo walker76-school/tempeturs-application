@@ -1,5 +1,9 @@
 .gradle
 .idea
+.eslintrc
 build
 node_modules
 out
+package-lock.json
+package.json
+run.bat
