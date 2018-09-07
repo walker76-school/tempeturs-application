@@ -64,7 +64,7 @@ class Page1 extends React.Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:8080/hello/')
+        fetch('https://tempeturs-group3.herokuapp.com/hello/')
             .then(
                 (response) => response.text()
             ).then((responseText) => {
