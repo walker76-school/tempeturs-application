@@ -57,10 +57,28 @@ export class LoginPage extends React.Component {
 }
 
 class Page1 extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {name: '', status: 'PENDING', options: [], message: ''};
+    }
+
+    componentDidMount() {
+        fetch('http://localhost:8080/hello/')
+            .then(
+                (response) => response.text()
+            ).then((responseText) => {
+            this.setState({
+                message: responseText
+            });
+        }).catch((error) => {
+            alert(error);
+        });
+    }
 	render() {
 		return (
 			<div className="container padded">
-				This is page 1.
+                <label>{this.state.message}</label>
 
 				{ _.isDefined(this.props.authentication) &&
 				<div>{this.props.authentication['access_token']}</div>
