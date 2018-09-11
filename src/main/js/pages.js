@@ -1,7 +1,6 @@
 import _ from 'lodash';
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as Users from 'js/users';
 import * as Login from 'js/login';
@@ -11,14 +10,6 @@ export class Home extends React.Component {
 		return (
 			<div className="container padded">
 				This is the home page.
-
-				<ul>
-					<li><Link to="/register">Register</Link></li>
-					<li><Link to="/login">Login</Link></li>
-					<li><Link to="/page-1">Page 1</Link></li>
-					<li><Link to="/page-2">Page 2</Link></li>
-					<li><Link to="/page-3">Page 3</Link></li>
-				</ul>
 			</div>
 		);
 	}
@@ -60,7 +51,7 @@ class Page1 extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {name: '', status: 'PENDING', options: [], message: ''};
+        this.state = {message: ''};
     }
 
     componentDidMount() {
