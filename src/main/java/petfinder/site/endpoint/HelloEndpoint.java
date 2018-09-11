@@ -10,6 +10,6 @@ public class HelloEndpoint {
 
     @GetMapping(value="/")
     public String getGreeting(){
-        return "Hello from Group 3";
+        return "Hello mentors from Group 3";
     }
 }
