@@ -10,6 +10,10 @@ public class PetDto implements Identifiable {
 	private String name;
 	private String type;
 
+    public PetDto() {
+        // Empty constructor required for deserialization
+    }
+
 	public PetDto(Long id, String name, String type) {
 		this.id = id;
 		this.name = name;

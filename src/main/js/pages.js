@@ -4,6 +4,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Users from 'js/users';
 import * as Login from 'js/login';
+import {PetForm} from 'js/pet/pet';
+import {PetInfo} from 'js/pet/petInfo';
 
 export class Home extends React.Component {
 	render() {
@@ -55,7 +57,7 @@ class Page1 extends React.Component {
     }
 
     componentDidMount() {
-        fetch('https://tempeturs-group3.herokuapp.com/hello/')
+        fetch('/hello/')
             .then(
                 (response) => response.text()
             ).then((responseText) => {
@@ -66,6 +68,7 @@ class Page1 extends React.Component {
             alert(error);
         });
     }
+
 	render() {
 		return (
 			<div className="container padded">
@@ -111,3 +114,33 @@ export class Page3 extends React.Component {
 		);
 	}
 }
+
+class PetPage extends React.Component {
+
+    render() {
+        return (
+            <div className="container padded">
+                <PetForm/>
+
+                { _.isDefined(this.props.authentication) &&
+                    <div>
+                        {this.props.authentication['access_token']}
+                        <PetInfo petKey='123' />
+                        <PetInfo petKey='55' />
+                        <PetInfo petKey='555' />
+                    </div>
+                }
+
+            </div>
+        );
+    }
+}
+
+PetPage = connect(
+    state => ({
+        authentication: Users.State.getAuthentication(state),
+        user: Users.State.getUser(state),
+    })
+)(PetPage);
+
+export { PetPage };
