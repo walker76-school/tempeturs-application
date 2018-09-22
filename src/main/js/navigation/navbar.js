@@ -20,6 +20,7 @@ class NavBar extends React.Component {
                         <NavItem path="/page-1" name="Page 1" />
                         <NavItem path="/page-2" name="Page 2" />
                         <NavItem path="/page-3" name="Page 3" />
+                        <NavItem path="/pet" name="Pet Page" />
 
                         <NavDropdown name="Dropdown">
                             <a className="dropdown-item" href="/">Action</a>
