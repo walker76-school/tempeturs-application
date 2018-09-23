@@ -40,6 +40,7 @@ public class UserService {
 	public static class RegistrationRequest {
 		private String principal;
 		private String password;
+		private String name;
 		private Map<String, Object> attributes;
 
 		public String getPrincipal() {
@@ -58,7 +59,15 @@ public class UserService {
 			this.password = password;
 		}
 
-		public Map<String, Object> getAttributes() {
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Map<String, Object> getAttributes() {
 			return attributes;
 		}
 
@@ -69,7 +78,7 @@ public class UserService {
 
 	public UserDto register(RegistrationRequest request) {
 		UserAuthenticationDto userAuthentication = new UserAuthenticationDto(
-				new UserDto(request.getPrincipal(), _Lists.list("ROLE_USER"), UserType.OWNER, request.getAttributes()), passwordEncoder.encode(request.getPassword()));
+				new UserDto(request.getPrincipal(), request.getName(), _Lists.list("ROLE_USER"), UserType.OWNER, request.getAttributes()), passwordEncoder.encode(request.getPassword()));
 
 		userDao.save(userAuthentication);
 		return userAuthentication.getUser();

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
-import * as PetAPI from 'js/pet/petAPI';
+import * as PetAPI from 'js/api/petAPI';
 
 class PetForm extends React.Component {
     onSubmit = pet => {
