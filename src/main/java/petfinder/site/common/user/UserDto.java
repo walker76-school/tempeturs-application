@@ -15,7 +15,6 @@ import alloy.util.Momento;
  */
 public class UserDto implements Momento<String> {
 	private String principal;
-	private String name;
 	private List<String> roles;
 	private UserType type;
 	private Map<String, Object> attributes;
@@ -30,22 +29,11 @@ public class UserDto implements Momento<String> {
 		this.attributes = attributes;
 	}
 
-    public UserDto(String principal, String name, List<String> roles, UserType type, Map<String, Object> attributes) {
-        this.principal = principal;
-        this.name = name;
-        this.roles = roles;
-        this.attributes = attributes;
-    }
-
 	public String getPrincipal() {
 		return principal;
 	}
 
-    public String getName() {
-        return name;
-    }
-
-    public List<String> getRoles() {
+	public List<String> getRoles() {
 		return roles;
 	}
 

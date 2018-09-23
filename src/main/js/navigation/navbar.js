@@ -17,12 +17,23 @@ class NavBar extends React.Component {
                         <NavItem path="/" name="Home" />
                         <NavItem path="/register" name="Register" />
                         <NavItem path="/login" name="Login" />
+                        <NavItem path="/page-1" name="Page 1" />
+                        <NavItem path="/page-2" name="Page 2" />
+                        <NavItem path="/page-3" name="Page 3" />
                         <NavItem path="/pet" name="Pet Page" />
 
-                    </ul>
+                        <NavDropdown name="Dropdown">
+                            <a className="dropdown-item" href="/">Action</a>
+                            <a className="dropdown-item" href="/">Another action</a>
+                            <div className="dropdown-divider"></div>
+                            <a className="dropdown-item" href="/">Something else here</a>
+                        </NavDropdown>
 
-                    <button className="btn btn-outline-success my-2 my-sm-0" type="register">Register</button>
-                    <button className="btn btn-success my-2 my-sm-0" type="login">Login</button>
+                    </ul>
+                    <form className="form-inline my-2 my-lg-0">
+                        <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+                        <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
                 </div>
             </nav>
         );

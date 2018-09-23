@@ -1,5 +1,5 @@
 import React from 'react';
-import {getPet} from 'js/api/petAPI';
+import {getPet} from 'js/pet/petAPI';
 
 class PetInfo extends React.Component {
 
