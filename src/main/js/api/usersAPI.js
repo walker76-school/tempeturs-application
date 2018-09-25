@@ -45,10 +45,10 @@ Actions.Types = {
 	SET_USER: 'SET_USER'
 };
 
-Actions.register = user => {
+Actions.register = (user, callback) => {
 	return (dispatch) => {
 		return register(user).then(() => {
-			return dispatch(Actions.authenticate(user.principal, user.password));
+			return dispatch(Actions.authenticate(user.principal, user.password, callback));
 		});
 	};
 };

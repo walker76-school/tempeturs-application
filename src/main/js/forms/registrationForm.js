@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import * as Users from 'js/api/usersAPI';
+import {Redirect} from 'react-router-dom';
 
 class RegistrationForm extends React.Component {
     onSubmit = user => {
-        return this.props.register(user);
+        return this.props.register(user, this.props.callback);
     };
 
     render() {
@@ -41,7 +42,7 @@ RegistrationForm = connect(
 
     }),
     dispatch => ({
-        register: user => dispatch(Users.Actions.register(user))
+        register: (user, callback) => dispatch(Users.Actions.register(user, callback))
     })
 )(RegistrationForm);
 

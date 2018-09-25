@@ -10,14 +10,37 @@ import {PetForm} from 'js/forms/petForm';
 import {PetInfo} from 'js/info/petInfo';
 
 export class RegisterPage extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = { redirect: false };
+	}
+
+	setRedirect = () => {
+		this.setState({
+			redirect: true
+		});
+	};
+
+	renderRedirect = () => {
+		if (this.state.redirect) {
+			return (
+				<Redirect to='/login' />
+			);
+		}
+	};
+
 	render() {
 		return (
-			<div className="container padded">
-				<div className="row">
-					<div className="col-6 offset-md-3">
-						<h2>Register</h2>
-						<hr />
-						<Registration.RegistrationForm />
+			<div>
+				{this.renderRedirect()}
+				<div className="container padded">
+					<div className="row">
+						<div className="col-6 offset-md-3">
+							<h2>Register</h2>
+							<hr />
+							<Registration.RegistrationForm callback={this.setRedirect}/>
+						</div>
 					</div>
 				</div>
 			</div>
