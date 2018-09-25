@@ -28,26 +28,8 @@ class RegistrationForm extends React.Component {
                 <Bessemer.Field name="principal" friendlyName="Email Address"
                                 validators={[Validation.requiredValidator, Validation.emailValidator]} />
 
-                <Bessemer.Field name="phone" friendlyName="Phone Number"
+                <Bessemer.Field name="phoneNumber" friendlyName="Phone Number"
                                 validators={[]} />
-
-                <Bessemer.Field name="addressLine1" friendlyName="Address Line 1"
-                                validators={[Validation.requiredValidator]} />
-
-                <Bessemer.Field name="addressLine2" friendlyName="Address Line 2"
-                                validators={[]} />
-
-                <Bessemer.Field name="zip" friendlyName="Zipcode"
-                                validators={[Validation.requiredValidator]} />
-
-                <Bessemer.Field name="city" friendlyName="City"
-                                validators={[Validation.requiredValidator]} />
-
-                <Bessemer.Field name="state" friendlyName="State"
-                                validators={[Validation.requiredValidator]} />
-
-                <Bessemer.Field name="principal" friendlyName="Email Address"
-                                validators={[Validation.requiredValidator, Validation.emailValidator]} />
 
                 <Bessemer.Field name="password" friendlyName="Password"
                                 validators={[Validation.requiredValidator, Validation.passwordValidator]}
