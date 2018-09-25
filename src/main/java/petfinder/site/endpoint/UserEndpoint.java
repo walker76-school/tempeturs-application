@@ -25,7 +25,7 @@ public class UserEndpoint {
 		return userService.findUserByPrincipal(principal);
 	}
 
-	@PostMapping(value = "/register")
+	@PostMapping(value = "/register", produces = "application/json")
 	public UserDto register(@RequestBody RegistrationRequest request) {
 		return userService.register(request);
 	}
