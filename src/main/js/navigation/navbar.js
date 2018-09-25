@@ -18,6 +18,7 @@ class NavBar extends React.Component {
                         <NavItem path="/register" name="Register" />
                         <NavItem path="/login" name="Login" />
                         <NavItem path="/pet" name="Pet Page" />
+                        <NavItem path="/account" name="Account" />
 
                     </ul>
 
