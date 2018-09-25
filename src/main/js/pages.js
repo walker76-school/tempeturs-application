@@ -8,16 +8,6 @@ import * as Registration from 'js/forms/registrationForm';
 import {PetForm} from 'js/forms/petForm';
 import {PetInfo} from 'js/info/petInfo';
 
-export class Home extends React.Component {
-	render() {
-		return (
-			<div className="container padded">
-				This is the home page.
-			</div>
-		);
-	}
-}
-
 export class RegisterPage extends React.Component {
 	render() {
 		return (
