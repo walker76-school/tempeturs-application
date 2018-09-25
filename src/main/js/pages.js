@@ -25,11 +25,10 @@ export class RegisterPage extends React.Component {
 	}
 }
 
-export class LoginPage extends React.Component {
+class LoginPage extends React.Component {
 
 	constructor(props) {
 		super(props);
-		console.log(props);
 		this.state = { redirect: false };
 	}
 
@@ -41,7 +40,9 @@ export class LoginPage extends React.Component {
 
 	renderRedirect = () => {
 		if (this.state.redirect) {
-			return (<Redirect to='/account' />);
+			return (
+				<Redirect to='/account' />
+			);
 		}
 	};
 
@@ -62,6 +63,14 @@ export class LoginPage extends React.Component {
 		);
 	}
 }
+
+LoginPage = connect(
+	state => ({
+		authentication: Users.State.getAuthentication(state),
+	})
+)(LoginPage);
+
+export { LoginPage };
 
 class PetPage extends React.Component {
 

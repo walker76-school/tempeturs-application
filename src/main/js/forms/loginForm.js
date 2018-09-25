@@ -9,9 +9,7 @@ import * as Users from 'js/api/usersAPI';
 
 class LoginForm extends React.Component {
     onSubmit = ({principal, password}) => {
-        var ret = this.props.authenticate(principal, password);
-        this.props.callback();
-        return ret;
+        return this.props.authenticate(principal, password, this.props.callback);
     };
 
     render() {
@@ -38,7 +36,7 @@ LoginForm = connect(
 
     }),
     dispatch => ({
-        authenticate: (principal, password) => dispatch(Users.Actions.authenticate(principal, password))
+        authenticate: (principal, password, callback) => dispatch(Users.Actions.authenticate(principal, password, callback))
     })
 )(LoginForm);
 
