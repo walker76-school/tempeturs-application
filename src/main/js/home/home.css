@@ -1,5 +1,11 @@
 .landing {
-    background: aliceblue;
+    background-image: url('/js/home/resources/landing_bg.jpg');
+    height: 100%;
+    width: 100%;
+}
+
+.about {
+    background: darkblue;
     height: 100%;
     width: 100%;
 }
