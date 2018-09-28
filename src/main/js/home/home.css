@@ -1,8 +1,64 @@
 .landing {
-    background-image: url('/js/home/resources/landing_bg.jpg');
-    height: 100%;
-    width: 100%;
+    background: url(../../resources/img/dog.jpg) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    min-height: 100%;
+    position: relative;
+    display: block;
 }
+
+.landingNav {
+    background: rgba(0,0,0,1);
+    align-content: end;
+    position: relative;
+}
+
+.landingNav button {
+    float: right;
+    margin-top: 2%;
+    margin-right: 2%;
+    min-width: 5%;
+    text-align: center;
+}
+
+.landingBox{
+    height: 80%;
+    width: 60%;
+    background-color: rgba(255,255,255,0.6);
+    margin: auto;
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    text-align: left;
+}
+
+.landingBox h1 {
+    padding-top: 5%;
+    font-family: "Comic Sans MS", sans-serif;
+    font-size: 100pt;
+    color: darkgreen;
+}
+
+.regBox{
+    height: 80%;
+    width: 30%;
+    background-color: rgba(255,255,255,0.6);
+    margin: auto;
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    text-align: left;
+}
+
+.regBox h1 {
+    padding-top: 5%;
+    font-family: "Comic Sans MS", sans-serif;
+    font-size: 100pt;
+    color: darkgreen;
+}
+
 
 .about {
     background: darkblue;
