@@ -1,4 +1,4 @@
-.regContainer {
+.loginContainer {
     height: 100%;
     width: 100%;
     background: url(../../resources/img/dog.jpg);
@@ -11,23 +11,23 @@
     display: block;
 }
 
-.innerRegContainer{
+.innerLoginContainer{
     height: auto;
-    width: 40%;
+    max-width: 20%;
     background-color: rgba(255,255,255, 1);
     border-radius: 25px;
     margin: auto;
     position: absolute;
     top: 20%;
-    left: 30%;
+    left: 40%;
     text-align: left;
     padding: 5%;
 }
 
-.innerRegContainer button {
+.innerLoginContainer button {
     float: right;
 }
 
-.innerRegContainer h2 {
+.innerLoginContainer h2 {
     text-align: center;
 }
