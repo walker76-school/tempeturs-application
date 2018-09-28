@@ -7,7 +7,7 @@ import {AccountPage} from 'js/account/accountPage';
 
 import Cookies from 'universal-cookie';
 import * as Users from 'js/api/usersAPI';
-import {connect} from 'react-redux';
+import {RegisterPage} from 'js/registration/registration';
 
 export default class Index extends React.Component {
 
@@ -28,7 +28,7 @@ export default class Index extends React.Component {
 			<HashRouter>
 				<div>
 					<Route exact path="/" component={Home} />
-					<Route exact path="/register" component={Pages.RegisterPage} />
+					<Route exact path="/register" component={RegisterPage} />
 					<Route exact path="/login" component={Pages.LoginPage} />
 					<Route exact path="/pet" component={Pages.PetPage} />
 					<Route exact path="/account" component={AccountPage} />
