@@ -4,9 +4,25 @@ import { HashRouter, Route } from 'react-router-dom';
 import * as Pages from 'js/pages';
 import {Home} from 'js/home/home';
 import {AccountPage} from 'js/account/accountPage';
-import NavBar from 'js/navigation/navbar';
+
+import Cookies from 'universal-cookie';
+import * as Users from 'js/api/usersAPI';
+import {connect} from 'react-redux';
 
 export default class Index extends React.Component {
+
+	constructor(props){
+		super(props);
+		const cookies = new Cookies();
+		if(cookies.get('auth')){
+			this.props.store.dispatch(Users.Actions.setAuthentication(cookies.get('auth')));
+		}
+
+		if(cookies.get('user')){
+			this.props.store.dispatch(Users.Actions.setUser(cookies.get('user')));
+		}
+	}
+
 	render() {
 		return (
 			<HashRouter>

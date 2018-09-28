@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 export function register(user) {
 	return axios.post('/api/user/register', user);
@@ -68,6 +69,10 @@ Actions.authenticate = (username, password, callback) => {
 };
 
 Actions.logout = () => {
+	const cookies = new Cookies();
+	cookies.remove('auth');
+	cookies.remove('user');
+
 	return (dispatch) => {
 		dispatch(Actions.setAuthentication(null));
 		dispatch(Actions.setUser(null));
@@ -75,10 +80,16 @@ Actions.logout = () => {
 };
 
 Actions.setAuthentication = authentication => {
+	const cookies = new Cookies();
+	cookies.set('auth', authentication);
+
 	return {type: Actions.Types.SET_AUTHENTICATION, authentication};
 };
 
 Actions.setUser = user => {
+	const cookies = new Cookies();
+	cookies.set('user', user);
+
 	return {type: Actions.Types.SET_USER, user};
 };
 

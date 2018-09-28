@@ -37,4 +37,4 @@ axios.interceptors.request.use(request => {
 axios.interceptors.response.use(response => response.data, error => Promise.reject(error));
 
 const mountNode = document.querySelector('#main');
-ReactDOM.render(<Provider store={store}><Index /></Provider>, mountNode);
+ReactDOM.render(<Provider store={store}><Index store={store} /></Provider>, mountNode);
