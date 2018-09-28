@@ -8,6 +8,7 @@ import {AccountPage} from 'js/account/accountPage';
 import Cookies from 'universal-cookie';
 import * as Users from 'js/api/usersAPI';
 import {RegisterPage} from 'js/registration/registration';
+import {LoginPage} from 'js/login/login';
 
 export default class Index extends React.Component {
 
@@ -29,7 +30,7 @@ export default class Index extends React.Component {
 				<div>
 					<Route exact path="/" component={Home} />
 					<Route exact path="/register" component={RegisterPage} />
-					<Route exact path="/login" component={Pages.LoginPage} />
+					<Route exact path="/login" component={LoginPage} />
 					<Route exact path="/pet" component={Pages.PetPage} />
 					<Route exact path="/account" component={AccountPage} />
 				</div>
