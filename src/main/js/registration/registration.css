@@ -1,0 +1,39 @@
+.regContainer {
+    height: 100%;
+    width: 100%;
+    background: url(../../resources/img/dog.jpg);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    min-height: 100%;
+    position: relative;
+    display: block;
+}
+
+.innerRegContainer{
+    height: auto;
+    width: 40%;
+    background-color: rgba(255,255,255, 1);
+    border-radius: 25px;
+    margin: auto;
+    position: absolute;
+    top: 20%;
+    left: 30%;
+    text-align: left;
+    padding: 5%;
+}
+
+.innerRegContainer button {
+    float: right;
+}
+
+.innerRegContainer h2 {
+    text-align: center;
+}
+
+.page-item {
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+    border-radius: 25px !important;
+}
