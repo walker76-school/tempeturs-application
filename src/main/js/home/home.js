@@ -1,15 +1,13 @@
 import React from 'react';
 import {Landing} from './landing';
-import {About} from './about';
-import NavBar from 'js/navigation/navbar';
+import {Services} from 'js/home/services';
 
 export class Home extends React.Component {
 	render() {
 		return (
 			<div>
 				<Landing />
-				<NavBar />
-				<About />
+				<Services/>
 			</div>
 		);
 	}
