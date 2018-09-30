@@ -8,7 +8,7 @@ import {Redirect} from 'react-router-dom';
 
 class RegistrationForm extends React.Component {
     onSubmit = user => {
-        return this.props.register(user, this.props.callback);
+        return this.props.register(user, this.props.callBack);
     };
 
     render() {
