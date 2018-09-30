@@ -1,7 +1,13 @@
 .landing {
-    background-image: url('/js/home/resources/landing_bg.jpg');
-    height: 100%;
-    width: 100%;
+    background-image: url(../../resources/img/dog1.jpg);
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: cover;
+    background-size: contain;
+    background-color: black;
+    position: relative;
+    min-height: 100%;
+    display: block;
 }
 
 .about {

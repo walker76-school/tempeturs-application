@@ -9,7 +9,7 @@ import Cookies from 'universal-cookie';
 import * as Users from 'js/api/usersAPI';
 import {RegisterPage} from 'js/registration/registration';
 import {LoginPage} from 'js/login/login';
-
+import {About} from 'js/home/about'
 export default class Index extends React.Component {
 
 	constructor(props){
@@ -33,6 +33,7 @@ export default class Index extends React.Component {
 					<Route exact path="/login" component={LoginPage} />
 					<Route exact path="/pet" component={Pages.PetPage} />
 					<Route exact path="/account" component={AccountPage} />
+                    <Route exact path="/about" component={About} />
 				</div>
 			</HashRouter>
 		);
