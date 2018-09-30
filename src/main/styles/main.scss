@@ -8,3 +8,16 @@ $fa-font-path: "~font-awesome/fonts";
 @import "../js/registration/registration.css";
 @import "../js/login/login.css";
 
+body::-webkit-scrollbar {
+  width: 0.7em;
+  background: transparent;
+}
+body::-webkit-scrollbar-thumb {
+  background: coral;
+  height:30px;
+}
+
+body::-webkit-scrollbar-track-piece
+{
+  display:none;
+}
