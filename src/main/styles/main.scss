@@ -2,7 +2,22 @@
 @import "~react-select/scss/default.scss";
 $fa-font-path: "~font-awesome/fonts";
 @import "~font-awesome/scss/font-awesome.scss";
+@import "../resources/styles/responsive.css";
+@import "../resources/styles/animate.css";
 @import "../js/home/home.css";
 @import "../js/registration/registration.css";
 @import "../js/login/login.css";
 
+body::-webkit-scrollbar {
+  width: 0.7em;
+  background: transparent;
+}
+body::-webkit-scrollbar-thumb {
+  background: coral;
+  height:30px;
+}
+
+body::-webkit-scrollbar-track-piece
+{
+  display:none;
+}

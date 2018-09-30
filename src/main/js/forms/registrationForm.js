@@ -9,7 +9,7 @@ import {confirmPassword} from "js/alloy/utils/validation";
 
 class RegistrationForm extends React.Component {
     onSubmit = user => {
-        return this.props.register(user, this.props.callback);
+        return this.props.register(user, this.props.callBack);
     };
 
     render() {

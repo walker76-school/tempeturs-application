@@ -31,7 +31,7 @@ export class RegisterPage extends React.Component {
 					<div className="innerRegContainer">
 						<h2>Register</h2>
 						<hr />
-						<RegistrationForm callBack={this.renderRedirect}/>
+						<RegistrationForm callBack={this.setRedirect}/>
 					</div>
 				</div>
 			</div>

@@ -1,7 +1,7 @@
 .regContainer {
     height: 100%;
     width: 100%;
-    background: url(../../resources/img/dog.jpg);
+    background: dodgerblue;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

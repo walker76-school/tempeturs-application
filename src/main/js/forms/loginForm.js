@@ -9,7 +9,7 @@ import * as Users from 'js/api/usersAPI';
 
 class LoginForm extends React.Component {
     onSubmit = ({principal, password}) => {
-        return this.props.authenticate(principal, password, this.props.callback);
+        return this.props.authenticate(principal, password, this.props.callBack);
     };
 
     render() {

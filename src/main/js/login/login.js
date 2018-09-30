@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as Users from 'js/api/usersAPI';
 import {LoginForm} from 'js/forms/loginForm';
@@ -32,7 +33,7 @@ class LoginPage extends React.Component {
 					<div className="innerRegContainer">
 						<h2>Login</h2>
 						<hr />
-						<LoginForm callBack={this.renderRedirect}/>
+						<LoginForm callBack={this.setRedirect}/>
 					</div>
 				</div>
 			</div>
