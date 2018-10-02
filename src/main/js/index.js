@@ -3,7 +3,7 @@ import { HashRouter, Route } from 'react-router-dom';
 
 import * as Pages from 'js/pages';
 import {Home} from 'js/home/home';
-import {AccountPage} from 'js/account/accountPage';
+import {Account} from 'js/account/account';
 
 import Cookies from 'universal-cookie';
 import * as Users from 'js/api/usersAPI';
@@ -32,7 +32,7 @@ export default class Index extends React.Component {
 					<Route exact path="/register" component={RegisterPage} />
 					<Route exact path="/login" component={LoginPage} />
 					<Route exact path="/pet" component={Pages.PetPage} />
-					<Route exact path="/account" component={AccountPage} />
+					<Route exact path="/account" component={Account} />
 				</div>
 			</HashRouter>
 		);
