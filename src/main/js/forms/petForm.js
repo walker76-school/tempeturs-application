@@ -8,6 +8,7 @@ import * as PetAPI from 'js/api/petAPI';
 
 class PetForm extends React.Component {
     onSubmit = pet => {
+        this.props.callBack(pet['id']);
         return this.props.registerPet(pet);
     };
 

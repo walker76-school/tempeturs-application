@@ -8,43 +8,41 @@ import {PetForm} from 'js/forms/petForm';
 import PetCalendar from 'js/account/calendarcomponent';
 import {Logout} from 'js/account/logout';
 import { Redirect } from 'react-router-dom';
+import {PetInfo} from 'js/info/petInfo';
 
 class Account extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = { component: 'Pets' };
+		this.state = {
+			component: 'Pets',
+			pets: []
+		};
 		this.setSubComponent = this.setSubComponent.bind(this);
 		this.handleClick = this.handleClick.bind(this);
+		this.addPet = this.addPet.bind(this);
 	}
 
 	handleClick(){
 		this.setSubComponent('Pet Form');
 	}
 
-	renderRedirect = () => {
-		if (this.state.redirect) {
-			return (
-				<Redirect to='/account' />
-			);
-		}
-	};
-
 	renderSubComponent(){
 		if(this.state.component === 'Pet Form'){
 			return (
 				<div className="petFormWrapper">
-					<PetForm/>
+					<PetForm callBack={this.addPet}/>
 				</div>
 			);
 		} else if (this.state.component === 'Calendar'){
 			return (<PetCalendar/>);
 		} else if (this.state.component === 'Pets'){
+
+			let petInfos = this.state.pets.map((i, index) => <PetInfo petKey={i} />);
 			return (
 				<div>
 					<div className="addPetWrapper">
-						<PetComponent/>
-						<hr/>
+						{petInfos}
 						<a className="link petLink" onClick={this.handleClick}>Add Pet</a>
 					</div>
 				</div>
@@ -59,6 +57,16 @@ class Account extends React.Component {
 	setSubComponent(variable){
 		this.setState({
 			component: variable
+		});
+	}
+
+	addPet(id){
+		console.log('addPet');
+		let pets = this.state.pets;
+		pets.push(id);
+		console.log(pets);
+		this.setState({
+			pets: pets
 		});
 	}
 
