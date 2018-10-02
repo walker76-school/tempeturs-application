@@ -5,10 +5,13 @@ import { connect } from 'react-redux';
 import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import * as PetAPI from 'js/api/petAPI';
+import * as Users from 'js/api/usersAPI';
 
 class PetForm extends React.Component {
     onSubmit = pet => {
-        this.props.callBack(pet['id']);
+        let updatedUser = this.props.user;
+        updatedUser['petIds'].push(pet['id']);
+        this.props.addPet(updatedUser);
         return this.props.registerPet(pet);
     };
 
@@ -33,11 +36,13 @@ class PetForm extends React.Component {
 PetForm = ReduxForm.reduxForm({form: 'pet'})(PetForm);
 
 PetForm = connect(
-    state => ({
-
-    }),
+	state => ({
+		authentication: Users.State.getAuthentication(state),
+		user: Users.State.getUser(state)
+	}),
     dispatch => ({
-        registerPet: pet => dispatch(PetAPI.Actions.registerPet(pet))
+        registerPet: pet => dispatch(PetAPI.Actions.registerPet(pet)),
+        addPet: user => dispatch(Users.Actions.update(user))
     })
 )(PetForm);
 

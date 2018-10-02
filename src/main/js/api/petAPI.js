@@ -10,10 +10,6 @@ export function getPet(id) {
 
 let Actions = {};
 
-Actions.Types = {
-    SET_PET: 'SET_PET'
-};
-
 Actions.registerPet = pet => {
     return (dispatch) => {
         return registerPet(pet).then(() => {

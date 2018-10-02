@@ -5,6 +5,11 @@ export function register(user) {
 	return axios.post('/api/user/register', user);
 }
 
+export function update(user) {
+	return axios.post('/api/user/update', user);
+}
+
+
 export function authenticate(username, password) {
 	return axios(
 		{
@@ -54,12 +59,22 @@ Actions.register = (user, callback) => {
 	};
 };
 
+Actions.update = (user) => {
+	return (dispatch) => {
+		return update(user).then(() => {
+			return dispatch(Actions.setUser(user));
+		});
+	};
+};
+
 Actions.authenticate = (username, password, callback) => {
 	return (dispatch) => {
 		return authenticate(username, password).then(
 			authentication => {
 				dispatch(Actions.setAuthentication(authentication));
-				callback();
+				if(callback !== null){
+					callback();
+				}
 				return getUserDetails().then(user => {
 					dispatch(Actions.setUser(user));
 				});

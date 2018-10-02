@@ -16,11 +16,9 @@ class Account extends React.Component {
 		super(props);
 		this.state = {
 			component: 'Pets',
-			pets: []
 		};
 		this.setSubComponent = this.setSubComponent.bind(this);
 		this.handleClick = this.handleClick.bind(this);
-		this.addPet = this.addPet.bind(this);
 	}
 
 	handleClick(){
@@ -36,13 +34,19 @@ class Account extends React.Component {
 			);
 		} else if (this.state.component === 'Calendar'){
 			return (<PetCalendar/>);
-		} else if (this.state.component === 'Pets'){
+		} else if (this.state.component === 'Pets') {
 
-			let petInfos = this.state.pets.map((i, index) => <PetInfo petKey={i} />);
+			let petInfo;
+			if (this.props.user && this.props.user['petIds'] && this.props.user['petIds'].length > 0) {
+				petInfo = this.props.user['petIds'].map((i, index) => <PetInfo petKey={i}/>);
+			} else {
+				petInfo = (<h2>Looks like you don't have any pets yet</h2>);
+			}
+
 			return (
 				<div>
 					<div className="addPetWrapper">
-						{petInfos}
+						{petInfo}
 						<a className="link petLink" onClick={this.handleClick}>Add Pet</a>
 					</div>
 				</div>
@@ -57,16 +61,6 @@ class Account extends React.Component {
 	setSubComponent(variable){
 		this.setState({
 			component: variable
-		});
-	}
-
-	addPet(id){
-		console.log('addPet');
-		let pets = this.state.pets;
-		pets.push(id);
-		console.log(pets);
-		this.setState({
-			pets: pets
 		});
 	}
 
@@ -91,9 +85,8 @@ class Account extends React.Component {
 					</div>
 
 					<div className="innerNavContainer">
-						<NavComponent callBack={this.setSubComponent} name='Pet Form'/>
-						<NavComponent callBack={this.setSubComponent} name='Calendar'/>
 						<NavComponent callBack={this.setSubComponent} name='Pets'/>
+						<NavComponent callBack={this.setSubComponent} name='Calendar'/>
 						<Logout callBack={this.setSubComponent} name='Logout'/>
 					</div>
 				</div>
