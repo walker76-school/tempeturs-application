@@ -13,7 +13,7 @@ class LoginPage extends React.Component {
 		this.state = {
 			redirect: false
 		};
-		
+
 		const cookies = new Cookies();
 		if(cookies.get('user')){
 			this.props.setUser(cookies.get('user'));
