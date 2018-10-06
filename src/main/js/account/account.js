@@ -9,6 +9,7 @@ import PetCalendar from 'js/account/calendarcomponent';
 import {Logout} from 'js/account/logout';
 import { Redirect } from 'react-router-dom';
 import {PetInfo} from 'js/info/petInfo';
+import {UpdateUserForm} from 'js/forms/updateUserForm';
 
 class Account extends React.Component {
 
@@ -32,6 +33,8 @@ class Account extends React.Component {
 					<PetForm/>
 				</div>
 			);
+		} else if (this.state.component === 'Update User'){
+			return (<UpdateUserForm/>);
 		} else if (this.state.component === 'Calendar'){
 			return (<PetCalendar/>);
 		} else if (this.state.component === 'Pets') {
@@ -87,6 +90,7 @@ class Account extends React.Component {
 					<div className="innerNavContainer">
 						<NavComponent callBack={this.setSubComponent} name='Pets'/>
 						<NavComponent callBack={this.setSubComponent} name='Calendar'/>
+						<NavComponent callBack={this.setSubComponent} name='Update User'/>
 						<Logout callBack={this.setSubComponent} name='Logout'/>
 					</div>
 				</div>
