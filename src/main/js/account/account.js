@@ -29,7 +29,7 @@ class Account extends React.Component {
 		if(this.state.component === 'Pet Form'){
 			return (
 				<div className="petFormWrapper">
-					<PetForm callBack={this.addPet}/>
+					<PetForm/>
 				</div>
 			);
 		} else if (this.state.component === 'Calendar'){
