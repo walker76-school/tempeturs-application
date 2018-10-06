@@ -36,7 +36,6 @@ public class PetEndpoint {
 	@PostMapping(produces = "application/json")
 	public PetDto savePet(@RequestBody PetRegistrationRequest pet) {
 		Integer id = generateUniqueId();
-		System.out.println(id);
 		PetDto dto = new PetDto(id.longValue(), pet.getName(), pet.getType());
 		petService.save(dto);
 		return dto;

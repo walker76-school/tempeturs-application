@@ -83,10 +83,17 @@ Actions.authenticate = (username, password, callback) => {
 	};
 };
 
+Actions.refresh = () => {
+	return (dispatch) => {
+		return getUserDetails().then(user => {
+			dispatch(Actions.setUser(user));
+		});
+	};
+};
+
 Actions.logout = () => {
 	const cookies = new Cookies();
 	cookies.remove('auth');
-	cookies.remove('user');
 
 	return (dispatch) => {
 		dispatch(Actions.setAuthentication(null));
@@ -102,9 +109,6 @@ Actions.setAuthentication = authentication => {
 };
 
 Actions.setUser = user => {
-	const cookies = new Cookies();
-	cookies.set('user', user);
-
 	return {type: Actions.Types.SET_USER, user};
 };
 
