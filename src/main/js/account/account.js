@@ -2,7 +2,6 @@ import React from 'react';
 import _ from 'lodash';
 import connect from 'react-redux/es/connect/connect';
 import * as Users from 'js/api/usersAPI';
-import {PetComponent} from 'js/account/petcomponent';
 import {NavComponent} from 'js/account/navcomponent';
 import {PetForm} from 'js/forms/petForm';
 import PetCalendar from 'js/account/calendarcomponent';
@@ -10,6 +9,7 @@ import {Logout} from 'js/account/logout';
 import { Redirect } from 'react-router-dom';
 import {PetInfo} from 'js/info/petInfo';
 import {UpdateUserForm} from 'js/forms/updateUserForm';
+import {AvailabilityForm} from 'js/account/availabilityForm';
 
 class Account extends React.Component {
 
@@ -37,6 +37,10 @@ class Account extends React.Component {
 			return (<UpdateUserForm/>);
 		} else if (this.state.component === 'Calendar'){
 			return (<PetCalendar/>);
+		} else if (this.state.component === 'Availability'){
+			return (
+				<AvailabilityForm/>
+			);
 		} else if (this.state.component === 'Pets') {
 
 			let petInfo;
@@ -91,6 +95,7 @@ class Account extends React.Component {
 						<NavComponent callBack={this.setSubComponent} name='Pets'/>
 						<NavComponent callBack={this.setSubComponent} name='Calendar'/>
 						<NavComponent callBack={this.setSubComponent} name='Update User'/>
+						<NavComponent callBack={this.setSubComponent} name='Availability'/>
 						<Logout callBack={this.setSubComponent} name='Logout'/>
 					</div>
 				</div>
