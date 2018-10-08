@@ -20,4 +20,9 @@ public class PetService {
 	public void save(PetDto pet) {
 		petDao.save(pet);
 	}
+
+	public PetDto update(PetDto pet) {
+		petDao.save(pet);
+		return pet;
+	}
 }

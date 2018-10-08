@@ -3,12 +3,27 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as Users from 'js/api/usersAPI';
 import {LoginForm} from 'js/forms/loginForm';
+import Cookies from 'universal-cookie';
 
 class LoginPage extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = { redirect: false };
+
+		this.state = {
+			redirect: false
+		};
+
+		const cookies = new Cookies();
+		if(cookies.get('auth')){
+			this.props.setAuth(cookies.get('auth'));
+			this.props.refresh();
+			this.setState({
+				redirect: true
+			});
+		}
+
+
 	}
 
 	setRedirect = () => {
@@ -43,7 +58,11 @@ class LoginPage extends React.Component {
 
 LoginPage = connect(
 	state => ({
-		authentication: Users.State.getAuthentication(state),
+
+	}),
+	dispatch => ({
+		refresh: () => dispatch(Users.Actions.refresh()),
+		setAuth: (auth) => dispatch(Users.Actions.setAuthentication(auth))
 	})
 )(LoginPage);
 

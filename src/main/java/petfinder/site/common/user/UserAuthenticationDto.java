@@ -25,6 +25,10 @@ public class UserAuthenticationDto implements Momento<String> {
 		return user;
 	}
 
+	public void setUser(UserDto user){
+		this.user = user;
+	}
+
 	public String getPassword() {
 		return password;
 	}

@@ -5,6 +5,11 @@ export function register(user) {
 	return axios.post('/api/user/register', user);
 }
 
+export function update(user) {
+	return axios.post('/api/user/update', user);
+}
+
+
 export function authenticate(username, password) {
 	return axios(
 		{
@@ -54,12 +59,22 @@ Actions.register = (user, callback) => {
 	};
 };
 
+Actions.update = (user) => {
+	return (dispatch) => {
+		return update(user).then(() => {
+			return dispatch(Actions.setUser(user));
+		});
+	};
+};
+
 Actions.authenticate = (username, password, callback) => {
 	return (dispatch) => {
 		return authenticate(username, password).then(
 			authentication => {
 				dispatch(Actions.setAuthentication(authentication));
-				callback();
+				if(callback !== null){
+					callback();
+				}
 				return getUserDetails().then(user => {
 					dispatch(Actions.setUser(user));
 				});
@@ -68,10 +83,17 @@ Actions.authenticate = (username, password, callback) => {
 	};
 };
 
+Actions.refresh = () => {
+	return (dispatch) => {
+		return getUserDetails().then(user => {
+			dispatch(Actions.setUser(user));
+		});
+	};
+};
+
 Actions.logout = () => {
 	const cookies = new Cookies();
 	cookies.remove('auth');
-	cookies.remove('user');
 
 	return (dispatch) => {
 		dispatch(Actions.setAuthentication(null));
@@ -87,9 +109,6 @@ Actions.setAuthentication = authentication => {
 };
 
 Actions.setUser = user => {
-	const cookies = new Cookies();
-	cookies.set('user', user);
-
 	return {type: Actions.Types.SET_USER, user};
 };
 

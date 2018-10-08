@@ -29,4 +29,9 @@ public class UserEndpoint {
 	public UserDto register(@RequestBody RegistrationRequest request) {
 		return userService.register(request);
 	}
+
+	@PostMapping(value = "/update", produces = "application/json")
+	public UserDto update(@RequestBody UserDto user) {
+		return userService.update(user);
+	}
 }

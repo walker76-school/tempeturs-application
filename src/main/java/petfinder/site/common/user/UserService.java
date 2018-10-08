@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -91,5 +92,21 @@ public class UserService {
 
 		userDao.save(userAuthentication);
 		return userAuthentication.getUser();
+	}
+
+	public UserDto update(UserDto user) {
+		String principal = SecurityContextHolder.getContext().getAuthentication().getName();
+		UserAuthenticationDto uadto = null;
+
+		if(userDao.findUserByPrincipal(principal).isPresent()){
+			uadto = userDao.findUserByPrincipal(principal).get();
+		}
+
+		if(uadto != null) {
+			uadto.setUser(user);
+			userDao.save(uadto);
+		}
+
+		return user;
 	}
 }

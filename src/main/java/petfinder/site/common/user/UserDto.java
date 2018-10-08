@@ -1,9 +1,6 @@
 package petfinder.site.common.user;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
@@ -18,6 +15,7 @@ public class UserDto implements Momento<String> {
 	private String name;
 	private String phoneNumber;
 	private List<String> roles;
+	private List<Long> petIds;
 	private UserType type;
 	private Map<String, Object> attributes;
 
@@ -32,12 +30,22 @@ public class UserDto implements Momento<String> {
 	}
 
     public UserDto(String principal, String name, String phoneNumber, List<String> roles, UserType type, Map<String, Object> attributes) {
-        this.principal = principal;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.roles = roles;
-        this.attributes = attributes;
-    }
+		this.principal = principal;
+		this.name = name;
+		this.phoneNumber = phoneNumber;
+		this.roles = roles;
+		this.petIds = new ArrayList<>();
+		this.attributes = attributes;
+	}
+
+	public UserDto(String principal, String name, String phoneNumber, List<String> roles, List<Long> petIds, UserType type, Map<String, Object> attributes) {
+		this.principal = principal;
+		this.name = name;
+		this.phoneNumber = phoneNumber;
+		this.roles = roles;
+		this.petIds = petIds;
+		this.attributes = attributes;
+	}
 
 	public String getPrincipal() {
 		return principal;
@@ -53,6 +61,10 @@ public class UserDto implements Momento<String> {
 
 	public List<String> getRoles() {
 		return roles;
+	}
+
+	public List<Long> getPetIds(){
+		return petIds;
 	}
 
 	public Map<String, Object> getAttributes() {
