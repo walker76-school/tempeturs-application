@@ -15,7 +15,7 @@ public class UserDto implements Momento<String> {
 	private String name;
 	private String phoneNumber;
 	private List<String> roles;
-	private List<Integer> petIds;
+	private List<Long> petIds;
 	private UserType type;
 	private Map<String, Object> attributes;
 
@@ -38,7 +38,7 @@ public class UserDto implements Momento<String> {
 		this.attributes = attributes;
 	}
 
-	public UserDto(String principal, String name, String phoneNumber, List<String> roles, List<Integer> petIds, UserType type, Map<String, Object> attributes) {
+	public UserDto(String principal, String name, String phoneNumber, List<String> roles, List<Long> petIds, UserType type, Map<String, Object> attributes) {
 		this.principal = principal;
 		this.name = name;
 		this.phoneNumber = phoneNumber;
@@ -63,7 +63,7 @@ public class UserDto implements Momento<String> {
 		return roles;
 	}
 
-	public List<Integer> getPetIds(){
+	public List<Long> getPetIds(){
 		return petIds;
 	}
 
