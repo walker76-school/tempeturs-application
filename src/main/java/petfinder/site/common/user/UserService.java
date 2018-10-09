@@ -86,7 +86,15 @@ public class UserService {
 		}
 	}
 
-	public UserDto register(RegistrationRequest request) {
+	public UserDto registerSitter(RegistrationRequest request) {
+		UserAuthenticationDto userAuthentication = new UserAuthenticationDto(
+				new UserDto(request.getPrincipal(), request.getName(), request.getPhoneNumber(), _Lists.list("ROLE_USER"), UserType.SITTER, request.getAttributes()), passwordEncoder.encode(request.getPassword()));
+
+		userDao.save(userAuthentication);
+		return userAuthentication.getUser();
+	}
+
+	public UserDto registerOwner(RegistrationRequest request) {
 		UserAuthenticationDto userAuthentication = new UserAuthenticationDto(
 				new UserDto(request.getPrincipal(), request.getName(), request.getPhoneNumber(), _Lists.list("ROLE_USER"), UserType.OWNER, request.getAttributes()), passwordEncoder.encode(request.getPassword()));
 

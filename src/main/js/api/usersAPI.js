@@ -1,8 +1,12 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 
-export function register(user) {
-	return axios.post('/api/user/register', user);
+export function registerSitter(user) {
+	return axios.post('/api/user/registerSitter', user);
+}
+
+export function registerOwner(user) {
+	return axios.post('/api/user/registerOwner', user);
 }
 
 export function update(user) {
@@ -51,13 +55,22 @@ Actions.Types = {
 	SET_USER: 'SET_USER'
 };
 
-Actions.register = (user, callback) => {
+Actions.registerSitter = (user, callback) => {
 	return (dispatch) => {
-		return register(user).then(() => {
+		return registerSitter(user).then(() => {
 			return dispatch(Actions.authenticate(user.principal, user.password, callback));
 		});
 	};
 };
+
+Actions.registerOwner = (user, callback) => {
+	return (dispatch) => {
+		return registerOwner(user).then(() => {
+			return dispatch(Actions.authenticate(user.principal, user.password, callback));
+		});
+	};
+};
+
 
 Actions.update = (user) => {
 	return (dispatch) => {

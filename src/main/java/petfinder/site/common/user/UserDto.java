@@ -25,6 +25,7 @@ public class UserDto implements Momento<String> {
 
 	public UserDto(String principal, List<String> roles, UserType type, Map<String, Object> attributes) {
 		this.principal = principal;
+		this.type = type;
 		this.roles = roles;
 		this.attributes = attributes;
 	}
@@ -34,6 +35,7 @@ public class UserDto implements Momento<String> {
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.roles = roles;
+		this.type = type;
 		this.petIds = new ArrayList<>();
 		this.attributes = attributes;
 	}
@@ -43,6 +45,7 @@ public class UserDto implements Momento<String> {
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.roles = roles;
+		this.type = type;
 		this.petIds = petIds;
 		this.attributes = attributes;
 	}

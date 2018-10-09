@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import * as Users from 'js/api/usersAPI';
-import {Redirect} from 'react-router-dom';
 
-class RegistrationForm extends React.Component {
+class SitterRegistrationForm extends React.Component {
     onSubmit = user => {
+    	console.log(user);
         return this.props.register(user, this.props.callBack);
     };
 
@@ -35,15 +35,15 @@ class RegistrationForm extends React.Component {
     }
 }
 
-RegistrationForm = ReduxForm.reduxForm({form: 'register'})(RegistrationForm);
+SitterRegistrationForm = ReduxForm.reduxForm({form: 'register'})(SitterRegistrationForm);
 
-RegistrationForm = connect(
+SitterRegistrationForm = connect(
     state => ({
 
     }),
     dispatch => ({
-        register: (user, callback) => dispatch(Users.Actions.register(user, callback))
+        register: (user, callback) => dispatch(Users.Actions.registerSitter(user, callback))
     })
-)(RegistrationForm);
+)(SitterRegistrationForm);
 
-export { RegistrationForm };
+export { SitterRegistrationForm };
