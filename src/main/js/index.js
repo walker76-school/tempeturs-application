@@ -7,8 +7,10 @@ import {Account} from 'js/account/account';
 
 import Cookies from 'universal-cookie';
 import * as Users from 'js/api/usersAPI';
-import {RegisterPage} from 'js/registration/registration';
+import {RegisterPage, SitterRegisterPage} from 'js/registration/registerSitter';
 import {LoginPage} from 'js/login/login';
+import {OwnerRegistrationForm} from 'js/forms/ownerRegistrationForm';
+import {OwnerRegisterPage} from 'js/registration/registerOwner';
 
 export default class Index extends React.Component {
 
@@ -29,7 +31,8 @@ export default class Index extends React.Component {
 			<HashRouter>
 				<div>
 					<Route exact path="/" component={Home} />
-					<Route exact path="/register" component={RegisterPage} />
+					<Route exact path="/registerOwner" component={OwnerRegisterPage} />
+					<Route exact path="/registerSitter" component={SitterRegisterPage} />
 					<Route exact path="/login" component={LoginPage} />
 					<Route exact path="/pet" component={Pages.PetPage} />
 					<Route exact path="/account" component={Account} />
