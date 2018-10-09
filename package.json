@@ -38,6 +38,7 @@
     "cross-env": "^3.2.4",
     "css-loader": "^0.28.0",
     "cssnano": "^3.10.0",
+    "date-fns": "1.29.0",
     "enzyme": "2.8.0",
     "eslint": "^3.18.0",
     "eslint-loader": "^1.7.0",

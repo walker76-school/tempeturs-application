@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Calendar from 'react-calendar/dist/entry.nostyle';
-//import Calendar from '/js/account/Calendar';
+//import Calendar from 'react-calendar/dist/entry.nostyle';
+import Calendar from 'js/account/calendar';
 //import "./calendar.css";
 
 export default class CalendarComponent extends React.Component {
