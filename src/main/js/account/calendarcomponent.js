@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Calendar from 'react-calendar/dist/entry.nostyle';
 
-export default class CalendarComponent extends Component {
+export default class CalendarComponent extends React.Component {
 
 	constructor(props) {
 		super(props);

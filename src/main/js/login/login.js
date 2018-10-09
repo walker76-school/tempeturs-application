@@ -15,16 +15,12 @@ class LoginPage extends React.Component {
 		};
 
 		const cookies = new Cookies();
-		if(cookies.get('user')){
-			this.props.setUser(cookies.get('user'));
+		if(cookies.get('auth')){
 			this.props.setAuth(cookies.get('auth'));
+			this.props.refresh();
 			this.setState({
 				redirect: true
 			});
-		}
-
-		if(cookies.get('auth')){
-			this.props.setAuth(cookies.get('auth'));
 		}
 
 
@@ -65,7 +61,7 @@ LoginPage = connect(
 
 	}),
 	dispatch => ({
-		setUser: (user) => dispatch(Users.Actions.setUser(user)),
+		refresh: () => dispatch(Users.Actions.refresh()),
 		setAuth: (auth) => dispatch(Users.Actions.setAuthentication(auth))
 	})
 )(LoginPage);

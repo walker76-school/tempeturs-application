@@ -36,7 +36,7 @@ public class UserEndpoint {
 	}
 
 	@PostMapping(value = "/update", produces = "application/json")
-	public UserDto register(@RequestBody UserDto user) {
+	public UserDto update(@RequestBody UserDto user) {
 		return userService.update(user);
 	}
 }

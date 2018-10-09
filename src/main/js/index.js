@@ -19,10 +19,7 @@ export default class Index extends React.Component {
 		const cookies = new Cookies();
 		if(cookies.get('auth')){
 			this.props.store.dispatch(Users.Actions.setAuthentication(cookies.get('auth')));
-		}
-
-		if(cookies.get('user')){
-			this.props.store.dispatch(Users.Actions.setUser(cookies.get('user')));
+			this.props.store.dispatch(Users.Actions.refresh());
 		}
 	}
 
