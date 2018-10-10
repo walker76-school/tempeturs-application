@@ -14,7 +14,8 @@ export class Landing extends React.Component {
 					<ul className="we-create animated fadeInUp delay-1s">
 						<li>We are a pet sitting agency for the modern pet owner.</li>
 					</ul>
-					<a className="link animated fadeInUp delay-1s servicelink" href="#register">Get Started</a>
+					<a className="link animated fadeInUp delay-1s servicelink" href="#registerOwner">Register Owner</a>
+					<a className="link animated fadeInUp delay-1s servicelink" href="#registerSitter">Register Sitter</a>
 				</div>
 			</header>
 		);
