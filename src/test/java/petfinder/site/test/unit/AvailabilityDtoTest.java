@@ -1,12 +1,14 @@
 package petfinder.site.test.unit;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 import petfinder.site.common.availability.AvailabilityDto;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 
-class AvailabilityDtoTest {
+@RunWith(JUnit4.class)
+public class AvailabilityDtoTest {
 
     //variables used for testing in later tests
     private AvailabilityDto testAvailabilityDtoTrue = new AvailabilityDto("testPrincipalTrue", true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
@@ -16,11 +18,8 @@ class AvailabilityDtoTest {
     private String testPrincipalValueTrue = "testPrincipalTrue";
     private String testPrincipalValueFalse = "testPrincipalFalse";
     
-
-
-    @DisplayName("Testing Constructor Setting Values True")
     @Test
-    void constructorTestSetValuesTrue() {
+    public void constructorTestSetValuesTrue() {
         //tests for Principal
         assertEquals(testAvailabilityDtoTrue.getPrincipal(), testPrincipalValueTrue);
         assertEquals(testAvailabilityDtoTrue.getMomento(), testPrincipalValueTrue);
@@ -69,9 +68,8 @@ class AvailabilityDtoTest {
         assertEquals(testAvailabilityDtoTrue.isSaturdayEvening(), testAvailabilityDtoTrueValue);
     }
 
-    @DisplayName("Testing Constructor Setting Values False")
     @Test
-    void constructorTestSetValuesFalse() {
+    public void constructorTestSetValuesFalse() {
         //tests for Principal
         assertEquals(testAvailabilityDtoFalse.getPrincipal(), testPrincipalValueFalse);
         assertEquals(testAvailabilityDtoFalse.getMomento(), testPrincipalValueFalse);
@@ -120,9 +118,8 @@ class AvailabilityDtoTest {
         assertEquals(testAvailabilityDtoFalse.isSaturdayEvening(), testAvailabilityDtoFalseValue);
     }
 
-    @DisplayName("Testing Constructor Value Types")
     @Test
-    void constructorTestValueTypes(){
+    public void constructorTestValueTypes(){
         assertEquals(testAvailabilityDtoFalse.getPrincipal().getClass(), testPrincipalValueFalse.getClass());
         assertEquals(testAvailabilityDtoFalse.getMomento().getClass(), testPrincipalValueFalse.getClass());
     }

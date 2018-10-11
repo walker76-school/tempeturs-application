@@ -1,15 +1,17 @@
 package petfinder.site.test.unit;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 import petfinder.site.common.user.UserDto;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 import static petfinder.site.common.user.UserDto.UserType.OWNER;
 
-class UserDtoTest {
+@RunWith(JUnit4.class)
+public class UserDtoTest {
 
     //variables used for testing in later tests
     private String testPrincipal1 = "testPrincipal";
@@ -25,10 +27,8 @@ class UserDtoTest {
     }};
     private UserDto testUserDto1 = new UserDto("testPrincipal", "testName", "testPhoneNumber", Arrays.asList("testRoleInList1", "testRoleInList2", "testRoleInList3"), Arrays.asList(0L, 1L, 2L), OWNER, testAttributes1);
 
-
-    @DisplayName("Testing Constructor Setting Values")
     @Test
-    void constructorTestSetValues(){
+    public void constructorTestSetValues(){
         assertEquals(testUserDto1.getPrincipal(), testPrincipal1);
         assertEquals(testUserDto1.getMomento(), testPrincipal1);
         assertEquals(testUserDto1.getName(), testName1);
@@ -39,9 +39,8 @@ class UserDtoTest {
         assertEquals(testUserDto1.getAttributes(), testAttributes1);
     }
 
-    @DisplayName("Testing Constructor Value Types")
     @Test
-    void constructorTestValueTypes(){
+    public void constructorTestValueTypes(){
         assertEquals(testUserDto1.getPrincipal().getClass(), testPrincipal1.getClass());
         assertEquals(testUserDto1.getMomento().getClass(), testPrincipal1.getClass());
         assertEquals(testUserDto1.getName().getClass(), testName1.getClass());
