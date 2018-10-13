@@ -1,8 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import {RegistrationForm} from 'js/forms/registrationForm';
+import {SitterRegistrationForm} from 'js/forms/sitterRegistrationForm';
 
-export class RegisterPage extends React.Component {
+export class SitterRegisterPage extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -31,7 +31,7 @@ export class RegisterPage extends React.Component {
 					<div className="innerRegContainer">
 						<h2>Register</h2>
 						<hr />
-						<RegistrationForm callBack={this.setRedirect}/>
+						<SitterRegistrationForm callBack={this.setRedirect}/>
 					</div>
 				</div>
 			</div>

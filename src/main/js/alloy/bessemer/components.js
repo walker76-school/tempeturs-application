@@ -46,6 +46,7 @@ export class Select extends React.Component {
 			clearAllowed = clearable;
 		}
 
+		// WE NEED MORE DOCUMENTATION
 		return <ReactSelect
 			clearable={clearAllowed}
 			className={props.className}
