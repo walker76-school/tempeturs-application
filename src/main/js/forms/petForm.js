@@ -16,13 +16,14 @@ class PetForm extends React.Component {
 	}
 
     onSubmit = pet => {
-        return this.props.registerPet(pet, this.addPet);
+	    return this.props.registerPet(pet, this.addPet);
     };
 
     addPet = id => {
 		let updatedUser = this.props.user;
 		updatedUser['petIds'].push(id);
 		this.props.addPet(updatedUser);
+		this.props.callBack();
 	};
 
     render() {
