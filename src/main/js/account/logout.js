@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavComponent} from 'js/account/navcomponent';
+import {NavComponent} from 'js/account/components/navcomponent';
 import * as Users from 'js/api/usersAPI';
 import * as ReduxForm from 'redux-form';
 import { connect } from 'react-redux';

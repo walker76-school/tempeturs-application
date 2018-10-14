@@ -2,67 +2,36 @@ import React from 'react';
 import _ from 'lodash';
 import connect from 'react-redux/es/connect/connect';
 import * as Users from 'js/api/usersAPI';
-import {NavComponent} from 'js/account/navcomponent';
-import {PetForm} from 'js/forms/petForm';
-import PetCalendar from 'js/account/calendarcomponent';
+import {NavComponent} from 'js/account/components/navcomponent';
 import {Logout} from 'js/account/logout';
 import { Redirect } from 'react-router-dom';
-import {PetInfo} from 'js/info/petInfo';
-import {UpdateUserForm} from 'js/forms/updateUserForm';
-import {AvailabilityForm} from 'js/account/availabilityForm';
+import {getUserDetails} from 'js/api/usersAPI';
 
 class Account extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			component: 'Pets',
+			component: ''
 		};
 		this.setSubComponent = this.setSubComponent.bind(this);
-		this.handleClick = this.handleClick.bind(this);
-	}
-
-	handleClick(){
-		this.setSubComponent('Pet Form');
+        this.renderSubComponent = this.renderSubComponent.bind(this);
 	}
 
 	renderSubComponent(){
-		if(this.state.component === 'Pet Form'){
-			return (
-				<div className="petFormWrapper">
-					<PetForm/>
-				</div>
-			);
-		} else if (this.state.component === 'Update User'){
-			return (<UpdateUserForm/>);
+	    let component = (<div></div>);
+		if (this.state.component === 'Update User'){
+		    component = (<Redirect to='/account/updateUser' />);
 		} else if (this.state.component === 'Calendar'){
-			return (<PetCalendar/>);
+            component = (<Redirect to='/account/calendar' />);
 		} else if (this.state.component === 'Availability'){
-			return (
-				<AvailabilityForm/>
-			);
+            component = (<Redirect to='/account/availability' />);
 		} else if (this.state.component === 'Pets') {
-
-			let petInfo;
-			if (this.props.user && this.props.user['petIds'] && this.props.user['petIds'].length > 0) {
-				petInfo = this.props.user['petIds'].map((i, index) => <PetInfo petKey={i}/>);
-			} else {
-				petInfo = (<h2>Looks like you don't have any pets yet</h2>);
-			}
-
-			return (
-				<div>
-					<div className="addPetWrapper">
-						{petInfo}
-						<a className="link petLink" onClick={this.handleClick}>Add Pet</a>
-					</div>
-				</div>
-			);
+            component = (<Redirect to='/account/pets' />);
 		} else if (this.state.component === 'Logout'){
-			return (
-				<Redirect to='/' />
-			);
+            component = (<Redirect to='/' />);
 		}
+		return component;
 	}
 
 	setSubComponent(variable){
@@ -74,8 +43,9 @@ class Account extends React.Component {
 	render() {
 		return (
 			<div>
-				<div className="accContainer">
-					<div className="innerAccContainer">
+                {this.renderSubComponent()}
+				<div className='accContainer'>
+					<div className='innerAccContainer'>
 						{_.isDefined(this.props.user) &&
 						<div>
 							<label>Name: {this.props.user.name}</label>
@@ -87,16 +57,20 @@ class Account extends React.Component {
 						}
 					</div>
 
-					<div className="innerBodyContainer">
-						{this.renderSubComponent()}
+					<div className='innerBodyContainer'>
+                        {this.props.children}
 					</div>
 
-					<div className="innerNavContainer">
-						<NavComponent callBack={this.setSubComponent} name='Pets'/>
-						<NavComponent callBack={this.setSubComponent} name='Calendar'/>
-						<NavComponent callBack={this.setSubComponent} name='Update User'/>
-						<NavComponent callBack={this.setSubComponent} name='Availability'/>
-						<Logout callBack={this.setSubComponent} name='Logout'/>
+					<div className='innerNavContainer'>
+                        {_.isDefined(this.props.user) && this.props.user.type === 'OWNER' &&
+                            <NavComponent callBack={this.setSubComponent} name='Pets'/>
+                        }
+                        {_.isDefined(this.props.user) && this.props.user.type === 'SITTER' &&
+                        <NavComponent callBack={this.setSubComponent} name='Availability'/>
+                        }
+                        <NavComponent callBack={this.setSubComponent} name='Calendar'/>
+                        <NavComponent callBack={this.setSubComponent} name='Update User'/>
+                        <Logout callBack={this.setSubComponent} name='Logout'/>
 					</div>
 				</div>
 			</div>
@@ -109,7 +83,10 @@ Account = connect(
 	state => ({
 		authentication: Users.State.getAuthentication(state),
 		user: Users.State.getUser(state),
-	})
+	}),
+    dispatch => ({
+        refresh: () => dispatch(Users.Actions.refresh())
+    })
 )(Account);
 
 export { Account };

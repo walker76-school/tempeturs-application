@@ -3,8 +3,7 @@ package petfinder.site.common.availability;
 import alloy.util.Momento;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-public class AvailabilityDto implements Momento<String> {
-    private String principal;
+public class AvailabilityDto {
     private boolean sundayMorning;
     private boolean sundayMidday;
     private boolean sundayAfternoon;
@@ -41,11 +40,37 @@ public class AvailabilityDto implements Momento<String> {
     private boolean saturdayEvening;
 
     public AvailabilityDto() {
-        // Empty constructor required for deserialization
+        this.sundayMorning = false;
+        this.sundayMidday = false;
+        this.sundayAfternoon = false;
+        this.sundayEvening = false;
+        this.mondayMorning = false;
+        this.mondayMidday = false;
+        this.mondayAfternoon = false;
+        this.mondayEvening = false;
+        this.tuesdayMorning = false;
+        this.tuesdayMidday = false;
+        this.tuesdayAfternoon = false;
+        this.tuesdayEvening = false;
+        this.wednesdayMorning = false;
+        this.wednesdayMidday = false;
+        this.wednesdayAfternoon = false;
+        this.wednesdayEvening = false;
+        this.thursdayMorning = false;
+        this.thursdayMidday = false;
+        this.thursdayAfternoon = false;
+        this.thursdayEvening = false;
+        this.fridayMorning = false;
+        this.fridayMidday = false;
+        this.fridayAfternoon = false;
+        this.fridayEvening = false;
+        this.saturdayMorning = false;
+        this.saturdayMidday = false;
+        this.saturdayAfternoon = false;
+        this.saturdayEvening = false;
     }
 
-    public AvailabilityDto(String principal, boolean sundayMorning, boolean sundayMidday, boolean sundayAfternoon, boolean sundayEvening, boolean mondayMorning, boolean mondayMidday, boolean mondayAfternoon, boolean mondayEvening, boolean tuesdayMorning, boolean tuesdayMidday, boolean tuesdayAfternoon, boolean tuesdayEvening, boolean wednesdayMorning, boolean wednesdayMidday, boolean wednesdayAfternoon, boolean wednesdayEvening, boolean thursdayMorning, boolean thursdayMidday, boolean thursdayAfternoon, boolean thursdayEvening, boolean fridayMorning, boolean fridayMidday, boolean fridayAfternoon, boolean fridayEvening, boolean saturdayMorning, boolean saturdayMidday, boolean saturdayAfternoon, boolean saturdayEvening) {
-        this.principal = principal;
+    public AvailabilityDto(boolean sundayMorning, boolean sundayMidday, boolean sundayAfternoon, boolean sundayEvening, boolean mondayMorning, boolean mondayMidday, boolean mondayAfternoon, boolean mondayEvening, boolean tuesdayMorning, boolean tuesdayMidday, boolean tuesdayAfternoon, boolean tuesdayEvening, boolean wednesdayMorning, boolean wednesdayMidday, boolean wednesdayAfternoon, boolean wednesdayEvening, boolean thursdayMorning, boolean thursdayMidday, boolean thursdayAfternoon, boolean thursdayEvening, boolean fridayMorning, boolean fridayMidday, boolean fridayAfternoon, boolean fridayEvening, boolean saturdayMorning, boolean saturdayMidday, boolean saturdayAfternoon, boolean saturdayEvening) {
         this.sundayMorning = sundayMorning;
         this.sundayMidday = sundayMidday;
         this.sundayAfternoon = sundayAfternoon;
@@ -74,14 +99,6 @@ public class AvailabilityDto implements Momento<String> {
         this.saturdayMidday = saturdayMidday;
         this.saturdayAfternoon = saturdayAfternoon;
         this.saturdayEvening = saturdayEvening;
-    }
-
-    public String getPrincipal() {
-        return principal;
-    }
-
-    public void setPrincipal(String principal) {
-        this.principal = principal;
     }
 
     public boolean isSundayMorning() {
@@ -306,11 +323,5 @@ public class AvailabilityDto implements Momento<String> {
 
     public void setSaturdayEvening(boolean saturdayEvening) {
         this.saturdayEvening = saturdayEvening;
-    }
-
-    @JsonIgnore
-    @Override
-    public String getMomento() {
-        return principal;
     }
 }
