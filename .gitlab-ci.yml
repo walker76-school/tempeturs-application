@@ -9,10 +9,3 @@ deploy:
  - dpl --provider=heroku --app=$APP_NAME --api-key=$API_KEY
  only:
  - master
-test:
-  stage: test
-  script:
-   - ./gradlew test
-   artifacts:
-     reports:
-       junit: build/test-results/test/TEST-*.xml
