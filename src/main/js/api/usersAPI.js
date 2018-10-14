@@ -97,6 +97,7 @@ Actions.authenticate = (username, password, callback) => {
 };
 
 Actions.refresh = () => {
+    console.log('Refreshing user...');
 	return (dispatch) => {
 		return getUserDetails().then(user => {
 			dispatch(Actions.setUser(user));

@@ -3,21 +3,14 @@ import * as ReduxForm from 'redux-form';
 import { connect } from 'react-redux';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import * as Users from 'js/api/usersAPI';
-import * as Validation from 'js/alloy/utils/validation';
+import {getUserDetails} from 'js/api/usersAPI';
 
-class UpdateUserForm extends React.Component {
+export default class UpdateUserForm extends React.Component {
 
 	// Store the values in the state
 	constructor(props) {
 		super(props);
 		this.state = {name: '', phoneNumber: ''};
-	}
-
-	componentDidMount() {
-		this.setState({
-			name: this.props.user.name,
-			phoneNumber: this.props.user.phoneNumber
-		});
 	}
 
 	// Update the user on submit
@@ -43,11 +36,13 @@ class UpdateUserForm extends React.Component {
 		let { handleSubmit, submitting } = this.props;
 
 		return (
-			<form name="form" onSubmit={handleSubmit(form => this.onSubmit(form))}>
-				<Bessemer.Field name="name" friendlyName="Name"
+			<form name='form' onSubmit={handleSubmit(form => this.onSubmit(form))}>
+				<Bessemer.Field name='name' friendlyName='Name'
+                                field={<input className="form-control" value={this.state.name}/>}
 								validators={[]} />
 
-				<Bessemer.Field name="phoneNumber" friendlyName="Phone Number"
+				<Bessemer.Field name='phoneNumber' friendlyName='Phone Number'
+                                    field={<input className="form-control" value={this.state.phoneNumber} />}
 								validators={[]} />
 
 				<Bessemer.Button loading={submitting}>Update</Bessemer.Button>

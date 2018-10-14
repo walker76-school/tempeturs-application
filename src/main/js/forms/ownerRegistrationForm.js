@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import * as Users from 'js/api/usersAPI';
-import {Redirect} from 'react-router-dom';
 
-class OwnerRegistrationForm extends React.Component {
+export default class OwnerRegistrationForm extends React.Component {
 	onSubmit = user => {
 		console.log(user);
 		return this.props.register(user, this.props.callBack);

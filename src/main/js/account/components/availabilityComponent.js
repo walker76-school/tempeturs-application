@@ -4,7 +4,7 @@ import {getAvailability} from 'js/api/availabilityApi';
 import connect from 'react-redux/es/connect/connect';
 import * as Users from 'js/api/usersAPI';
 
-class Availability extends React.Component {
+class AvailabilityComponent extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -50,10 +50,10 @@ class Availability extends React.Component {
 }
 
 
-Availability = connect(
+AvailabilityComponent = connect(
 	state => ({
 		user: Users.State.getUser(state),
 	})
-)(Availability);
+)(AvailabilityComponent);
 
-export { Availability };
+export { AvailabilityComponent };
