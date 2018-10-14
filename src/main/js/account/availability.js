@@ -15,7 +15,7 @@ class Availability extends React.Component {
 	}
 
 	componentWillMount(){
-		getAvailability(this.props.user.principal)
+		getAvailability()
 			.then(
 				(response) => {
 					this.setState({

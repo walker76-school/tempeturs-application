@@ -6,6 +6,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 import alloy.util.Identifiable;
 import alloy.util.Momento;
+import petfinder.site.common.availability.AvailabilityDto;
 
 /**
  * Created by jlutteringer on 8/23/17.
@@ -17,6 +18,7 @@ public class UserDto implements Momento<String> {
 	private List<String> roles;
 	private List<Long> petIds;
 	private UserType type;
+	private AvailabilityDto availability;
 	private Map<String, Object> attributes;
 
 	private UserDto() {
@@ -27,6 +29,10 @@ public class UserDto implements Momento<String> {
 		this.principal = principal;
 		this.type = type;
 		this.roles = roles;
+		if(type == UserType.SITTER)
+		    this.availability = new AvailabilityDto();
+		else
+		    this.availability = null;
 		this.attributes = attributes;
 	}
 
@@ -37,7 +43,11 @@ public class UserDto implements Momento<String> {
 		this.roles = roles;
 		this.type = type;
 		this.petIds = new ArrayList<>();
-		this.attributes = attributes;
+        if(type == UserType.SITTER)
+            this.availability = new AvailabilityDto();
+        else
+            this.availability = null;
+        this.attributes = attributes;
 	}
 
 	public UserDto(String principal, String name, String phoneNumber, List<String> roles, List<Long> petIds, UserType type, Map<String, Object> attributes) {
@@ -47,6 +57,10 @@ public class UserDto implements Momento<String> {
 		this.roles = roles;
 		this.type = type;
 		this.petIds = petIds;
+        if(type == UserType.SITTER)
+            this.availability = new AvailabilityDto();
+        else
+            this.availability = null;
 		this.attributes = attributes;
 	}
 
@@ -70,7 +84,11 @@ public class UserDto implements Momento<String> {
 		return petIds;
 	}
 
-	public Map<String, Object> getAttributes() {
+    public AvailabilityDto getAvailability() {
+        return availability;
+    }
+
+    public Map<String, Object> getAttributes() {
 		return attributes;
 	}
 
