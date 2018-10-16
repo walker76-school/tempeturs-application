@@ -11,9 +11,13 @@ import petfinder.site.common.user.UserDto;
 import petfinder.site.common.user.UserService;
 import petfinder.site.common.user.UserService.RegistrationRequest;
 
+//can only pass strings to endpoints
+//you do that using json
 /**
  * Created by jlutteringer on 8/23/17.
  */
+
+//User DTO object used to communicate between the backend and frontend
 @RestController
 @RequestMapping(value = "/api/user")
 public class UserEndpoint {

@@ -3,6 +3,10 @@ import React from 'react';
 export class Landing extends React.Component {
 	render() {
 		return (
+			//html that gets rendered into home page
+            //hrefs are how you tell an atag where to link to
+            //hyperlink reference
+            //react can take hrefs and map them to the routes in index.js
 			<header className="header" id="header">
 				<a className="loginlink animated fadeInUp delay-1s servicelink" href="#login">Login</a>
 

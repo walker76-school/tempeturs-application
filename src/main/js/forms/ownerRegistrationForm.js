@@ -6,8 +6,10 @@ import * as Bessemer from 'js/alloy/bessemer/components';
 import * as Users from 'js/api/usersAPI';
 
 export default class OwnerRegistrationForm extends React.Component {
+    //user is the object that gets created from this form
 	onSubmit = user => {
 		console.log(user);
+		//this.props.callback is how you access what you passed to the component
 		return this.props.register(user, this.props.callBack);
 	};
 
@@ -15,6 +17,12 @@ export default class OwnerRegistrationForm extends React.Component {
 		let { handleSubmit, submitting } = this.props;
 
 		return (
+			//html form
+			//bessemer makes it pretty
+            //when you have a form you need it to map to a form in java- name does that
+            //you need the name to match up
+            //these feilds needs to match up exactly with java object feilds
+            //in UserService.java
 			<form name="form" onSubmit={handleSubmit(form => this.onSubmit(form))}>
 				<Bessemer.Field name="name" friendlyName="Name"
 								validators={[Validation.requiredValidator]} />
@@ -35,12 +43,18 @@ export default class OwnerRegistrationForm extends React.Component {
 	}
 }
 
+//this reduces form - need to do it
+//makes object out of form
 OwnerRegistrationForm = ReduxForm.reduxForm({form: 'register'})(OwnerRegistrationForm);
 
+//this is how you connect to redux
+//using this for authentication token and user object
+//how you get access to that bucket and start pull stuff out of it
 OwnerRegistrationForm = connect(
 	state => ({
 
 	}),
+	//these functions you access with props
 	dispatch => ({
 		register: (user, callback) => dispatch(Users.Actions.registerOwner(user, callback))
 	})
