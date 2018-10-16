@@ -8,7 +8,7 @@ export default class SitterComponent extends React.Component {
 	}
 
 	onClick = () => {
-		
+
 	};
 
 	render() {

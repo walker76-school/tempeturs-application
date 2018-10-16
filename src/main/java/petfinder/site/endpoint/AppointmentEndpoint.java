@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import petfinder.site.common.user.UserDto;
 import petfinder.site.common.user.UserService;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -21,5 +22,12 @@ public class AppointmentEndpoint {
     @GetMapping(value = "/findSitters/{zip}/{date}", produces = "application/json")
     public List<UserDto> registerSitter(@PathVariable(name="zip") String zip, @PathVariable("date") String date) {
         return userService.findSittersByDate(zip, date);
+    }
+
+    @PostMapping(value = "/makeAppointment/{owner}/{sitter}/{petId}", produces = "application/json")
+    public void makeAppointment(@PathVariable(name="owner") String ownerPrincipal,
+                                @PathVariable("sitter") String sitterPrincipal,
+                                @PathVariable("petId") Long petId) {
+        userService.makeAppointment(ownerPrincipal, sitterPrincipal, petId);
     }
 }

@@ -22,6 +22,7 @@ public class UserDto implements Momento<String> {
 	private String zip;
 	private List<String> roles;
 	private List<Long> petIds;
+	private List<Appointment> appointments;
 	private UserType type;
 	private AvailabilityDto availability;
 	private Map<String, Object> attributes;
@@ -38,6 +39,7 @@ public class UserDto implements Momento<String> {
 		    this.availability = new AvailabilityDto();
 		else
 		    this.availability = null;
+		this.appointments = new ArrayList<>();
 		this.attributes = attributes;
 	}
 
@@ -56,6 +58,7 @@ public class UserDto implements Momento<String> {
             this.availability = new AvailabilityDto();
         else
             this.availability = null;
+		this.appointments = new ArrayList<>();
         this.attributes = attributes;
 	}
 
@@ -74,6 +77,7 @@ public class UserDto implements Momento<String> {
             this.availability = new AvailabilityDto();
         else
             this.availability = null;
+		this.appointments = new ArrayList<>();
 		this.attributes = attributes;
 	}
 
@@ -105,7 +109,6 @@ public class UserDto implements Momento<String> {
 		return zip;
 	}
 
-
 	public List<String> getRoles() {
 		return roles;
 	}
@@ -118,7 +121,11 @@ public class UserDto implements Momento<String> {
         return availability;
     }
 
-    public Map<String, Object> getAttributes() {
+	public List<Appointment> getAppointments() {
+		return appointments;
+	}
+
+	public Map<String, Object> getAttributes() {
 		return attributes;
 	}
 

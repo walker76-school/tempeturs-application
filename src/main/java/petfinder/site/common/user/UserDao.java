@@ -49,8 +49,36 @@ public class UserDao {
                 .collect(Collectors.toList());
     }
 
-	public void save(UserAuthenticationDto userAuthentication) {
+    public void makeAppointment(String owner, String sitter, Long id) {
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 
+        String queryString = String.format("user.principal=\"%s\"", owner.replace("\"", ""));
+        searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
+
+        Optional<UserAuthenticationDto> ownerADto = repository.search(searchSourceBuilder).stream().findFirst();
+        UserDto ownerDto = ownerADto.get().getUser();
+
+        queryString = String.format("user.principal=\"%s\"", sitter.replace("\"", ""));
+        searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
+
+        Optional<UserAuthenticationDto> sitterADto = repository.search(searchSourceBuilder).stream().findFirst();
+        UserDto sitterDto = sitterADto.get().getUser();
+
+        // Add the appointment
+		Appointment appointment = new Appointment(owner, sitter, id, AppointmentType.PENDING);
+		ownerDto.getAppointments().add(appointment);
+		sitterDto.getAppointments().add(appointment);
+
+		save(ownerADto.get());
+		save(sitterADto.get());
+
+    }
+
+	public void save(UserAuthenticationDto userAuthentication) {
 		repository.save(userAuthentication);
+	}
+
+	public enum AppointmentType {
+		PENDING, ACCEPTED, REJECTED
 	}
 }
