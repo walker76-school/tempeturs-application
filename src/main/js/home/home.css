@@ -156,7 +156,7 @@ p{
 
 .loginlink{
     padding:15px 35px;
-    background: transparent;
+    background-color: #0066ff;
     color:#fff !important;
     font-size:16px;
     font-weight:400;
@@ -176,8 +176,12 @@ p{
 }
 .loginlink:hover {
     text-decoration:none;
-    color:coral !important;
-    background:#fff;
+    color:transparent !important;
+    border-color: coral;
+    background-image: url(../../resources/img/dog2.jpg);
+    background-position-x: center;
+    background-position-y: -42px;
+    background-size: cover;
 }
 
 .loginlink:active, .loginlink:focus {
