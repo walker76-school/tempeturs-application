@@ -12,6 +12,7 @@ class PetInfo extends React.Component {
 		this.setEdit = this.setEdit.bind(this);
 		this.renderForm = this.renderForm.bind(this);
 		this.deletePet = this.deletePet.bind(this);
+		this.makeAppointment = this.makeAppointment.bind(this);
     }
 
     componentDidMount() {
@@ -46,7 +47,9 @@ class PetInfo extends React.Component {
 			editing: b
 		});
 	}
-
+	makeAppointment(){
+    	// this is where you need to add logic to make appointment
+	}
     renderForm(){
     	if(this.state.editing){
     		return (<UpdatePetForm petKey={this.props.petKey}/>);
@@ -57,6 +60,7 @@ class PetInfo extends React.Component {
         return (
             <div>
                 <label>Welcome, {this.state.name}! Your id is {this.state.id} and your type is {this.state.type}</label>
+				<button onClick={this.makeAppointment}>Make an Appointment</button>
 				<button onClick={this.setEdit}>Toggle Edit</button>
 				<button onClick={this.deletePet}>Delete</button>
 				{this.renderForm()}
