@@ -8,14 +8,13 @@ import Cookies from 'universal-cookie';
 import * as Users from 'js/api/usersAPI';
 import {SitterRegisterPage} from 'js/registration/registerSitter';
 import {LoginPage} from 'js/login/login';
-import {OwnerRegistrationForm} from 'js/forms/ownerRegistrationForm';
 import {OwnerRegisterPage} from 'js/registration/registerOwner';
 import UpdateUserWrapper from 'js/account/pageWrappers/updateUserWrapper';
 import CalendarWrapper from 'js/account/pageWrappers/calendarWrapper';
 import AvailabilityWrapper from 'js/account/pageWrappers/availabilityWrapper';
 import PetWrapper from 'js/account/pageWrappers/petWrapper';
 import SideBar from 'js/account/sideBar';
-import AppointmentWrapper from "js/account/pageWrappers/appointmentWrapper";
+import AppointmentWrapper from 'js/account/pageWrappers/appointmentWrapper';
 
 export default class Index extends React.Component {
 

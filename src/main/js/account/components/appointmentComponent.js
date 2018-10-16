@@ -11,7 +11,6 @@ export default class AppointmentComponent extends React.Component {
     }
 
     onChange = (date) => {
-        console.log(date);
         this.setState({ date: date.toString() });
     };
 

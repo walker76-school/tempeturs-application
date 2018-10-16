@@ -1,6 +1,8 @@
 package petfinder.site.common.user;
 
 import java.time.Duration;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -39,7 +41,16 @@ public class UserService {
 		return userDao.findUserByPrincipal(principal);
 	}
 
-	public static class RegistrationRequest {
+    public List<UserDto> findSitters(String zip) {
+        return userDao.findSitters(zip);
+    }
+
+    public List<UserDto> findSittersByDate(String zip, String date) {
+        return userDao.findSitters(zip);
+    }
+
+
+    public static class RegistrationRequest {
 		private String principal;
 		private String password;
 		private String name;

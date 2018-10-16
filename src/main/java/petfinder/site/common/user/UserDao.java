@@ -1,6 +1,10 @@
 package petfinder.site.common.user;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
@@ -32,6 +36,18 @@ public class UserDao {
 
 		return repository.search(searchSourceBuilder).stream().findFirst();
 	}
+
+	public List<UserDto> findSitters(String zip) {
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+
+        String queryString = "user.type=\"SITTER\"";
+        searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
+
+        return repository.search(searchSourceBuilder).stream()
+                .map(UserAuthenticationDto::getUser)
+                .filter(user -> user.getZip().equals(zip))
+                .collect(Collectors.toList());
+    }
 
 	public void save(UserAuthenticationDto userAuthentication) {
 

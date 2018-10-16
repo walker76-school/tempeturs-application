@@ -1,6 +1,6 @@
 import React from 'react';
 import {Account} from 'js/account/account';
-import AppointmentPage from "js/account/pages/appointmentPage";
+import {AppointmentPage} from 'js/account/pages/appointmentPage';
 
 export default class AppointmentWrapper extends React.Component {
 

@@ -5,7 +5,6 @@ import * as Users from 'js/api/usersAPI';
 import {NavComponent} from 'js/account/components/navcomponent';
 import {Logout} from 'js/account/logout';
 import { Redirect } from 'react-router-dom';
-import {getUserDetails} from 'js/api/usersAPI';
 
 class Account extends React.Component {
 
@@ -30,7 +29,7 @@ class Account extends React.Component {
 		} else if (this.state.component === 'Pets') {
             component = (<Redirect to='/account/pets'/>);
         }else if (this.state.component === 'Appointment'){
-		    component = (<Redirect to='/account/appointment'/>)
+		    component = (<Redirect to='/account/appointment'/>);
 		} else if (this.state.component === 'Logout'){
             component = (<Redirect to='/' />);
 		}
