@@ -27,8 +27,8 @@ export const emailConfirmationValidator = new Validator(emailConfirmation, detai
 export const isValidPhoneNumber = (val) => val.match(/^[0-9\\-]*$/);
 export const phoneValidator = new Validator(isValidPhoneNumber, (details) => ' Not a valid phone number.');
 
-export const correctLength = (val) => val.toString().length <= 12 && val.toString().length >= 10
-export const lengthValidator = new Validator(correctLength, (details) => ' Incorrect Length')
+export const correctLength = (val) => val.toString().length <= 12 && val.toString().length >= 10;
+export const lengthValidator = new Validator(correctLength, (details) => ' Incorrect Length');
 
 export const isValidPassword = (val) => val.toString().length >= 6 && val.match(/^[a-zA-Z0-9!@#$%^&*]{6,64}$/);
 export const passwordValidator = new Validator(isValidPassword, (details) => details.friendlyName + ' must be a valid password.');
