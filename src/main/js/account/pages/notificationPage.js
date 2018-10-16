@@ -15,8 +15,8 @@ class NotificationPage extends React.Component {
 	}
 
 	componentDidMount(){
-		let component = (<div></div>);
-		if(this.props.user){
+		let component = (<div>You don't have any notifications.</div>);
+		if(this.props.user && this.props.user.notifications.length > 0){
 			component = this.props.user.notifications.map((i, index) =>
 				<div>
 					<label>{this.props.user.notifications[i]}</label>
@@ -24,6 +24,9 @@ class NotificationPage extends React.Component {
 				</div>
 			);
 		}
+		this.setState({
+			notifications: component
+		});
 	}
 
 	render() {

@@ -30,7 +30,7 @@ class Account extends React.Component {
             component = (<Redirect to='/account/pets'/>);
         }else if (this.state.component === 'Appointment'){
 		    component = (<Redirect to='/account/appointment'/>);
-		} else if (this.state.component === 'Appointment'){
+		} else if (this.state.component === 'Notifications'){
 			component = (<Redirect to='/account/notifications'/>);
 		}else if (this.state.component === 'Logout'){
             component = (<Redirect to='/' />);
