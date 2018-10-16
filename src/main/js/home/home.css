@@ -176,9 +176,9 @@ p{
 }
 .loginlink:hover {
     text-decoration:none;
-    color:transparent !important;
     border-color: coral;
-    background-image: url(../../resources/img/dog2.jpg);
+    background-color: #0066ff;
+    color:#fff !important;
     background-position-x: center;
     background-position-y: -42px;
     background-size: cover;
