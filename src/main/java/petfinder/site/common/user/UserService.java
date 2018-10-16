@@ -44,6 +44,10 @@ public class UserService {
 		private String password;
 		private String name;
 		private String phoneNumber;
+		private String addressLine;
+		private String city;
+		private String state;
+		private String zip;
 		private Map<String, Object> attributes;
 
 		public String getPrincipal() {
@@ -78,6 +82,22 @@ public class UserService {
 			this.phoneNumber = phoneNumber;
 		}
 
+		public String getAddressLine() { return addressLine; }
+
+		public void setAddressLine(String addressLine) { this.addressLine = addressLine; }
+
+		public String getCity() { return city; }
+
+		public void setCity(String city) { this.city = city; }
+
+		public String getState() { return state; }
+
+		public void setState(String state) { this.state = state; }
+
+		public String getZip() { return zip; }
+
+		public void setZip(String zip) { this.zip = zip; }
+
 		public Map<String, Object> getAttributes() {
 			return attributes;
 		}
@@ -89,7 +109,7 @@ public class UserService {
 
 	public UserDto registerSitter(RegistrationRequest request) {
 		UserAuthenticationDto userAuthentication = new UserAuthenticationDto(
-				new UserDto(request.getPrincipal(), request.getName(), request.getPhoneNumber(), _Lists.list("ROLE_USER"), UserType.SITTER, request.getAttributes()), passwordEncoder.encode(request.getPassword()));
+				new UserDto(request.getPrincipal(), request.getName(), request.getPhoneNumber(), request.getAddressLine(), request.getCity(), request.getState(),request.getZip(),_Lists.list("ROLE_USER"), UserType.SITTER, request.getAttributes()), passwordEncoder.encode(request.getPassword()));
 
 		userDao.save(userAuthentication);
 		return userAuthentication.getUser();
@@ -97,7 +117,7 @@ public class UserService {
 
 	public UserDto registerOwner(RegistrationRequest request) {
 		UserAuthenticationDto userAuthentication = new UserAuthenticationDto(
-				new UserDto(request.getPrincipal(), request.getName(), request.getPhoneNumber(), _Lists.list("ROLE_USER"), UserType.OWNER, request.getAttributes()), passwordEncoder.encode(request.getPassword()));
+				new UserDto(request.getPrincipal(), request.getName(), request.getPhoneNumber(),request.getAddressLine(), request.getCity(), request.getState(),request.getZip(), _Lists.list("ROLE_USER"), UserType.OWNER, request.getAttributes()), passwordEncoder.encode(request.getPassword()));
 
 		userDao.save(userAuthentication);
 		return userAuthentication.getUser();

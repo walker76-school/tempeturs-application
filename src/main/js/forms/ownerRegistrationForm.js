@@ -12,7 +12,8 @@ export default class OwnerRegistrationForm extends React.Component {
 		//this.props.callback is how you access what you passed to the component
 		return this.props.register(user, this.props.callBack);
 	};
-
+    /*  Field phone number, address line, city, and state do not have validators
+    *       Implement state as a drop down menu*/
 	render() {
 		let { handleSubmit, submitting } = this.props;
 
@@ -36,6 +37,17 @@ export default class OwnerRegistrationForm extends React.Component {
 				<Bessemer.Field name="password" friendlyName="Password"
 								validators={[Validation.requiredValidator, Validation.passwordValidator]}
 								field={<input className="form-control" type="password" />} />
+                <Bessemer.Field name="addressLine" friendlyName="Address Line"
+                                validators={[]} />
+
+                <Bessemer.Field name="city" friendlyName="City"
+                                validators={[]} />
+
+                <Bessemer.Field name="state" friendlyName="State"
+                                validators={[]} />
+
+                <Bessemer.Field name="zip" friendlyName="Zip Code"
+                                validators={[]} />
 
 				<Bessemer.Button loading={submitting}>Register</Bessemer.Button>
 			</form>

@@ -15,6 +15,11 @@ public class UserDto implements Momento<String> {
 	private String principal;
 	private String name;
 	private String phoneNumber;
+	// adding these to expand address, city , state and zip
+	private String addressLine;
+	private String city;
+	private String state;
+	private String zip;
 	private List<String> roles;
 	private List<Long> petIds;
 	private UserType type;
@@ -36,10 +41,14 @@ public class UserDto implements Momento<String> {
 		this.attributes = attributes;
 	}
 
-    public UserDto(String principal, String name, String phoneNumber, List<String> roles, UserType type, Map<String, Object> attributes) {
+    public UserDto(String principal, String name, String phoneNumber, String addressLine, String city, String state, String zip, List<String> roles, UserType type, Map<String, Object> attributes) {
 		this.principal = principal;
 		this.name = name;
 		this.phoneNumber = phoneNumber;
+		this.addressLine = addressLine;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
 		this.roles = roles;
 		this.type = type;
 		this.petIds = new ArrayList<>();
@@ -50,10 +59,14 @@ public class UserDto implements Momento<String> {
         this.attributes = attributes;
 	}
 
-	public UserDto(String principal, String name, String phoneNumber, List<String> roles, List<Long> petIds, UserType type, Map<String, Object> attributes) {
+	public UserDto(String principal, String name, String phoneNumber, String addressLine, String city, String state, String zip, List<String> roles, List<Long> petIds, UserType type, Map<String, Object> attributes) {
 		this.principal = principal;
 		this.name = name;
 		this.phoneNumber = phoneNumber;
+		this.addressLine = addressLine;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
 		this.roles = roles;
 		this.type = type;
 		this.petIds = petIds;
@@ -75,6 +88,23 @@ public class UserDto implements Momento<String> {
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
+
+	public String getAddressLine() {
+		return addressLine;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public String getZip() {
+		return zip;
+	}
+
 
 	public List<String> getRoles() {
 		return roles;
