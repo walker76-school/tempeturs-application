@@ -39,6 +39,10 @@ export function getUserDetails() {
 	return axios.get('/api/user');
 }
 
+export function getUserDetailsByPrincipal(principal) {
+	return axios.get('/api/user/' + principal);
+}
+
 let State = {};
 
 State.getAuthentication = state => {
@@ -96,7 +100,7 @@ Actions.authenticate = (username, password, callback) => {
 				if(callback !== null){
 					callback();
 				}
-				return getUserDetails().then(user => {
+				return getUserDetailsByPrincipal(username).then(user => {
 					console.log('Retrieved user .... ');
 					console.log(user);
 					dispatch(Actions.setUser(user));
