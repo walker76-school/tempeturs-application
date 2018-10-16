@@ -14,6 +14,7 @@ import petfinder.site.elasticsearch.UserElasticSearchRepository;
  */
 @Repository
 public class UserDao {
+	//is what stores the DTO
 	@Autowired
 	private UserElasticSearchRepository repository;
 

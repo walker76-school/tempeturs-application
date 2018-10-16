@@ -20,6 +20,7 @@ import petfinder.site.common.user.UserDto.UserType;
  */
 @Service
 public class UserService {
+	//autowired just builds it all for you and handles dependencies
 	@Autowired
 	private UserDao userDao;
 

@@ -1,10 +1,13 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 
+//how you send objects to java
 export function registerSitter(user) {
 	return axios.post('/api/user/registerSitter', user);
 }
 
+//how the front end connects to the back end
+//user = javascript object
 export function registerOwner(user) {
 	return axios.post('/api/user/registerOwner', user);
 }
@@ -13,7 +16,7 @@ export function update(user) {
 	return axios.post('/api/user/update', user);
 }
 
-
+//this is how you actually get authetication token
 export function authenticate(username, password) {
 	return axios(
 		{
@@ -57,6 +60,7 @@ Actions.Types = {
 
 Actions.registerSitter = (user, callback) => {
 	return (dispatch) => {
+		//.then says wait for response
 		return registerSitter(user).then(() => {
 			return dispatch(Actions.authenticate(user.principal, user.password, callback));
 		});
@@ -73,6 +77,7 @@ Actions.registerOwner = (user, callback) => {
 
 
 Actions.update = (user) => {
+	//dispatch doing an asynchronous call
 	return (dispatch) => {
 		return update(user).then(() => {
 			return dispatch(Actions.setUser(user));
@@ -83,7 +88,9 @@ Actions.update = (user) => {
 Actions.authenticate = (username, password, callback) => {
 	return (dispatch) => {
 		return authenticate(username, password).then(
+			//get token back
 			authentication => {
+				//then set the token
 				dispatch(Actions.setAuthentication(authentication));
 				if(callback !== null){
 					callback();

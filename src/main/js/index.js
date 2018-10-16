@@ -27,6 +27,8 @@ export default class Index extends React.Component {
 		}
 	}
 
+	//Rendering between pages causes cookie to not reload so keep authentication cookie
+    //stay here for navigation of website
 	render() {
 		return (
 			<HashRouter>

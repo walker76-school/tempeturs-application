@@ -14,6 +14,7 @@ class Account extends React.Component {
 		this.state = {
 			component: ''
 		};
+		//subcomponent lets you switch between different states
 		this.setSubComponent = this.setSubComponent.bind(this);
         this.renderSubComponent = this.renderSubComponent.bind(this);
 	}
@@ -57,6 +58,7 @@ class Account extends React.Component {
 						}
 					</div>
 
+                    //this gives back subcomponent
 					<div className='innerBodyContainer'>
                         {this.props.children}
 					</div>

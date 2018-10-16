@@ -14,6 +14,7 @@ export default class UpdateUserWrapper extends React.Component {
     render() {
         return (
             <div>
+                //component within a component
                 <Account>
                     <UpdateUserPage/>
                 </Account>
