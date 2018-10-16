@@ -17,13 +17,13 @@ export default class OwnerRegistrationForm extends React.Component {
 	render() {
 		let { handleSubmit, submitting } = this.props;
 
+		/*html form
+			 bessemer makes it pretty
+             when you have a form you need it to map to a form in java- name does that
+             you need the name to match up
+             these feilds needs to match up exactly with java object feilds
+             in UserService.java*/
 		return (
-			//html form
-			//bessemer makes it pretty
-            //when you have a form you need it to map to a form in java- name does that
-            //you need the name to match up
-            //these feilds needs to match up exactly with java object feilds
-            //in UserService.java
 			<form name="form" onSubmit={handleSubmit(form => this.onSubmit(form))}>
 				<Bessemer.Field name="name" friendlyName="Name"
 								validators={[Validation.requiredValidator]} />

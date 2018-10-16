@@ -40,9 +40,9 @@ export class OwnerRegisterPage extends React.Component {
 					<div className="innerRegContainer">
 						<h2>Register</h2>
 						<hr />
-                        //js allows you to pass function as parameter
+                        {/*js allows you to pass function as parameter
                         //callback is conventional name
-                        //do not do this.setRedirect()
+                        //do not do this.setRedirect()*/}
 						<OwnerRegistrationForm callBack={this.setRedirect}/>
 					</div>
 				</div>

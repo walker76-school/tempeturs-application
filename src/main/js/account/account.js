@@ -28,7 +28,9 @@ class Account extends React.Component {
 		} else if (this.state.component === 'Availability'){
             component = (<Redirect to='/account/availability' />);
 		} else if (this.state.component === 'Pets') {
-            component = (<Redirect to='/account/pets' />);
+            component = (<Redirect to='/account/pets'/>);
+        }else if (this.state.component === 'Appointment'){
+		    component = (<Redirect to='/account/appointment'/>)
 		} else if (this.state.component === 'Logout'){
             component = (<Redirect to='/' />);
 		}
@@ -58,7 +60,7 @@ class Account extends React.Component {
 						}
 					</div>
 
-                    //this gives back subcomponent
+                    {/*this gives back subcomponent*/}
 					<div className='innerBodyContainer'>
                         {this.props.children}
 					</div>
@@ -72,6 +74,8 @@ class Account extends React.Component {
                         }
                         <NavComponent callBack={this.setSubComponent} name='Calendar'/>
                         <NavComponent callBack={this.setSubComponent} name='Update User'/>
+                        <NavComponent callBack={this.setSubComponent} name='Appointment'/>
+
                         <Logout callBack={this.setSubComponent} name='Logout'/>
 					</div>
 				</div>

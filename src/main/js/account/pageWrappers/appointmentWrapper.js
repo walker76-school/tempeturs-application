@@ -1,8 +1,8 @@
 import React from 'react';
 import {Account} from 'js/account/account';
-import UpdateUserPage from 'js/account/pages/updateUserPage';
+import AppointmentPage from "js/account/pages/appointmentPage";
 
-export default class UpdateUserWrapper extends React.Component {
+export default class AppointmentWrapper extends React.Component {
 
     constructor(props) {
         super(props);
@@ -14,9 +14,8 @@ export default class UpdateUserWrapper extends React.Component {
     render() {
         return (
             <div>
-                {/*component within a component*/}
                 <Account>
-                    <UpdateUserPage/>
+                    <AppointmentPage/>
                 </Account>
             </div>
         );
