@@ -12,7 +12,7 @@ export class Landing extends React.Component {
 					</figure>
 					<h1 className="animated fadeInDown delay-07s">Welcome To Tempeturs</h1>
 					<ul className="we-create animated fadeInUp delay-1s">
-						<li>We are a pet sitting agency for the modern pet owner.</li>
+						<li>Tailored to the modern pet owner.</li>
 					</ul>
 					<a className="link animated fadeInUp delay-1s servicelink" href="#registerOwner">Register Owner</a>
 					<a className="link animated fadeInUp delay-1s servicelink" href="#registerSitter">Register Sitter</a>

@@ -14,6 +14,7 @@ import UpdateUserWrapper from 'js/account/pageWrappers/updateUserWrapper';
 import CalendarWrapper from 'js/account/pageWrappers/calendarWrapper';
 import AvailabilityWrapper from 'js/account/pageWrappers/availabilityWrapper';
 import PetWrapper from 'js/account/pageWrappers/petWrapper';
+import SideBar from 'js/account/sideBar';
 
 export default class Index extends React.Component {
 
@@ -39,6 +40,7 @@ export default class Index extends React.Component {
                     <Route exact path='/account/calendar' component={CalendarWrapper} />
                     <Route exact path='/account/availability' component={AvailabilityWrapper} />
                     <Route exact path='/account/pets' component={PetWrapper} />
+                    <Route exact path='/account/sideBar' component={SideBar} />
 				</div>
 			</HashRouter>
 		);
