@@ -48,7 +48,7 @@ class PetInfo extends React.Component {
 		});
 	}
 	makeAppointment(){
-    	// this is where you need to add logic to make appointment
+    	this.props.callBack();
 	}
     renderForm(){
     	if(this.state.editing){

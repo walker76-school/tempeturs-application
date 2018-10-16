@@ -14,19 +14,21 @@ export default class SitterList extends React.Component {
 	}
 
 	componentDidMount(){
+		let component = (<div>There are no sitters available</div>);
 		getSitters(this.props.zip)
 			.then(
 				(response) => {
-					let sitters = response.map((i, index) =>
+					component = response.map((i, index) =>
 						<SitterComponent sitter={response[index]}/>
 					);
-					this.setState({
-						sitters: sitters
-					});
+
 				}).catch((error) => {
 			alert(error);
 		});
 
+		this.setState({
+			sitters: component
+		});
 	}
 
 	render() {

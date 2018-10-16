@@ -3,44 +3,43 @@ import connect from 'react-redux/es/connect/connect';
 import * as Users from 'js/api/usersAPI';
 import {PetInfo} from 'js/info/petInfo';
 import {PetForm} from 'js/forms/petForm';
-import {PetAppointmentForm} from "js/forms/petAppointmentForm";
-import SitterList from "js/account/components/sitterList";
+import SitterList from 'js/account/components/sitterList';
 
 class PetPage extends React.Component {
 
     constructor(props){
         super(props);
         this.state = {
-            appoint: false,
-            form: false
+            content: ''
         };
         this.handleClick = this.handleClick.bind(this);
+		this.handleAppointClick = this.handleAppointClick.bind(this);
 
     }
 
     handleClick(){
         this.setState({
-           form: !this.state.form
+			content: 'Form'
         });
     }
     handleAppointClick(){
         this.setState({
-            appoint: !this.state.appoint
-        })
+			content: 'Appointment'
+        });
     }
 
     render() {
         let content;
-        if(this.state.form){
+        if(this.state.content === 'Form'){
             content = (<PetForm callBack={this.handleClick}/>);
         }
         // add another state of the page for appointment
-        else if(this.state.appoint) {
-            content  = (<SitterList callback = {this.handleAppointClick}/>);
+        else if(this.state.content === 'Appointment') {
+            content = (<SitterList/>);
         }
         else {
             if (this.props.user && this.props.user['petIds'] && this.props.user['petIds'].length > 0) {
-                content = this.props.user['petIds'].map((i, index) => <PetInfo petKey={i}/>);
+                content = this.props.user['petIds'].map((i, index) => <PetInfo petKey={i} callBack ={this.handleAppointClick}/>);
             } else {
                 content = (<h2>Looks like you don't have any pets yet</h2>);
             }
