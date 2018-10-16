@@ -30,7 +30,9 @@ class Account extends React.Component {
             component = (<Redirect to='/account/pets'/>);
         }else if (this.state.component === 'Appointment'){
 		    component = (<Redirect to='/account/appointment'/>);
-		} else if (this.state.component === 'Logout'){
+		} else if (this.state.component === 'Appointment'){
+			component = (<Redirect to='/account/notifications'/>);
+		}else if (this.state.component === 'Logout'){
             component = (<Redirect to='/' />);
 		}
 		return component;
@@ -74,6 +76,7 @@ class Account extends React.Component {
                         <NavComponent callBack={this.setSubComponent} name='Calendar'/>
                         <NavComponent callBack={this.setSubComponent} name='Update User'/>
                         <NavComponent callBack={this.setSubComponent} name='Appointment'/>
+						<NavComponent callBack={this.setSubComponent} name='Notifications'/>
 
                         <Logout callBack={this.setSubComponent} name='Logout'/>
 					</div>

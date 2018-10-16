@@ -68,10 +68,10 @@ public class UserDao {
 		Appointment appointment = new Appointment(owner, sitter, id, AppointmentType.PENDING);
 		ownerDto.getAppointments().add(appointment);
 		sitterDto.getAppointments().add(appointment);
+		sitterDto.getNotifications().add("You have a new pending appointment with user: " + ownerDto.getPrincipal());
 
 		save(ownerADto.get());
 		save(sitterADto.get());
-
     }
 
 	public void save(UserAuthenticationDto userAuthentication) {

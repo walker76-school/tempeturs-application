@@ -15,6 +15,7 @@ import AvailabilityWrapper from 'js/account/pageWrappers/availabilityWrapper';
 import PetWrapper from 'js/account/pageWrappers/petWrapper';
 import SideBar from 'js/account/sideBar';
 import AppointmentWrapper from 'js/account/pageWrappers/appointmentWrapper';
+import NotificationWrapper from 'js/account/pageWrappers/notificationWrapper';
 
 export default class Index extends React.Component {
 
@@ -43,6 +44,7 @@ export default class Index extends React.Component {
                     <Route exact path='/account/availability' component={AvailabilityWrapper} />
                     <Route exact path='/account/pets' component={PetWrapper} />
                     <Route exact path='/account/sideBar' component={SideBar} />
+					<Route exact path='/account/notifications' component={NotificationWrapper} />
                     <Route exact path='/account/appointment' component={AppointmentWrapper} />
 				</div>
 			</HashRouter>
