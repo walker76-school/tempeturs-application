@@ -16,7 +16,6 @@ export function update(user) {
 	return axios.post('/api/user/update', user);
 }
 
-//this is how you actually get authetication token
 export function authenticate(username, password) {
 	return axios(
 		{
@@ -100,7 +99,7 @@ Actions.authenticate = (username, password, callback) => {
 				if(callback !== null){
 					callback();
 				}
-				return getUserDetailsByPrincipal(username).then(user => {
+				return getUserDetails().then(user => {
 					console.log('Retrieved user .... ');
 					console.log(user);
 					dispatch(Actions.setUser(user));
