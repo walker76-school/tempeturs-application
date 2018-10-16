@@ -7,33 +7,21 @@ import SitterList from 'js/account/components/sitterList';
 
 class NotificationPage extends React.Component {
 
-	constructor(props) {
-		super(props);
-		this.state = {
-			notifications: ''
-		};
-	}
-
-	componentDidMount(){
+	render() {
 		let component = (<div>You don't have any notifications.</div>);
 		if(this.props.user && this.props.user.notifications.length > 0){
 			component = this.props.user.notifications.map((i, index) =>
 				<div>
-					<label>{this.props.user.notifications[i]}</label>
+					<label>{this.props.user.notifications[index]}</label>
 					<br/>
 				</div>
 			);
 		}
-		this.setState({
-			notifications: component
-		});
-	}
 
-	render() {
 		return (
 			<div className='container'>
 				<div className='row'>
-					{this.state.notifications}
+					{component}
 				</div>
 			</div>
 		);

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import connect from 'react-redux/es/connect/connect';
-import * as Users from 'js/api/usersAPI';
 import {getSitters} from 'js/api/appointmentAPI';
-import SitterComponent from 'js/account/components/sitterComponent';
+import {SitterComponent} from 'js/account/components/sitterComponent';
 
 export default class SitterList extends React.Component {
 
@@ -14,27 +12,29 @@ export default class SitterList extends React.Component {
 	}
 
 	componentDidMount(){
-		let component = (<div>There are no sitters available</div>);
 		getSitters(this.props.zip)
 			.then(
 				(response) => {
-					component = response.map((i, index) =>
-						<SitterComponent sitter={response[index]}/>
-					);
-
+					this.setState({
+						sitters: response
+					});
 				}).catch((error) => {
-			alert(error);
+					alert(error);
 		});
 
-		this.setState({
-			sitters: component
-		});
+
 	}
 
 	render() {
+		let content = (<div>There are no sitters available</div>);
+
+		if(this.state.sitters.length > 0){
+			content = this.state.sitters.map((i, index) => <SitterComponent id={this.props.id} sitter={this.state.sitters[index]}/>);
+		}
+
 		return (
 			<div>
-				{this.state.sitters}
+				{content}
 			</div>
 		);
 	}

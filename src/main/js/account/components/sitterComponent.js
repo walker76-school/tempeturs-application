@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import {makeAppointment} from 'js/api/appointmentAPI';
+import connect from 'react-redux/es/connect/connect';
+import * as Users from 'js/api/usersAPI';
 
-export default class SitterComponent extends React.Component {
+class SitterComponent extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -8,7 +11,7 @@ export default class SitterComponent extends React.Component {
 	}
 
 	onClick = () => {
-
+		makeAppointment(this.props.user.principal, this.props.sitter['principal'], this.props.id);
 	};
 
 	render() {
@@ -23,3 +26,12 @@ export default class SitterComponent extends React.Component {
 		);
 	}
 }
+
+SitterComponent = connect(
+	state => ({
+		authentication: Users.State.getAuthentication(state),
+		user: Users.State.getUser(state),
+	})
+)(SitterComponent);
+
+export { SitterComponent };

@@ -74,6 +74,39 @@ public class UserDao {
 		save(sitterADto.get());
     }
 
+	public void approveAppointment(String owner, String sitter, Long id) {
+		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+
+		String queryString = String.format("user.principal=\"%s\"", owner.replace("\"", ""));
+		searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
+
+		Optional<UserAuthenticationDto> ownerADto = repository.search(searchSourceBuilder).stream().findFirst();
+		UserDto ownerDto = ownerADto.get().getUser();
+
+		queryString = String.format("user.principal=\"%s\"", sitter.replace("\"", ""));
+		searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
+
+		Optional<UserAuthenticationDto> sitterADto = repository.search(searchSourceBuilder).stream().findFirst();
+		UserDto sitterDto = sitterADto.get().getUser();
+
+		for(Appointment a : ownerDto.getAppointments()){
+			if(a.getOwner().equals(owner) && a.getSitter().equals(sitter) && a.getPetId().equals(id)){
+				a.setType(AppointmentType.ACCEPTED);
+			}
+		}
+
+		for(Appointment a : sitterDto.getAppointments()){
+			if(a.getOwner().equals(owner) && a.getSitter().equals(sitter) && a.getPetId().equals(id)){
+				a.setType(AppointmentType.ACCEPTED);
+			}
+		}
+
+		ownerDto.getNotifications().add("You have a new approved appointment with sitter: " + sitterDto.getPrincipal());
+
+		save(ownerADto.get());
+		save(sitterADto.get());
+	}
+
 	public void save(UserAuthenticationDto userAuthentication) {
 		repository.save(userAuthentication);
 	}

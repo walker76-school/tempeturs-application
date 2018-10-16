@@ -18,7 +18,7 @@ class AppointmentPage extends React.Component {
 		let component = (<div>You don't have any appointments.</div>);
 		if(this.props.user && this.props.user.appointments.length > 0){
 			component = this.props.user.appointments.map((i, index) =>
-				<AppointmentComponent owner={i.owner} sitter={i.sitter} petId={i.petId} type={i.type}/>
+				<AppointmentComponent userType={this.props.user.type} owner={i.owner} sitter={i.sitter} petId={i.petId} type={i.type}/>
 			);
 		}
 		this.setState({

@@ -53,6 +53,10 @@ public class UserService {
 		userDao.makeAppointment(owner, sitter, petId);
 	}
 
+	public void approveAppointment(String owner, String sitter, Long petId) {
+		userDao.approveAppointment(owner, sitter, petId);
+	}
+
     public static class RegistrationRequest {
 		private String principal;
 		private String password;

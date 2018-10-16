@@ -86,16 +86,19 @@ Actions.update = (user) => {
 };
 
 Actions.authenticate = (username, password, callback) => {
+	console.log('Authenticating ' + username + ' with password ' + password);
 	return (dispatch) => {
 		return authenticate(username, password).then(
-			//get token back
 			authentication => {
-				//then set the token
+				console.log('Retrieved auth token .... ');
+				console.log(authentication);
 				dispatch(Actions.setAuthentication(authentication));
 				if(callback !== null){
 					callback();
 				}
 				return getUserDetails().then(user => {
+					console.log('Retrieved user .... ');
+					console.log(user);
 					dispatch(Actions.setUser(user));
 				});
 			}

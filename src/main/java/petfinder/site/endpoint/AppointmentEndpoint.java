@@ -30,4 +30,11 @@ public class AppointmentEndpoint {
                                 @PathVariable("petId") Long petId) {
         userService.makeAppointment(ownerPrincipal, sitterPrincipal, petId);
     }
+
+    @PostMapping(value = "/approveAppointment/{owner}/{sitter}/{petId}", produces = "application/json")
+    public void approveAppointment(@PathVariable(name="owner") String ownerPrincipal,
+                                @PathVariable("sitter") String sitterPrincipal,
+                                @PathVariable("petId") Long petId) {
+        userService.approveAppointment(ownerPrincipal, sitterPrincipal, petId);
+    }
 }

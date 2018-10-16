@@ -5,5 +5,9 @@ export function getSitters(zip, date) {
 }
 
 export function makeAppointment(ownerPrincipal, sitterPrincipal, petId) {
-	return axios.get('/api/appointment/makeAppointment/' + ownerPrincipal + '/' + sitterPrincipal + '/' + petId);
+	return axios.post('/api/appointment/makeAppointment/' + ownerPrincipal + '/' + sitterPrincipal + '/' + petId);
+}
+
+export function approveAppointment(ownerPrincipal, sitterPrincipal, petId){
+	return axios.post('/api/appointment/approveAppointment/' + ownerPrincipal + '/' + sitterPrincipal + '/' + petId);
 }

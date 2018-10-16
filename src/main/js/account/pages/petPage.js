@@ -10,7 +10,8 @@ class PetPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            content: ''
+            content: '',
+            id: ''
         };
         this.handleClick = this.handleClick.bind(this);
 		this.handleAppointClick = this.handleAppointClick.bind(this);
@@ -22,9 +23,10 @@ class PetPage extends React.Component {
 			content: 'Form'
         });
     }
-    handleAppointClick(){
+    handleAppointClick(id){
         this.setState({
-			content: 'Appointment'
+			content: 'Appointment',
+            id: id
         });
     }
 
@@ -35,7 +37,7 @@ class PetPage extends React.Component {
         }
         // add another state of the page for appointment
         else if(this.state.content === 'Appointment') {
-            content = (<SitterList/>);
+            content = (<SitterList zip={this.props.user.zip} id={this.state.id}/>);
         }
         else {
             if (this.props.user && this.props.user['petIds'] && this.props.user['petIds'].length > 0) {
@@ -44,7 +46,6 @@ class PetPage extends React.Component {
                 content = (<h2>Looks like you don't have any pets yet</h2>);
             }
         }
-
 
         return (
             <div>
