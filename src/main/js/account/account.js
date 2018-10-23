@@ -47,10 +47,17 @@ class Account extends React.Component {
 		});
 	}
 
+	renderRedirect(){
+		if(this.props.authentication === null){
+			return (<Redirect to='/' />);
+		}
+	}
+
 	render() {
 		return (
 			<div>
-                {this.renderSubComponent()}
+				{this.renderSubComponent()}
+				{this.renderRedirect()}
 				<div className='accContainer'>
 					<div className='innerAccContainer'>
 						{_.isDefined(this.props.user) &&

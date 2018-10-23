@@ -27,7 +27,6 @@ public class UserEndpoint {
 	@GetMapping(value = "", produces = "application/json")
 	public Optional<UserDto> getUserDetails() {
 		String principal = SecurityContextHolder.getContext().getAuthentication().getName();
-		System.out.println(principal);
 		return userService.findUserByPrincipal(principal);
 	}
 
@@ -48,6 +47,7 @@ public class UserEndpoint {
 
 	@PostMapping(value = "/update", produces = "application/json")
 	public UserDto update(@RequestBody UserDto user) {
-		return userService.update(user);
+		String principal = SecurityContextHolder.getContext().getAuthentication().getName();
+		return user.getPrincipal().equals(principal) ? userService.update(user) : user;
 	}
 }
