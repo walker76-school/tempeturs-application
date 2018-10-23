@@ -58,9 +58,9 @@ class PetPage extends React.Component {
     }
 }
 
+{/* Connect to the Redux store to have access to the user data */}
 PetPage = connect(
     state => ({
-        authentication: Users.State.getAuthentication(state),
         user: Users.State.getUser(state),
     })
 )(PetPage);

@@ -7,10 +7,15 @@ class SitterComponent extends React.Component {
 
 	constructor(props) {
 		super(props);
+
+		{/* Bind the onClick function so it knows about the state */}
 		this.onClick = this.onClick.bind(this);
 	}
 
 	onClick = () => {
+		{/* Call makeAppointment which is located in js/api/appointmentApi
+		  * This uses values passed in the constructor and from the Redux store
+		  */}
 		makeAppointment(this.props.user.principal, this.props.sitter['principal'], this.props.id);
 	};
 
@@ -27,9 +32,9 @@ class SitterComponent extends React.Component {
 	}
 }
 
+{/* Connect to the Redux store to have access to the user data */}
 SitterComponent = connect(
 	state => ({
-		authentication: Users.State.getAuthentication(state),
 		user: Users.State.getUser(state),
 	})
 )(SitterComponent);

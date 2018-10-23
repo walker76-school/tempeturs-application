@@ -15,7 +15,7 @@ public class AppointmentEndpoint {
     private UserService userService;
 
     @GetMapping(value = "/findSitters/{zip}", produces = "application/json")
-    public List<UserDto> registerSitter(@PathVariable(name="zip") String zip) {
+    public List<UserDto> find(@PathVariable(name="zip") String zip) {
         return userService.findSitters(zip);
     }
 

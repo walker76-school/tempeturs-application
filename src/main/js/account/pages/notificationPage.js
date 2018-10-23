@@ -1,18 +1,21 @@
 import React from 'react';
-import CalendarComponent from 'js/account/components/calendarComponent';
 import connect from 'react-redux/es/connect/connect';
 import * as Users from 'js/api/usersAPI';
-import _ from 'lodash';
-import SitterList from 'js/account/components/sitterList';
 
 class NotificationPage extends React.Component {
 
 	render() {
+
+		{/* Setup initial content */}
 		let component = (<div>You don't have any notifications.</div>);
+
+		{/* If there are available notifications, then map them */}
 		if(this.props.user && this.props.user.notifications.length > 0){
+
+			{/* Map each notification to a new notifications view */}
 			component = this.props.user.notifications.map((i, index) =>
 				<div>
-					<label>{this.props.user.notifications[index]}</label>
+					<label>{i}</label>
 					<br/>
 				</div>
 			);
@@ -21,6 +24,7 @@ class NotificationPage extends React.Component {
 		return (
 			<div className='container'>
 				<div className='row'>
+					{/* Display the content, either the default label or the list of notifications */}
 					{component}
 				</div>
 			</div>
@@ -28,13 +32,10 @@ class NotificationPage extends React.Component {
 	}
 }
 
+{/* Connect to the Redux store to have access to the user data */}
 NotificationPage = connect(
 	state => ({
-		authentication: Users.State.getAuthentication(state),
 		user: Users.State.getUser(state),
-	}),
-	dispatch => ({
-
 	})
 )(NotificationPage);
 

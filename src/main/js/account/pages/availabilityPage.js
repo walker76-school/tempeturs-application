@@ -4,12 +4,18 @@ import * as Bessemer from 'js/alloy/bessemer/components';
 import connect from 'react-redux/es/connect/connect';
 import * as Users from 'js/api/usersAPI';
 
-export default class AvailabilityPage extends React.Component {
+class AvailabilityPage extends React.Component {
 
 	constructor(props) {
 		super(props);
+
+		{/* Bind the onChange function so it knows about the state */}
 		this.onChange = this.onChange.bind(this);
+
+		{/* Bind the onSubmit function so it knows about the state */}
 		this.onSubmit = this.onSubmit.bind(this);
+
+		{/* Setup a property in the state to hold the list of availabilities */}
 		this.state = {
 			'sundayMorning': false,
 			'sundayMidday': false,
@@ -49,20 +55,23 @@ export default class AvailabilityPage extends React.Component {
 	}
 
 	onChange = (name, value) => {
+		{/* Set the boolean value */}
 		this.state[name.toString()] = value;
 	};
 
 	onSubmit = () => {
+		{/* Create a copy of the state for use in calling the endpoint */}
 		let availability = Object.assign({}, this.state);
+
+		{/* Make a copy of the user and set the availability */}
 		let updatedUser = this.props.user;
 		updatedUser['availability'] = availability;
+
+		{/* Call the update function to set the availability*/}
 		this.props.setAvailability(updatedUser);
 	};
 
 	render() {
-
-        let { handleSubmit, submitting } = this.props;
-
 		return (
 			<div className='container'>
 				<div className='row'>
@@ -129,15 +138,17 @@ export default class AvailabilityPage extends React.Component {
 						<AvailabilityComponent day='saturday' name='Evening' callBack={this.onChange}/>
 					</div>
 				</div>
-				<Bessemer.Button loading={submitting} onClick={this.onSubmit}>Submit</Bessemer.Button>
+				<Bessemer.Button onClick={this.onSubmit}>Submit</Bessemer.Button>
 			</div>
 		);
 	}
 }
 
+{/* Connect to the Redux store to have access to the user data.
+  * Connect to the Redux store to have access to the update function
+  */}
 AvailabilityPage = connect(
 	state => ({
-		authentication: Users.State.getAuthentication(state),
 		user: Users.State.getUser(state),
 	}),
 	dispatch => ({

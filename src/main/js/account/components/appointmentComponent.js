@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
-import connect from 'react-redux/es/connect/connect';
-import * as Users from 'js/api/usersAPI';
 import {approveAppointment} from 'js/api/appointmentAPI';
 
 export default class AppointmentComponent extends React.Component {
 
 	constructor(props){
 		super(props);
+		{/* Setup an update state to reload the component on approval */}
 		this.state = {
 			update: false
 		};
+		{/* Bind the onClick function so it knows about the state */}
 		this.onClick = this.onClick.bind(this);
 	}
 
 	onClick = () => {
+		{/* Call approveAppointment which is located in js/api/appointmentApi */}
 		approveAppointment(this.props.owner, this.props.sitter, this.props.petId);
+
+		{/* Update the state to force a refresh */}
 		this.setState({
 			update: !this.state.update
 		});
@@ -35,11 +38,3 @@ export default class AppointmentComponent extends React.Component {
         );
     }
 }
-
-AppointmentComponent = connect(
-	state => ({
-		user: Users.State.getUser(state),
-	})
-)(AppointmentComponent);
-
-export { AppointmentComponent };
