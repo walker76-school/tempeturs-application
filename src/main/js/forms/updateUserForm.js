@@ -4,13 +4,14 @@ import { connect } from 'react-redux';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import * as Users from 'js/api/usersAPI';
 import {getUserDetails} from 'js/api/usersAPI';
+import * as Validation from 'js/alloy/utils/validation';
 
 export default class UpdateUserForm extends React.Component {
 
 	// Store the values in the state
 	constructor(props) {
 		super(props);
-		this.state = {name: '', phoneNumber: ''};
+		this.state = {name: '', phoneNumber: '', addressLine: '', city: '', state:'', zip:''};
 	}
 
 	// Update the user on submit
@@ -28,6 +29,28 @@ export default class UpdateUserForm extends React.Component {
 		}else {
 			updatedUser['phoneNumber'] = user['phoneNumber'];
 		}
+        if(user['addressLine'] == null){
+            updatedUser['addressLine'] = this.state.addressLine;
+        }else {
+            updatedUser['addressLine'] = user['addressLine'];
+        }
+
+        if(user['city'] == null){
+            updatedUser['city'] = this.state.city;
+        }else {
+            updatedUser['city'] = user['city'];
+        }
+
+        if(user['state'] == null){
+            updatedUser['state'] = this.state.state;
+        }else {
+            updatedUser['state'] = user['state'];
+        }
+        if(user['zip'] == null){
+            updatedUser['zip'] = this.state.zip;
+        }else {
+            updatedUser['zip'] = user['zip'];
+        }
 
 		return this.props.updateUser(updatedUser);
 	};
@@ -39,11 +62,24 @@ export default class UpdateUserForm extends React.Component {
 			<form name='form' onSubmit={handleSubmit(form => this.onSubmit(form))}>
 				<Bessemer.Field name='name' friendlyName='Name'
                                 field={<input className="form-control" value={this.state.name}/>}
-								validators={[]} />
+								validators={[Validation.requiredValidator]} />
 
 				<Bessemer.Field name='phoneNumber' friendlyName='Phone Number'
                                     field={<input className="form-control" value={this.state.phoneNumber} />}
-								validators={[]} />
+								validators={[Validation.requiredValidator, Validation.phoneValidator, Validation.phoneLengthValidator]} />
+
+                <Bessemer.Field name='addressLine' friendlyName='Address Line'
+                                field={<input className="form-control" value={this.state.addressLine} />}
+                                validators={[Validation.requiredValidator]} />
+                <Bessemer.Field name='city' friendlyName='City'
+                                field={<input className="form-control" value={this.state.city} />}
+                                validators={[Validation.requiredValidator]} />
+                <Bessemer.Field name='state' friendlyName='State'
+                                field={<input className="form-control" value={this.state.state} />}
+                                validators={[Validation.requiredValidator]} />
+                <Bessemer.Field name='zip' friendlyName='Zip'
+                                field={<input className="form-control" value={this.state.zip} />}
+                                validators={[Validation.requiredValidator, Validation.zipLengthValidator, Validation.zipValidator]} />
 
 				<Bessemer.Button loading={submitting}>Update</Bessemer.Button>
 			</form>

@@ -21,7 +21,7 @@ class LoginForm extends React.Component {
                                 validators={[Validation.requiredValidator, Validation.emailValidator]} />
 
                 <Bessemer.Field name="password" friendlyName="Password"
-                                validators={[Validation.requiredValidator, Validation.passwordValidator]} />
+                                validators={[Validation.requiredValidator, Validation.passwordValidator, Validation.passLongLengthValidator, Validation.passShortLengthValidator]} />
 
                 <Bessemer.Button loading={submitting}>Sign In</Bessemer.Button>
             </form>

@@ -51,11 +51,11 @@ class UpdatePetForm extends React.Component {
 		return (
 			<form name="form" onSubmit={handleSubmit(form => this.onSubmit(form))}>
 				<Bessemer.Field name="name" friendlyName="Pet Name"
-								validators={[]}
+								validators={[Validation.requiredValidator]}
 								field={<input className="form-control" placeholder={this.state.name} />}/>
 
 				<Bessemer.Field name="type" friendlyName="Pet Type"
-								validators={[]}
+								validators={[Validation.requiredValidator]}
 								field={<input className="form-control" placeholder={this.state.type} />}/>
 
 				<Bessemer.Button loading={submitting}>Save</Bessemer.Button>
