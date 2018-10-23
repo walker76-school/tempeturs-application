@@ -13,6 +13,9 @@ class Account extends React.Component {
 		this.state = {
 			component: ''
 		};
+		// insert logic to confirm cookies on this page
+		//if the user is authorized allow the page to be rendered otherwise redirect to the home page
+		// do this for any of the other private pages or sum components
 		//subcomponent lets you switch between different states
 		this.setSubComponent = this.setSubComponent.bind(this);
         this.renderSubComponent = this.renderSubComponent.bind(this);
