@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import * as Users from 'js/api/usersAPI';
 import {getUserDetails} from 'js/api/usersAPI';
-import * as Validation from "js/alloy/utils/validation";
+import * as Validation from 'js/alloy/utils/validation';
 
 export default class UpdateUserForm extends React.Component {
 
