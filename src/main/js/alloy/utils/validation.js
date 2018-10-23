@@ -20,7 +20,7 @@ export const isEmail = (val) => val.match(/^[a-zA-Z0-9](\.?\+?[a-zA-Z0-9_-]){0,}
 export const emailValidator = new Validator(isEmail, (details, value) => 'Invalid Email Address');
 
 /*export const isValidPhoneNumber = (val) => val.match(/^(\+\d{1,2,3,4,5,6}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/);*/
-export const isValidPhoneNumber = (val) => val.match(/^[0-9]*$/);
+export const isValidPhoneNumber = (val) => val.match(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/);
 export const phoneValidator = new Validator(isValidPhoneNumber, (details) => 'Invalid Phone Number.');
 
 export const phoneCorrectLength = (val) => val.toString().length === 10 ;
