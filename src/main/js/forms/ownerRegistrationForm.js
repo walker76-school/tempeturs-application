@@ -32,22 +32,22 @@ export default class OwnerRegistrationForm extends React.Component {
 								validators={[Validation.requiredValidator, Validation.emailValidator]} />
 
 				<Bessemer.Field name="phoneNumber" friendlyName="Phone Number"
-								validators={[]} />
+								validators={[Validation.requiredValidator, Validation.phoneValidator, Validation.phoneLengthValidator]} />
 
 				<Bessemer.Field name="password" friendlyName="Password"
-								validators={[Validation.requiredValidator, Validation.passwordValidator]}
+								validators={[Validation.requiredValidator, Validation.passwordValidator, Validation.passLongLengthValidator, Validation.passShortLengthValidator]}
 								field={<input className="form-control" type="password" />} />
                 <Bessemer.Field name="addressLine" friendlyName="Address Line"
-                                validators={[]} />
+                                validators={[Validation.requiredValidator]} />
 
                 <Bessemer.Field name="city" friendlyName="City"
-                                validators={[]} />
+                                validators={[Validation.requiredValidator]} />
 
                 <Bessemer.Field name="state" friendlyName="State"
-                                validators={[]} />
+                                validators={[Validation.requiredValidator]} />
 
                 <Bessemer.Field name="zip" friendlyName="Zip Code"
-                                validators={[]} />
+                                validators={[Validation.requiredValidator, Validation.zipLengthValidator, Validation.zipValidator]} />
 
 				<Bessemer.Button loading={submitting}>Register</Bessemer.Button>
 			</form>
