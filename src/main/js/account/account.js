@@ -10,19 +10,24 @@ class Account extends React.Component {
 
 	constructor(props) {
 		super(props);
+
+		{/* This state is used to determine what component is rendered in the wrapper */}
 		this.state = {
 			component: ''
 		};
-		// insert logic to confirm cookies on this page
-		//if the user is authorized allow the page to be rendered otherwise redirect to the home page
-		// do this for any of the other private pages or sum components
-		//subcomponent lets you switch between different states
+
+		{/* Bind the setSubComponent function so it knows about the state */}
 		this.setSubComponent = this.setSubComponent.bind(this);
-        this.renderSubComponent = this.renderSubComponent.bind(this);
+
+		{/* Bind the renderSubComponent function so it knows about the state */}
+		this.renderSubComponent = this.renderSubComponent.bind(this);
 	}
 
 	renderSubComponent(){
+		{/* Use a default component */}
 	    let component = (<div></div>);
+
+		{/* If the component key is a page then redirect to proper page */}
 		if (this.state.component === 'Update User'){
 		    component = (<Redirect to='/account/updateUser' />);
 		} else if (this.state.component === 'Calendar'){
@@ -42,12 +47,14 @@ class Account extends React.Component {
 	}
 
 	setSubComponent(variable){
+		{/* Set the component key */}
 		this.setState({
 			component: variable
 		});
 	}
 
 	renderRedirect(){
+		{/* This method will prevent unauthenticated users from accessing the account pages */}
 		if(this.props.authentication === null){
 			return (<Redirect to='/' />);
 		}
@@ -71,24 +78,27 @@ class Account extends React.Component {
 						}
 					</div>
 
-                    {/*this gives back subcomponent*/}
+                    {/* This is where the child component will be rendered
+                      * 'this.props.children' is a special reference to the pages passed within account tags
+                      */}
 					<div className='innerBodyContainer'>
                         {this.props.children}
 					</div>
 
 					<div className='innerNavContainer'>
-                        {_.isDefined(this.props.user) && this.props.user.type === 'OWNER' &&
-                            <NavComponent callBack={this.setSubComponent} name='Pets'/>
-                        }
-                        {_.isDefined(this.props.user) && this.props.user.type === 'SITTER' &&
-                        <NavComponent callBack={this.setSubComponent} name='Availability'/>
-                        }
-                        <NavComponent callBack={this.setSubComponent} name='Calendar'/>
-                        <NavComponent callBack={this.setSubComponent} name='Update User'/>
-                        <NavComponent callBack={this.setSubComponent} name='Appointment'/>
+						{_.isDefined(this.props.user) && this.props.user.type === 'OWNER' &&
+							<NavComponent callBack={this.setSubComponent} name='Pets'/>
+						}
+
+						{_.isDefined(this.props.user) && this.props.user.type === 'SITTER' &&
+							<NavComponent callBack={this.setSubComponent} name='Availability'/>
+						}
+						<NavComponent callBack={this.setSubComponent} name='Calendar'/>
+						<NavComponent callBack={this.setSubComponent} name='Update User'/>
+						<NavComponent callBack={this.setSubComponent} name='Appointment'/>
 						<NavComponent callBack={this.setSubComponent} name='Notifications'/>
 
-                        <Logout callBack={this.setSubComponent} name='Logout'/>
+						<Logout callBack={this.setSubComponent} name='Logout'/>
 					</div>
 				</div>
 			</div>

@@ -6,6 +6,8 @@ export default class PetWrapper extends React.Component {
 
     constructor(props) {
         super(props);
+
+		{/* This state is used for refreshing the account screen */}
         this.state = {
             refresh: false,
         };
@@ -14,6 +16,7 @@ export default class PetWrapper extends React.Component {
     render() {
         return (
             <div>
+				{/* Render the Pet page in the Account wrapper */}
                 <Account>
                     <PetPage/>
                 </Account>

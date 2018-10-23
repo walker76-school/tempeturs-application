@@ -3,10 +3,12 @@ import {NavComponent} from 'js/account/components/navcomponent';
 import * as Users from 'js/api/usersAPI';
 import * as ReduxForm from 'redux-form';
 import { connect } from 'react-redux';
+import {PetPage} from 'js/account/pages/petPage';
 
 class Logout extends NavComponent {
 
 	onSubmit = () => {
+		{/* Special onSubmit to not only redirect the account page but also to logout */}
 		this.props.callBack(this.props.name);
 		return this.props.logout();
 	};
@@ -21,12 +23,8 @@ class Logout extends NavComponent {
 	}
 }
 
-Logout = ReduxForm.reduxForm({form: 'register'})(Logout);
-
+{/* Connect to the Redux store to have access to the logout function */}
 Logout = connect(
-	state => ({
-
-	}),
 	dispatch => ({
 		logout: () => dispatch(Users.Actions.logout())
 	})

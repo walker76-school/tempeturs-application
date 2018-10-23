@@ -6,6 +6,8 @@ export default class UpdateUserWrapper extends React.Component {
 
     constructor(props) {
         super(props);
+
+		{/* This state is used for refreshing the account screen */}
         this.state = {
             refresh: false,
         };
@@ -14,7 +16,7 @@ export default class UpdateUserWrapper extends React.Component {
     render() {
         return (
             <div>
-                {/*component within a component*/}
+				{/* Render the Update User page in the Account wrapper */}
                 <Account>
                     <UpdateUserPage/>
                 </Account>
