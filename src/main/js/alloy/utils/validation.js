@@ -19,15 +19,26 @@ export const requiredValidator = new Validator(required, (details) => details.fr
 export const isEmail = (val) => val.match(/^[a-zA-Z0-9](\.?\+?[a-zA-Z0-9_-]){0,}@[a-zA-Z0-9-]+\.([a-zA-Z]{1,6}\.)?[a-zA-Z]{2,6}$/);
 export const emailValidator = new Validator(isEmail, (details, value) => 'Invalid Email Address');
 
-/*export const isValidPhoneNumber = (val) => val.match(/^(\+\d{1,2,3,4,5,6}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/);*/
-export const isValidPhoneNumber = (val) => val.match(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/);
+/*export const isValidPhoneNumber = (val) => val.match(/^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/);*/
+export const isValidPhoneNumber = (val) => val.match(/^(\+\d{1,6}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/);
 export const phoneValidator = new Validator(isValidPhoneNumber, (details) => 'Invalid Phone Number.');
 
-export const phoneCorrectLength = (val) => val.toString().length === 10 ;
+export const phoneCorrectLength = (val) => (val.toString().length >= 10 );//&& val.match(/\d{10}/));
 export const phoneLengthValidator = new Validator(phoneCorrectLength, (details) => details.friendlyName +' requires 10 digits');
 
-export const isValidPassword = (val) => val.match(/^[a-zA-Z0-9!@#$%^&*]/);
-export const passwordValidator = new Validator(isValidPassword, (details) => 'Invalid Password');
+/*password must have at least one of each of the following and only the following: lowercase letter, uppercase letter,
+number, special character.*/
+export const isValidPassword = (val) => (val.match(/^[a-zA-Z0-9!@#$%^&*()?<>;:]+$/) &&
+	/*check for lowercase*/
+	(val.match(/[a-z]+/)) &&
+    /*check for uppercase*/
+    (val.match(/[A-Z]+/)) &&
+    /*check for numbers*/
+	(val.match(/[0-9]+/)) &&
+    /*check for special characters*/
+	(val.match(/[!@#$%^&*()?<>;:]+/)));
+export const passwordValidator = new Validator(isValidPassword, (details) => 'Invalid Password. You need at least one ' +
+	'of each of the following: lowercase letter, uppercase letter, number, special character.');
 
 export const passShortLength = (val) => val.toString().length >= 6;
 export const passShortLengthValidator = new Validator(passShortLength, (details) => 'Increase Password Length');
