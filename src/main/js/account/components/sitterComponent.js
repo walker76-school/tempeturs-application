@@ -17,6 +17,9 @@ class SitterComponent extends React.Component {
 		  * This uses values passed in the constructor and from the Redux store
 		  */}
 		makeAppointment(this.props.user.principal, this.props.sitter['principal'], this.props.id);
+
+		console.log('refreshing');
+		this.props.refresh();
 	};
 
 	render() {

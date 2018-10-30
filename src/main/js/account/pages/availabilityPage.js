@@ -69,6 +69,9 @@ class AvailabilityPage extends React.Component {
 
 		{/* Call the update function to set the availability*/}
 		this.props.setAvailability(updatedUser);
+
+		{/* Call refresh to update the page */}
+		this.props.refresh();
 	};
 
 	render() {

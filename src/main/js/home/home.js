@@ -5,8 +5,8 @@ import {Services} from 'js/home/services';
 export class Home extends React.Component {
 	render() {
 		return (
-			//Broken into two different components
 			<div>
+				{/* Breaks the home page into two separate components*/}
 				<Landing />
 				<Services/>
 			</div>

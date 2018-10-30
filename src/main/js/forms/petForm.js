@@ -23,7 +23,7 @@ class PetForm extends React.Component {
 		let updatedUser = this.props.user;
 		updatedUser['petIds'].push(id);
 		this.props.addPet(updatedUser);
-		this.props.callBack();
+		this.props.refresh();
 	};
 
     render() {

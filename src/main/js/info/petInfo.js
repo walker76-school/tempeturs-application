@@ -47,9 +47,11 @@ class PetInfo extends React.Component {
 			editing: b
 		});
 	}
+
 	makeAppointment(){
     	this.props.callBack(this.props.petKey);
 	}
+
     renderForm(){
     	if(this.state.editing){
     		return (<UpdatePetForm petKey={this.props.petKey}/>);

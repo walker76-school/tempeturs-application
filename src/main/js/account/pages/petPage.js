@@ -8,21 +8,22 @@ import SitterList from 'js/account/components/sitterList';
 class PetPage extends React.Component {
 
     constructor(props){
+
+        console.log('constructor - petPage');
         super(props);
         this.state = {
             content: '',
             id: ''
         };
 
-		{/* Bind the handleClick function so it knows about the state */}
-		this.handleClick = this.handleClick.bind(this);
+		{/* Bind the showPetForm function so it knows about the state */}
+		this.showPetForm = this.showPetForm.bind(this);
 
         {/* Bind the handleAppointClick function so it knows about the state */}
 		this.handleAppointClick = this.handleAppointClick.bind(this);
-
     }
 
-    handleClick(){
+    showPetForm(){
         this.setState({
 			content: 'Form'
         });
@@ -40,11 +41,11 @@ class PetPage extends React.Component {
         let content;
         if(this.state.content === 'Form'){
 			{/* If the content key is Form then render the PetForm */}
-            content = (<PetForm callBack={this.handleClick}/>);
+            content = (<PetForm refresh={this.props.refresh}/>);
         }
         else if(this.state.content === 'Appointment') {
 			{/* If the content key is appointment then render the list of sitters */}
-            content = (<SitterList zip={this.props.user.zip} id={this.state.id}/>);
+            content = (<SitterList refresh={this.props.refresh} zip={this.props.user.zip} id={this.state.id}/>);
         }
         else {
             {/* If the user is defined and there are pets then render all the pets*/}
@@ -60,7 +61,7 @@ class PetPage extends React.Component {
             <div>
                 <div className='addPetWrapper'>
                     {content}
-                    <a className='link petLink' onClick={this.handleClick}>Add Pet</a>
+                    <a className='link petLink' onClick={this.showPetForm}>Add Pet</a>
                 </div>
             </div>
         );

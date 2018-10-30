@@ -25,6 +25,9 @@ class Logout extends NavComponent {
 
 {/* Connect to the Redux store to have access to the logout function */}
 Logout = connect(
+	state => ({
+
+	}),
 	dispatch => ({
 		logout: () => dispatch(Users.Actions.logout())
 	})

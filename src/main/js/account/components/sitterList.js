@@ -44,7 +44,7 @@ export default class SitterList extends React.Component {
 		if(this.state.sitters.length > 0){
 			{/* Map each possible sitter to a new sitter component */}
 			content = this.state.sitters.map((i, index) =>
-				<SitterComponent id={this.props.id} sitter={this.state.sitters[index]}/>
+				<SitterComponent refresh={this.props.refresh} id={this.props.id} sitter={i}/>
 			);
 		}
 
