@@ -20,8 +20,8 @@ import Dashboard from 'js/account/Dashboard';
 
 export default class Index extends React.Component {
 
-	constructor(){
-		super();
+	constructor(props){
+		super(props);
 		const cookies = new Cookies();
 		if(cookies.get('auth')){
 			this.props.store.dispatch(Users.Actions.setAuthentication(cookies.get('auth')));
