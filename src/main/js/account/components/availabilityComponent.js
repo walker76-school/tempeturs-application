@@ -6,8 +6,8 @@ import * as Users from 'js/api/usersAPI';
 
 class AvailabilityComponent extends React.Component {
 
-	constructor(props) {
-		super(props);
+	constructor() {
+		super();
 		{/* Initialize the checkbox to be false, this makes our component managed*/}
 		this.state = {
 			checkedVal: false

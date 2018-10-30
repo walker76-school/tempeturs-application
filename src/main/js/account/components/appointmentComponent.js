@@ -3,8 +3,8 @@ import {approveAppointment} from 'js/api/appointmentAPI';
 
 export default class AppointmentComponent extends React.Component {
 
-	constructor(props){
-		super(props);
+	constructor(){
+		super();
 		{/* Setup an update state to reload the component on approval */}
 		this.state = {
 			update: false

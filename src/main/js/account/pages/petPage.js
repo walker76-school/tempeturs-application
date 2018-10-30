@@ -7,8 +7,8 @@ import SitterList from 'js/account/components/sitterList';
 
 class PetPage extends React.Component {
 
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
         this.state = {
             content: '',
             id: ''
