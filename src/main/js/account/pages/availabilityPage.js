@@ -6,8 +6,8 @@ import * as Users from 'js/api/usersAPI';
 
 class AvailabilityPage extends React.Component {
 
-	constructor(props) {
-		super(props);
+	constructor() {
+		super();
 
 		{/* Bind the onChange function so it knows about the state */}
 		this.onChange = this.onChange.bind(this);

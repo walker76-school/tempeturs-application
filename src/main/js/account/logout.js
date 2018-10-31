@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavComponent} from 'js/account/components/navcomponent';
 import * as Users from 'js/api/usersAPI';
-import * as ReduxForm from 'redux-form';
+import {reduxForm, Field} from 'redux-form';
 import { connect } from 'react-redux';
 import {PetPage} from 'js/account/pages/petPage';
 

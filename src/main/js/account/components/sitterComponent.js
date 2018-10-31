@@ -5,8 +5,8 @@ import * as Users from 'js/api/usersAPI';
 
 class SitterComponent extends React.Component {
 
-	constructor(props) {
-		super(props);
+	constructor() {
+		super();
 
 		{/* Bind the onClick function so it knows about the state */}
 		this.onClick = this.onClick.bind(this);

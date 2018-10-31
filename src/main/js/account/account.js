@@ -8,8 +8,8 @@ import { Redirect } from 'react-router-dom';
 
 class Account extends React.Component {
 
-	constructor(props) {
-		super(props);
+	constructor() {
+		super();
 
 		{/* This state is used to determine what component is rendered in the wrapper */}
 		this.state = {
