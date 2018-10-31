@@ -18,6 +18,8 @@ import { mainListItems, secondaryListItems } from './listItems';
 import SimpleLineChart from './SimpleLineChart';
 import SimpleTable from './SimpleTable';
 import {AvailabilityPage} from 'js/account/pages/availabilityPage';
+import {NavComponent} from 'js/account/components/navcomponent';
+import { Redirect } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -99,9 +101,29 @@ const styles = theme => ({
 });
 
 class Dashboard extends React.Component {
-    state = {
-        open: true,
-    };
+    constructor() {
+        super();
+
+        {/* This state is used to determine what component is rendered in the wrapper */}
+        this.state = {
+            component: '',
+            open: true
+        };
+
+        {/* Bind the setSubComponent function so it knows about the state */}
+        this.setSubComponent = this.setSubComponent.bind(this);
+
+        {/* Bind the renderSubComponent function so it knows about the state */}
+        this.renderSubComponent = this.renderSubComponent.bind(this);
+
+        this.onClick = this.onClick.bind(this);
+    }
+
+    onClick(){
+
+        {/* Call the callBack function that we passed in to update the parent state and render the proper component */}
+        this.props.callBack(this.props.name);
+    }
 
     handleDrawerOpen = () => {
         this.setState({ open: true });
@@ -111,12 +133,51 @@ class Dashboard extends React.Component {
         this.setState({ open: false });
     };
 
+    renderSubComponent(){
+        {/* Use a default component */}
+        let component = (<div></div>);
+
+        {/* If the component key is a page then redirect to proper page */}
+        if (this.state.component === 'Update User'){
+            component = (<Redirect to='/account/updateUser' />);
+        } else if (this.state.component === 'Calendar'){
+            component = (<Redirect to='/account/calendar' />);
+        } else if (this.state.component === 'Availability'){
+            component = (<Redirect to='/account/availability' />);
+        } else if (this.state.component === 'Pets') {
+            component = (<Redirect to='/account/pets'/>);
+        }else if (this.state.component === 'Appointment'){
+            component = (<Redirect to='/account/appointment'/>);
+        } else if (this.state.component === 'Notifications'){
+            component = (<Redirect to='/account/notifications'/>);
+        }else if (this.state.component === 'Logout'){
+            component = (<Redirect to='/' />);
+        }
+        return component;
+    }
+
+    setSubComponent(variable){
+        {/* Set the component key */}
+        this.setState({
+            component: variable
+        });
+    }
+
+    renderRedirect(){
+        {/* This method will prevent unauthenticated users from accessing the account pages */}
+        if(this.props.authentication === null){
+            return (<Redirect to='/' />);
+        }
+    }
+
     render() {
         const { classes } = this.props;
 
         return (
             <React.Fragment>
                 <CssBaseline />
+                {this.renderSubComponent()}
+                {this.renderRedirect()}
                 <div className={classes.root}>
                     <AppBar
                         position="absolute"
@@ -169,7 +230,9 @@ class Dashboard extends React.Component {
                     </Drawer>
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer}/>
-                        <AvailabilityPage/>
+                        <div>
+                        {this.props.children}
+                        </div>
                     </main>
                 </div>
             </React.Fragment>

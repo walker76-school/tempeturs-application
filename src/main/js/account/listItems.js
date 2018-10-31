@@ -9,7 +9,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import UpdateUserPage from "js/account/pages/updateUserPage";
+import {NavComponent} from 'js/account/components/navcomponent';
 
 export const mainListItems = (
     <div>
@@ -19,7 +19,7 @@ export const mainListItems = (
             </ListItemIcon>
             <ListItemText primary="Dashboard" />
         </ListItem>
-        <ListItem button>
+        <ListItem button callback={this.setSubComponent} name='Update User'>
             <ListItemIcon>
                 <ShoppingCartIcon />
             </ListItemIcon>
