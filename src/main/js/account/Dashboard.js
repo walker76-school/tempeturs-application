@@ -14,11 +14,21 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import PeopleIcon from '@material-ui/icons/People';
+import BarChartIcon from '@material-ui/icons/BarChart';
+import LayersIcon from '@material-ui/icons/Layers';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import { mainListItems, secondaryListItems } from './listItems';
 import SimpleLineChart from './SimpleLineChart';
 import SimpleTable from './SimpleTable';
 import {AvailabilityPage} from 'js/account/pages/availabilityPage';
 import {NavComponent} from 'js/account/components/navcomponent';
+import UpdateUserPage from 'js/account/pages/updateUserPage'
 import { Redirect } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -111,19 +121,13 @@ class Dashboard extends React.Component {
         };
 
         {/* Bind the setSubComponent function so it knows about the state */}
-        this.setSubComponent = this.setSubComponent.bind(this);
+       this.handleButtonClick = this.handleButtonClick.bind(this);
 
         {/* Bind the renderSubComponent function so it knows about the state */}
         this.renderSubComponent = this.renderSubComponent.bind(this);
 
-        this.onClick = this.onClick.bind(this);
     }
 
-    onClick(){
-
-        {/* Call the callBack function that we passed in to update the parent state and render the proper component */}
-        this.props.callBack(this.props.name);
-    }
 
     handleDrawerOpen = () => {
         this.setState({ open: true });
@@ -133,42 +137,37 @@ class Dashboard extends React.Component {
         this.setState({ open: false });
     };
 
-    renderSubComponent(){
-        {/* Use a default component */}
-        let component = (<div></div>);
-
-        {/* If the component key is a page then redirect to proper page */}
-        if (this.state.component === 'Update User'){
-            component = (<Redirect to='/account/updateUser' />);
-        } else if (this.state.component === 'Calendar'){
-            component = (<Redirect to='/account/calendar' />);
-        } else if (this.state.component === 'Availability'){
-            component = (<Redirect to='/account/availability' />);
-        } else if (this.state.component === 'Pets') {
-            component = (<Redirect to='/account/pets'/>);
-        }else if (this.state.component === 'Appointment'){
-            component = (<Redirect to='/account/appointment'/>);
-        } else if (this.state.component === 'Notifications'){
-            component = (<Redirect to='/account/notifications'/>);
-        }else if (this.state.component === 'Logout'){
-            component = (<Redirect to='/' />);
-        }
-        return component;
-    }
 
     setSubComponent(variable){
+
+    }
+
+    handleButtonClick = (event,variable) => {
         {/* Set the component key */}
         this.setState({
             component: variable
         });
     }
 
-    renderRedirect(){
-        {/* This method will prevent unauthenticated users from accessing the account pages */}
-        if(this.props.authentication === null){
-            return (<Redirect to='/' />);
+    renderSubComponent(){
+
+        if(this.state.component === 'Update User'){
+            return (<UpdateUserPage/>);
+        }else{
+            return (<AvailabilityPage/>);
         }
     }
+
+
+
+    renderRedirect() {
+        {/* This method will prevent unauthenticated users from accessing the account pages */
+        }
+        if (this.props.authentication === null) {
+            return (<Redirect to='/'/>);
+        }
+    }
+
 
     render() {
         const { classes } = this.props;
@@ -176,7 +175,6 @@ class Dashboard extends React.Component {
         return (
             <React.Fragment>
                 <CssBaseline />
-                {this.renderSubComponent()}
                 {this.renderRedirect()}
                 <div className={classes.root}>
                     <AppBar
@@ -224,14 +222,45 @@ class Dashboard extends React.Component {
                             </IconButton>
                         </div>
                         <Divider />
-                        <List>{mainListItems}</List>
-                        <Divider />
-                        <List>{secondaryListItems}</List>
+                        <List>
+                            <div>
+                                <ListItem button>
+                                    <ListItemIcon>
+                                        <DashboardIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Dashboard" />
+                                </ListItem>
+                                <ListItem button onClick={event => this.handleButtonClick(event,'Update User')}>
+                                    <ListItemIcon>
+                                        <ShoppingCartIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Update User" />
+                                </ListItem>
+                                <ListItem button>
+                                    <ListItemIcon>
+                                        <PeopleIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Customers" />
+                                </ListItem>
+                                <ListItem button>
+                                    <ListItemIcon>
+                                        <BarChartIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Reports" />
+                                </ListItem>
+                                <ListItem button>
+                                    <ListItemIcon>
+                                        <LayersIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Integrations" />
+                                </ListItem>
+                            </div>
+                        </List>
                     </Drawer>
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer}/>
                         <div>
-                        {this.props.children}
+                            {this.renderSubComponent()}
                         </div>
                     </main>
                 </div>
