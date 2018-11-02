@@ -27,9 +27,11 @@ import { mainListItems, secondaryListItems } from './listItems';
 import SimpleLineChart from './SimpleLineChart';
 import SimpleTable from './SimpleTable';
 import {AvailabilityPage} from 'js/account/pages/availabilityPage';
-import {NavComponent} from 'js/account/components/navcomponent';
+import {PetPage} from "js/account/pages/petPage";
 import UpdateUserPage from 'js/account/pages/updateUserPage'
 import { Redirect } from 'react-router-dom';
+import CalendarPage from "js/account/pages/calendarPage";
+import {AppointmentPage} from "js/account/pages/appointmentPage";
 
 const drawerWidth = 240;
 
@@ -153,8 +155,20 @@ class Dashboard extends React.Component {
 
         if(this.state.component === 'Update User'){
             return (<UpdateUserPage/>);
-        }else{
+        }else if(this.state.component === 'Calendar'){
+            return (<CalendarPage/>);
+        }else if(this.state.component === 'Availability'){
             return (<AvailabilityPage/>);
+        }else if(this.state.component === 'Pets'){
+            return (<PetPage/>);
+        }else if(this.state.component === 'Appointments'){
+            return (<AppointmentPage/>);
+        }else if(this.state.component === 'Notifications'){
+            return (<PetsPage/>);
+        }else if(this.state.component === 'Logout'){
+            return (<PetsPage/>);
+        }else {
+            return (<SimpleTable/>);
         }
     }
 
@@ -224,7 +238,7 @@ class Dashboard extends React.Component {
                         <Divider />
                         <List>
                             <div>
-                                <ListItem button>
+                                <ListItem button >
                                     <ListItemIcon>
                                         <DashboardIcon />
                                     </ListItemIcon>
@@ -236,23 +250,29 @@ class Dashboard extends React.Component {
                                     </ListItemIcon>
                                     <ListItemText primary="Update User" />
                                 </ListItem>
-                                <ListItem button>
+                                <ListItem button onClick={event => this.handleButtonClick(event,'Calendar')}>
                                     <ListItemIcon>
                                         <PeopleIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary="Customers" />
+                                    <ListItemText primary="Calendar" />
                                 </ListItem>
-                                <ListItem button>
+                                <ListItem button onClick={event => this.handleButtonClick(event,'Availability')}>
                                     <ListItemIcon>
                                         <BarChartIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary="Reports" />
+                                    <ListItemText primary="Availability" />
                                 </ListItem>
-                                <ListItem button>
+                                <ListItem button onClick={event => this.handleButtonClick(event,'Pets')}>
                                     <ListItemIcon>
                                         <LayersIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary="Integrations" />
+                                    <ListItemText primary="Pets" />
+                                </ListItem>
+                                <ListItem button onClick={event => this.handleButtonClick(event,'Appointments')}>
+                                    <ListItemIcon>
+                                        <LayersIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Appointments" />
                                 </ListItem>
                             </div>
                         </List>
