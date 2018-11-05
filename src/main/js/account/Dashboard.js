@@ -171,6 +171,7 @@ class Dashboard extends React.Component {
         }else if(this.state.component === 'Notifications'){
             return (<NotificationPage/>);
         }else if(this.state.component === 'Logout'){
+            this.props.logout();
             return (<Redirect to='/' />);
         }else if(this.state.component === 'Dashboard' && this.props.user){
             return(
@@ -330,8 +331,9 @@ Dashboard = connect(
         user: Users.State.getUser(state),
     }),
     dispatch => ({
-        refresh: () => dispatch(Users.Actions.refresh())
-    })
+        refresh: () => dispatch(Users.Actions.refresh()),
+		logout: () => dispatch(Users.Actions.logout())
+	})
 )(Dashboard);
 
 
