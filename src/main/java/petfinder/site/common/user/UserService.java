@@ -49,12 +49,8 @@ public class UserService {
         return userDao.findSitters(zip);
     }
 
-	public void makeAppointment(String owner, String sitter, Long petId) {
-		userDao.makeAppointment(owner, sitter, petId);
-	}
-
-	public void approveAppointment(String owner, String sitter, Long petId) {
-		userDao.approveAppointment(owner, sitter, petId);
+	public void makeAppointment(String owner, String sitter, Long id) {
+		userDao.makeAppointment(owner, sitter, id);
 	}
 
     public static class RegistrationRequest {

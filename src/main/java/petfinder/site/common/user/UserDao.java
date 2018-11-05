@@ -1,7 +1,5 @@
 package petfinder.site.common.user;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -11,6 +9,7 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import petfinder.site.common.appointment.AppointmentDto;
 import petfinder.site.elasticsearch.UserElasticSearchRepository;
 
 /**
@@ -64,48 +63,14 @@ public class UserDao {
         Optional<UserAuthenticationDto> sitterADto = repository.search(searchSourceBuilder).stream().findFirst();
         UserDto sitterDto = sitterADto.get().getUser();
 
-        // Add the appointment
-		Appointment appointment = new Appointment(owner, sitter, id, AppointmentType.PENDING);
-		ownerDto.getAppointments().add(appointment);
-		sitterDto.getAppointments().add(appointment);
-		sitterDto.getNotifications().add("You have a new pending appointment with user: " + ownerDto.getPrincipal());
+        // Add the appointmentDto
+		ownerDto.getAppointments().add(id);
+		sitterDto.getAppointments().add(id);
+		sitterDto.getNotifications().add("You have a new pending appointmentDto with user: " + ownerDto.getPrincipal());
 
 		save(ownerADto.get());
 		save(sitterADto.get());
     }
-
-	public void approveAppointment(String owner, String sitter, Long id) {
-		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-
-		String queryString = String.format("user.principal=\"%s\"", owner.replace("\"", ""));
-		searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
-
-		Optional<UserAuthenticationDto> ownerADto = repository.search(searchSourceBuilder).stream().findFirst();
-		UserDto ownerDto = ownerADto.get().getUser();
-
-		queryString = String.format("user.principal=\"%s\"", sitter.replace("\"", ""));
-		searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
-
-		Optional<UserAuthenticationDto> sitterADto = repository.search(searchSourceBuilder).stream().findFirst();
-		UserDto sitterDto = sitterADto.get().getUser();
-
-		for(Appointment a : ownerDto.getAppointments()){
-			if(a.getOwner().equals(owner) && a.getSitter().equals(sitter) && a.getPetId().equals(id)){
-				a.setType(AppointmentType.ACCEPTED);
-			}
-		}
-
-		for(Appointment a : sitterDto.getAppointments()){
-			if(a.getOwner().equals(owner) && a.getSitter().equals(sitter) && a.getPetId().equals(id)){
-				a.setType(AppointmentType.ACCEPTED);
-			}
-		}
-
-		ownerDto.getNotifications().add("You have a new approved appointment with sitter: " + sitterDto.getPrincipal());
-
-		save(ownerADto.get());
-		save(sitterADto.get());
-	}
 
 	public void save(UserAuthenticationDto userAuthentication) {
 		repository.save(userAuthentication);

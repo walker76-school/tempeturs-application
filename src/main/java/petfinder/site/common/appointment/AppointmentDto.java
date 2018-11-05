@@ -1,20 +1,42 @@
-package petfinder.site.common.user;
+package petfinder.site.common.appointment;
 
-public class Appointment {
+import alloy.util.Identifiable;
+import petfinder.site.common.user.UserDao;
+
+public class AppointmentDto implements Identifiable {
+    private Long id;
     private String owner;
     private String sitter;
     private Long petId;
     private UserDao.AppointmentType type;
 
-    public Appointment() {
+    public AppointmentDto() {
         // Required for deserialization
     }
 
-    public Appointment(String owner, String sitter, Long petId, UserDao.AppointmentType type) {
+    public AppointmentDto(Long id, String owner, String sitter, Long petId) {
+        this.id = id;
+        this.owner = owner;
+        this.sitter = sitter;
+        this.petId = petId;
+        this.type = UserDao.AppointmentType.PENDING;
+    }
+
+    public AppointmentDto(Long id, String owner, String sitter, Long petId, UserDao.AppointmentType type) {
+        this.id = id;
         this.owner = owner;
         this.sitter = sitter;
         this.petId = petId;
         this.type = type;
+    }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getOwner() {

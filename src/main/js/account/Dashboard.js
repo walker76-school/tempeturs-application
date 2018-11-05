@@ -149,17 +149,12 @@ class Dashboard extends React.Component {
         this.setState({ open: false });
     };
 
-
-    setSubComponent(variable){
-
-    }
-
     handleButtonClick = (event,variable) => {
         {/* Set the component key */}
         this.setState({
             component: variable
         });
-    }
+    };
 
     renderSubComponent(props){
 
@@ -177,7 +172,7 @@ class Dashboard extends React.Component {
             return (<NotificationPage/>);
         }else if(this.state.component === 'Logout'){
             return (<Redirect to='/' />);
-        }else if(this.state.component === 'Dashboard' && _.isDefined(this.props.user)){
+        }else if(this.state.component === 'Dashboard' && this.props.user){
             return(
                 <div>
                     <label>Name: {this.props.user.name}</label>
@@ -276,7 +271,7 @@ class Dashboard extends React.Component {
                                     </ListItemIcon>
                                     <ListItemText primary="Calendar" />
                                 </ListItem>
-                                {_.isDefined(this.props.user) && this.props.user.type === 'SITTER' &&
+                                {this.props.user !== null && this.props.user.type === 'SITTER' &&
                                 <ListItem button onClick={event => this.handleButtonClick(event, 'Availability')}>
                                     <ListItemIcon>
                                         <Watch_LaterIcon/>
@@ -284,7 +279,7 @@ class Dashboard extends React.Component {
                                     <ListItemText primary="Availability"/>
                                 </ListItem>
                                 }
-                                {_.isDefined(this.props.user) && this.props.user.type === 'OWNER' &&
+                                {this.props.user !== null && this.props.user.type === 'OWNER' &&
                                 <ListItem button onClick={event => this.handleButtonClick(event, 'Pets')}>
                                     <ListItemIcon>
                                         <Pets/>

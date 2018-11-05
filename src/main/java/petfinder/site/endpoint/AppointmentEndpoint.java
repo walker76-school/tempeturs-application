@@ -2,17 +2,24 @@ package petfinder.site.endpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import petfinder.site.common.appointment.AppointmentDto;
+import petfinder.site.common.appointment.AppointmentService;
 import petfinder.site.common.user.UserDto;
 import petfinder.site.common.user.UserService;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 @RestController
 @RequestMapping(value = "/api/appointment")
 public class AppointmentEndpoint {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private AppointmentService appointmentService;
 
     @GetMapping(value = "/findSitters/{zip}", produces = "application/json")
     public List<UserDto> find(@PathVariable(name="zip") String zip) {
@@ -28,13 +35,35 @@ public class AppointmentEndpoint {
     public void makeAppointment(@PathVariable(name="owner") String ownerPrincipal,
                                 @PathVariable("sitter") String sitterPrincipal,
                                 @PathVariable("petId") Long petId) {
-        userService.makeAppointment(ownerPrincipal, sitterPrincipal, petId);
+        Integer id = generateUniqueId();
+        AppointmentDto appointment = new AppointmentDto(id.longValue(), ownerPrincipal, sitterPrincipal, petId);
+        appointmentService.save(appointment);
+        userService.makeAppointment(ownerPrincipal, sitterPrincipal, id.longValue());
     }
 
-    @PostMapping(value = "/approveAppointment/{owner}/{sitter}/{petId}", produces = "application/json")
-    public void approveAppointment(@PathVariable(name="owner") String ownerPrincipal,
-                                @PathVariable("sitter") String sitterPrincipal,
-                                @PathVariable("petId") Long petId) {
-        userService.approveAppointment(ownerPrincipal, sitterPrincipal, petId);
+    @GetMapping(value = "/getAppointment/{id}", produces = "application/json")
+    public Optional<AppointmentDto> getAppointment(@PathVariable(name="id") Long id) {
+        return appointmentService.findAppointment(id);
+    }
+
+    @PostMapping(value = "/approveAppointment/{id}", produces = "application/json")
+    public void approveAppointment(@PathVariable(name="id") Long id) {
+        appointmentService.approveAppointment(id);
+    }
+
+    @PostMapping(value = "/rejectAppointment/{id}", produces = "application/json")
+    public void rejectAppointment(@PathVariable(name="id") Long id) {
+        appointmentService.rejectAppointment(id);
+    }
+
+    private Integer generateUniqueId()
+    {
+        int val = -1;
+
+        do {
+            val = new Random().nextInt(200000);
+        } while (val < 0);
+
+        return val;
     }
 }

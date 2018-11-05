@@ -4,8 +4,8 @@ import java.util.*;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-import alloy.util.Identifiable;
 import alloy.util.Momento;
+import petfinder.site.common.appointment.AppointmentDto;
 import petfinder.site.common.availability.AvailabilityDto;
 
 /**
@@ -22,7 +22,7 @@ public class UserDto implements Momento<String> {
 	private String zip;
 	private List<String> roles;
 	private List<Long> petIds;
-	private List<Appointment> appointments;
+	private List<Long> appointments;
 	private List<String> notifications;
 	private UserType type;
 	private AvailabilityDto availability;
@@ -129,7 +129,7 @@ public class UserDto implements Momento<String> {
         return availability;
     }
 
-	public List<Appointment> getAppointments() {
+	public List<Long> getAppointments() {
 		return appointments;
 	}
 

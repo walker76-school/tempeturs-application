@@ -15,7 +15,7 @@ class AppointmentPage extends React.Component {
 
 			{/* Map each appointment to a new appointment component */}
 			component = this.props.user.appointments.map((i, index) =>
-				<AppointmentComponent userType={this.props.user.type} owner={i.owner} sitter={i.sitter} petId={i.petId} type={i.type}/>
+				<AppointmentComponent userType={this.props.user.type} id={i}/>
 			);
 		}
 
