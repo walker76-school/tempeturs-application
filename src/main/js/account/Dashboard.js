@@ -22,13 +22,12 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PeopleIcon from '@material-ui/icons/PermIdentityTwoTone';
 import Pets from '@material-ui/icons/PetsTwoTone';
 import Reply from '@material-ui/icons/ReplayTwoTone';
-import LogoutIcon from '@material-ui/icons/'
 import Supervisor_account from '@material-ui/icons/SupervisorAccountTwoTone';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import CalendarIcon from '@material-ui/icons/CalendarTodayTwoTone';
 import Watch_LaterIcon from '@material-ui/icons/WatchLaterTwoTone';
 import LayersIcon from '@material-ui/icons/Layers';
-import NotificationImport from '@material-ui/icons/NotificationImportantTwoTone'
+import NotificationImport from '@material-ui/icons/NotificationImportantTwoTone';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import { mainListItems, secondaryListItems } from './listItems';
 import SimpleLineChart from './SimpleLineChart';
@@ -124,12 +123,12 @@ const styles = theme => ({
 });
 
 class Dashboard extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         {/* This state is used to determine what component is rendered in the wrapper */}
         this.state = {
-            component: '',
+            component: 'Dashboard',
             open: true
         };
 
@@ -162,7 +161,7 @@ class Dashboard extends React.Component {
         });
     }
 
-    renderSubComponent(){
+    renderSubComponent(props){
 
         if(this.state.component === 'Update User'){
             return (<UpdateUserPage/>);
@@ -178,8 +177,18 @@ class Dashboard extends React.Component {
             return (<NotificationPage/>);
         }else if(this.state.component === 'Logout'){
             return (<Redirect to='/' />);
-        }else {
-            return (<SimpleTable/>);
+        }else if(this.state.component === 'Dashboard' && _.isDefined(this.props.user)){
+            return(
+                <div>
+                    <label>Name: {this.props.user.name}</label>
+                    <br/>
+                    <label>Email: {this.props.user.principal}</label>
+                    <br/>
+                    <label>Phone: {this.props.user.phoneNumber}</label>
+                    <br/>
+                    <label>User Type: {this.props.user.type} </label>
+                </div>
+            );
         }
     }
 
@@ -249,7 +258,7 @@ class Dashboard extends React.Component {
                         <Divider />
                         <List>
                             <div>
-                                <ListItem button >
+                                <ListItem button onClick={event => this.handleButtonClick(event,'Dashboard')} >
                                     <ListItemIcon>
                                         <DashboardIcon />
                                     </ListItemIcon>
