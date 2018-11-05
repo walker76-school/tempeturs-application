@@ -19,19 +19,30 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import PeopleIcon from '@material-ui/icons/People';
+import PeopleIcon from '@material-ui/icons/PermIdentityTwoTone';
+import Pets from '@material-ui/icons/PetsTwoTone';
+import Reply from '@material-ui/icons/ReplayTwoTone';
+import LogoutIcon from '@material-ui/icons/'
+import Supervisor_account from '@material-ui/icons/SupervisorAccountTwoTone';
 import BarChartIcon from '@material-ui/icons/BarChart';
+import CalendarIcon from '@material-ui/icons/CalendarTodayTwoTone';
+import Watch_LaterIcon from '@material-ui/icons/WatchLaterTwoTone';
 import LayersIcon from '@material-ui/icons/Layers';
+import NotificationImport from '@material-ui/icons/NotificationImportantTwoTone'
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import { mainListItems, secondaryListItems } from './listItems';
 import SimpleLineChart from './SimpleLineChart';
 import SimpleTable from './SimpleTable';
 import {AvailabilityPage} from 'js/account/pages/availabilityPage';
-import {PetPage} from "js/account/pages/petPage";
-import UpdateUserPage from 'js/account/pages/updateUserPage'
+import {PetPage} from 'js/account/pages/petPage';
+import UpdateUserPage from 'js/account/pages/updateUserPage';
 import { Redirect } from 'react-router-dom';
-import CalendarPage from "js/account/pages/calendarPage";
-import {AppointmentPage} from "js/account/pages/appointmentPage";
+import CalendarPage from 'js/account/pages/calendarPage';
+import {AppointmentPage} from 'js/account/pages/appointmentPage';
+import {NotificationPage} from 'js/account/pages/notificationPage';
+import {Logout} from 'js/account/logout';
+import * as Users from 'js/api/usersAPI';
+import connect from 'react-redux/es/connect/connect';
 
 const drawerWidth = 240;
 
@@ -160,13 +171,13 @@ class Dashboard extends React.Component {
         }else if(this.state.component === 'Availability'){
             return (<AvailabilityPage/>);
         }else if(this.state.component === 'Pets'){
-            return (<PetPage/>);
+                return (<PetPage/>);
         }else if(this.state.component === 'Appointments'){
             return (<AppointmentPage/>);
         }else if(this.state.component === 'Notifications'){
-            return (<PetsPage/>);
+            return (<NotificationPage/>);
         }else if(this.state.component === 'Logout'){
-            return (<PetsPage/>);
+            return (<Redirect to='/' />);
         }else {
             return (<SimpleTable/>);
         }
@@ -246,33 +257,49 @@ class Dashboard extends React.Component {
                                 </ListItem>
                                 <ListItem button onClick={event => this.handleButtonClick(event,'Update User')}>
                                     <ListItemIcon>
-                                        <ShoppingCartIcon />
+                                        <PeopleIcon />
                                     </ListItemIcon>
                                     <ListItemText primary="Update User" />
                                 </ListItem>
                                 <ListItem button onClick={event => this.handleButtonClick(event,'Calendar')}>
                                     <ListItemIcon>
-                                        <PeopleIcon />
+                                        <CalendarIcon />
                                     </ListItemIcon>
                                     <ListItemText primary="Calendar" />
                                 </ListItem>
-                                <ListItem button onClick={event => this.handleButtonClick(event,'Availability')}>
+                                {_.isDefined(this.props.user) && this.props.user.type === 'SITTER' &&
+                                <ListItem button onClick={event => this.handleButtonClick(event, 'Availability')}>
                                     <ListItemIcon>
-                                        <BarChartIcon />
+                                        <Watch_LaterIcon/>
                                     </ListItemIcon>
-                                    <ListItemText primary="Availability" />
+                                    <ListItemText primary="Availability"/>
                                 </ListItem>
-                                <ListItem button onClick={event => this.handleButtonClick(event,'Pets')}>
+                                }
+                                {_.isDefined(this.props.user) && this.props.user.type === 'OWNER' &&
+                                <ListItem button onClick={event => this.handleButtonClick(event, 'Pets')}>
                                     <ListItemIcon>
-                                        <LayersIcon />
+                                        <Pets/>
                                     </ListItemIcon>
-                                    <ListItemText primary="Pets" />
+                                    <ListItemText primary="Pets"/>
                                 </ListItem>
+                                }
                                 <ListItem button onClick={event => this.handleButtonClick(event,'Appointments')}>
                                     <ListItemIcon>
-                                        <LayersIcon />
+                                        <Supervisor_account/>
                                     </ListItemIcon>
                                     <ListItemText primary="Appointments" />
+                                </ListItem>
+                                <ListItem button onClick={event => this.handleButtonClick(event,'Notifications')}>
+                                    <ListItemIcon>
+                                        <NotificationImport/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Notifications" />
+                                </ListItem>
+                                <ListItem button onClick={event => this.handleButtonClick(event,'Logout')}>
+                                    <ListItemIcon>
+                                        <Reply/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Logout" />
                                 </ListItem>
                             </div>
                         </List>
@@ -292,5 +319,16 @@ class Dashboard extends React.Component {
 Dashboard.propTypes = {
     classes: PropTypes.object.isRequired,
 };
+
+Dashboard = connect(
+    state => ({
+        authentication: Users.State.getAuthentication(state),
+        user: Users.State.getUser(state),
+    }),
+    dispatch => ({
+        refresh: () => dispatch(Users.Actions.refresh())
+    })
+)(Dashboard);
+
 
 export default withStyles(styles)(Dashboard);
