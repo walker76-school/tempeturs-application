@@ -14,12 +14,34 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import PeopleIcon from '@material-ui/icons/PermIdentityTwoTone';
+import Pets from '@material-ui/icons/PetsTwoTone';
+import Reply from '@material-ui/icons/ReplayTwoTone';
+import Supervisor_account from '@material-ui/icons/SupervisorAccountTwoTone';
+import BarChartIcon from '@material-ui/icons/BarChart';
+import CalendarIcon from '@material-ui/icons/CalendarTodayTwoTone';
+import Watch_LaterIcon from '@material-ui/icons/WatchLaterTwoTone';
+import LayersIcon from '@material-ui/icons/Layers';
+import NotificationImport from '@material-ui/icons/NotificationImportantTwoTone';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import { mainListItems, secondaryListItems } from './listItems';
 import SimpleLineChart from './SimpleLineChart';
 import SimpleTable from './SimpleTable';
 import {AvailabilityPage} from 'js/account/pages/availabilityPage';
-import {NavComponent} from 'js/account/components/navcomponent';
+import {PetPage} from 'js/account/pages/petPage';
+import UpdateUserPage from 'js/account/pages/updateUserPage';
 import { Redirect } from 'react-router-dom';
+import CalendarPage from 'js/account/pages/calendarPage';
+import {AppointmentPage} from 'js/account/pages/appointmentPage';
+import {NotificationPage} from 'js/account/pages/notificationPage';
+import {Logout} from 'js/account/logout';
+import * as Users from 'js/api/usersAPI';
+import connect from 'react-redux/es/connect/connect';
 
 const drawerWidth = 240;
 
@@ -101,29 +123,23 @@ const styles = theme => ({
 });
 
 class Dashboard extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         {/* This state is used to determine what component is rendered in the wrapper */}
         this.state = {
-            component: '',
+            component: 'Dashboard',
             open: true
         };
 
         {/* Bind the setSubComponent function so it knows about the state */}
-        this.setSubComponent = this.setSubComponent.bind(this);
+       this.handleButtonClick = this.handleButtonClick.bind(this);
 
         {/* Bind the renderSubComponent function so it knows about the state */}
         this.renderSubComponent = this.renderSubComponent.bind(this);
 
-        this.onClick = this.onClick.bind(this);
     }
 
-    onClick(){
-
-        {/* Call the callBack function that we passed in to update the parent state and render the proper component */}
-        this.props.callBack(this.props.name);
-    }
 
     handleDrawerOpen = () => {
         this.setState({ open: true });
@@ -133,42 +149,59 @@ class Dashboard extends React.Component {
         this.setState({ open: false });
     };
 
-    renderSubComponent(){
-        {/* Use a default component */}
-        let component = (<div></div>);
-
-        {/* If the component key is a page then redirect to proper page */}
-        if (this.state.component === 'Update User'){
-            component = (<Redirect to='/account/updateUser' />);
-        } else if (this.state.component === 'Calendar'){
-            component = (<Redirect to='/account/calendar' />);
-        } else if (this.state.component === 'Availability'){
-            component = (<Redirect to='/account/availability' />);
-        } else if (this.state.component === 'Pets') {
-            component = (<Redirect to='/account/pets'/>);
-        }else if (this.state.component === 'Appointment'){
-            component = (<Redirect to='/account/appointment'/>);
-        } else if (this.state.component === 'Notifications'){
-            component = (<Redirect to='/account/notifications'/>);
-        }else if (this.state.component === 'Logout'){
-            component = (<Redirect to='/' />);
-        }
-        return component;
-    }
 
     setSubComponent(variable){
+
+    }
+
+    handleButtonClick = (event,variable) => {
         {/* Set the component key */}
         this.setState({
             component: variable
         });
     }
 
-    renderRedirect(){
-        {/* This method will prevent unauthenticated users from accessing the account pages */}
-        if(this.props.authentication === null){
+    renderSubComponent(props){
+
+        if(this.state.component === 'Update User'){
+            return (<UpdateUserPage/>);
+        }else if(this.state.component === 'Calendar'){
+            return (<CalendarPage/>);
+        }else if(this.state.component === 'Availability'){
+            return (<AvailabilityPage/>);
+        }else if(this.state.component === 'Pets'){
+                return (<PetPage/>);
+        }else if(this.state.component === 'Appointments'){
+            return (<AppointmentPage/>);
+        }else if(this.state.component === 'Notifications'){
+            return (<NotificationPage/>);
+        }else if(this.state.component === 'Logout'){
             return (<Redirect to='/' />);
+        }else if(this.state.component === 'Dashboard' && _.isDefined(this.props.user)){
+            return(
+                <div>
+                    <label>Name: {this.props.user.name}</label>
+                    <br/>
+                    <label>Email: {this.props.user.principal}</label>
+                    <br/>
+                    <label>Phone: {this.props.user.phoneNumber}</label>
+                    <br/>
+                    <label>User Type: {this.props.user.type} </label>
+                </div>
+            );
         }
     }
+
+
+
+    renderRedirect() {
+        {/* This method will prevent unauthenticated users from accessing the account pages */
+        }
+        if (this.props.authentication === null) {
+            return (<Redirect to='/'/>);
+        }
+    }
+
 
     render() {
         const { classes } = this.props;
@@ -176,7 +209,6 @@ class Dashboard extends React.Component {
         return (
             <React.Fragment>
                 <CssBaseline />
-                {this.renderSubComponent()}
                 {this.renderRedirect()}
                 <div className={classes.root}>
                     <AppBar
@@ -224,14 +256,67 @@ class Dashboard extends React.Component {
                             </IconButton>
                         </div>
                         <Divider />
-                        <List>{mainListItems}</List>
-                        <Divider />
-                        <List>{secondaryListItems}</List>
+                        <List>
+                            <div>
+                                <ListItem button onClick={event => this.handleButtonClick(event,'Dashboard')} >
+                                    <ListItemIcon>
+                                        <DashboardIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Dashboard" />
+                                </ListItem>
+                                <ListItem button onClick={event => this.handleButtonClick(event,'Update User')}>
+                                    <ListItemIcon>
+                                        <PeopleIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Update User" />
+                                </ListItem>
+                                <ListItem button onClick={event => this.handleButtonClick(event,'Calendar')}>
+                                    <ListItemIcon>
+                                        <CalendarIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Calendar" />
+                                </ListItem>
+                                {_.isDefined(this.props.user) && this.props.user.type === 'SITTER' &&
+                                <ListItem button onClick={event => this.handleButtonClick(event, 'Availability')}>
+                                    <ListItemIcon>
+                                        <Watch_LaterIcon/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Availability"/>
+                                </ListItem>
+                                }
+                                {_.isDefined(this.props.user) && this.props.user.type === 'OWNER' &&
+                                <ListItem button onClick={event => this.handleButtonClick(event, 'Pets')}>
+                                    <ListItemIcon>
+                                        <Pets/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Pets"/>
+                                </ListItem>
+                                }
+                                <ListItem button onClick={event => this.handleButtonClick(event,'Appointments')}>
+                                    <ListItemIcon>
+                                        <Supervisor_account/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Appointments" />
+                                </ListItem>
+                                <ListItem button onClick={event => this.handleButtonClick(event,'Notifications')}>
+                                    <ListItemIcon>
+                                        <NotificationImport/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Notifications" />
+                                </ListItem>
+                                <ListItem button onClick={event => this.handleButtonClick(event,'Logout')}>
+                                    <ListItemIcon>
+                                        <Reply/>
+                                    </ListItemIcon>
+                                    <ListItemText primary="Logout" />
+                                </ListItem>
+                            </div>
+                        </List>
                     </Drawer>
                     <main className={classes.content}>
                         <div className={classes.appBarSpacer}/>
                         <div>
-                        {this.props.children}
+                            {this.renderSubComponent()}
                         </div>
                     </main>
                 </div>
@@ -243,5 +328,16 @@ class Dashboard extends React.Component {
 Dashboard.propTypes = {
     classes: PropTypes.object.isRequired,
 };
+
+Dashboard = connect(
+    state => ({
+        authentication: Users.State.getAuthentication(state),
+        user: Users.State.getUser(state),
+    }),
+    dispatch => ({
+        refresh: () => dispatch(Users.Actions.refresh())
+    })
+)(Dashboard);
+
 
 export default withStyles(styles)(Dashboard);

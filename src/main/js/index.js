@@ -39,7 +39,7 @@ export default class Index extends React.Component {
 					<Route exact path='/registerOwner' component={OwnerRegisterPage} />
 					<Route exact path='/registerSitter' component={SitterRegisterPage} />
 					<Route exact path='/login' component={LoginPage} />
-					<Route exact path='/account' component={Account} />
+					<Route exact path='/account' component={Dashboard} />
                     <Route exact path='/account/updateUser' component={UpdateUserWrapper} />
                     <Route exact path='/account/calendar' component={CalendarWrapper} />
                     <Route exact path='/account/availability' component={AvailabilityWrapper} />
