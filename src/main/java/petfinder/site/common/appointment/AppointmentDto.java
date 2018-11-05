@@ -9,6 +9,7 @@ public class AppointmentDto implements Identifiable {
     private String sitter;
     private Long petId;
     private UserDao.AppointmentType type;
+    private Integer rating;
 
     public AppointmentDto() {
         // Required for deserialization
@@ -20,6 +21,7 @@ public class AppointmentDto implements Identifiable {
         this.sitter = sitter;
         this.petId = petId;
         this.type = UserDao.AppointmentType.PENDING;
+        this.rating = -1;
     }
 
     public AppointmentDto(Long id, String owner, String sitter, Long petId, UserDao.AppointmentType type) {
@@ -28,6 +30,7 @@ public class AppointmentDto implements Identifiable {
         this.sitter = sitter;
         this.petId = petId;
         this.type = type;
+        this.rating = -1;
     }
 
     @Override
@@ -69,5 +72,13 @@ public class AppointmentDto implements Identifiable {
 
     public void setType(UserDao.AppointmentType type) {
         this.type = type;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
     }
 }

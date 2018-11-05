@@ -19,3 +19,7 @@ export function approveAppointment(id){
 export function rejectAppointment(id){
 	return axios.post('/api/appointment/rejectAppointment/' + id);
 }
+
+export function rateAppointment(id, rating){
+	return axios.post('/api/appointment/rateAppointment/' + id + '/' + rating);
+}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {approveAppointment, getAppointment, rejectAppointment} from 'js/api/appointmentAPI';
+import {approveAppointment, getAppointment, rateAppointment, rejectAppointment} from 'js/api/appointmentAPI';
 
 export default class AppointmentComponent extends React.Component {
 
@@ -54,7 +54,30 @@ export default class AppointmentComponent extends React.Component {
 		});
 	};
 
+	rate1 = () => {
+		rateAppointment(this.props.id, 1);
+	};
+
+	rate2 = () => {
+		rateAppointment(this.props.id, 2);
+	};
+
+	rate3 = () => {
+		rateAppointment(this.props.id, 3);
+	};
+
+	rate4 = () => {
+		rateAppointment(this.props.id, 4);
+	};
+
+	rate5 = () => {
+		rateAppointment(this.props.id, 5);
+	};
+
     render() {
+    	console.log(this.state.appointment);
+    	console.log(this.props.userType);
+		console.log(this.state.appointment.type);
         return (
 			<div>
 				<label>Owner: {this.state.appointment.owner}</label> <br/>
@@ -67,6 +90,18 @@ export default class AppointmentComponent extends React.Component {
 
 				{this.props.userType === 'SITTER' && this.state.appointment.type === 'PENDING' &&
 					<button onClick={this.onClickReject}>Reject</button>
+				}
+
+				{this.props.userType === 'OWNER' &&
+					this.state.appointment.type === 'ACCEPTED' &&
+					this.state.appointment.rating === -1 &&
+					<div>
+						<button onClick={this.rate1}>1</button>
+						<button onClick={this.rate2}>2</button>
+						<button onClick={this.rate3}>3</button>
+						<button onClick={this.rate4}>4</button>
+						<button onClick={this.rate5}>5</button>
+					</div>
 				}
 
 			</div>

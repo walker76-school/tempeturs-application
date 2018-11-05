@@ -28,6 +28,15 @@ public class AppointmentService {
         appointmentDao.reject(id);
     }
 
+    public void rateAppointment(Long id, Integer rating){
+        Optional<AppointmentDto> appointmentDtoOptional = appointmentDao.findAppointment(id);
+        if(appointmentDtoOptional.isPresent()){
+            AppointmentDto appointmentDto = appointmentDtoOptional.get();
+            appointmentDto.setRating(rating);
+            appointmentDao.save(appointmentDto);
+        }
+    }
+
     public void save(AppointmentDto appointment) {
         appointmentDao.save(appointment);
     }
