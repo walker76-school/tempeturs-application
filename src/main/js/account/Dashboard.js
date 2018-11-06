@@ -42,6 +42,7 @@ import {NotificationPage} from 'js/account/pages/notificationPage';
 import {Logout} from 'js/account/logout';
 import * as Users from 'js/api/usersAPI';
 import connect from 'react-redux/es/connect/connect';
+import {getRating} from 'js/api/appointmentAPI';
 
 const drawerWidth = 240;
 
@@ -129,7 +130,8 @@ class Dashboard extends React.Component {
         {/* This state is used to determine what component is rendered in the wrapper */}
         this.state = {
             component: 'Dashboard',
-            open: true
+            open: true,
+            rating: -1
         };
 
         {/* Bind the setSubComponent function so it knows about the state */}
@@ -140,6 +142,18 @@ class Dashboard extends React.Component {
 
     }
 
+    componentWillMount(){
+		getRating()
+			.then(
+                (response) => {
+                    {/*The .then waits for a response from the API and then executes the following code */}
+
+                    {/* Set the state to the response value, which is a list of possible sitters */}
+                    this.setState({
+                        rating: response
+                    });
+                });
+    }
 
     handleDrawerOpen = () => {
         this.setState({ open: true });
@@ -174,6 +188,10 @@ class Dashboard extends React.Component {
             this.props.logout();
             return (<Redirect to='/' />);
         }else if(this.state.component === 'Dashboard' && this.props.user){
+        	let component = (<div>No rating available</div>);
+        	if(this.state.rating !== null && this.state.rating > 0){
+        		component = (<div>Rating: {this.state.rating}</div>);
+			}
             return(
                 <div>
                     <label>Name: {this.props.user.name}</label>
@@ -183,6 +201,8 @@ class Dashboard extends React.Component {
                     <label>Phone: {this.props.user.phoneNumber}</label>
                     <br/>
                     <label>User Type: {this.props.user.type} </label>
+					<br/>
+					{component}
                 </div>
             );
         }
