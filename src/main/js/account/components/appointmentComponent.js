@@ -10,6 +10,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
 import Divider from '@material-ui/core/Divider';
 import * as Bessemer from 'js/alloy/bessemer/components';
+import { Rating } from 'material-ui-rating';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const styles = theme => ({
 	heading: {
@@ -132,13 +134,19 @@ class AppointmentComponent extends React.Component {
 						<br/>
 					{(this.props.userType === 'OWNER' || this.props.userType === 'COMBO') &&
 					this.state.appointment.type === 'ACCEPTED' &&
-					this.state.appointment.rating === -1 &&
 					<div>
-						<button onClick={this.rate1}>1</button>
-						<button onClick={this.rate2}>2</button>
-						<button onClick={this.rate3}>3</button>
-						<button onClick={this.rate4}>4</button>
-						<button onClick={this.rate5}>5</button>
+
+                        <MuiThemeProvider>
+                        <Rating
+                            value={this.state.appointment.rating}
+                            max={5}
+                        />
+						</MuiThemeProvider>
+                        <button onClick={this.rate1}>1</button>
+                        <button onClick={this.rate2}>2</button>
+                        <button onClick={this.rate3}>3</button>
+                        <button onClick={this.rate4}>4</button>
+                        <button onClick={this.rate5}>5</button>
 					</div>
 					}
 
