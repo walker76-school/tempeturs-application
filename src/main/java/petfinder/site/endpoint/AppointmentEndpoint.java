@@ -1,6 +1,7 @@
 package petfinder.site.endpoint;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import petfinder.site.common.appointment.AppointmentDto;
 import petfinder.site.common.appointment.AppointmentService;
@@ -29,6 +30,29 @@ public class AppointmentEndpoint {
     @GetMapping(value = "/findSitters/{zip}/{date}", produces = "application/json")
     public List<UserDto> registerSitter(@PathVariable(name="zip") String zip, @PathVariable("date") String date) {
         return userService.findSittersByDate(zip, date);
+    }
+
+    @GetMapping(value = "/rating", produces = "application/json")
+    public Integer getUserRating() {
+        int total = 0;
+        int sum = 0;
+        String principal = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<UserDto> userDtoOptional = userService.findUserByPrincipal(principal);
+        if(userDtoOptional.isPresent()){
+            UserDto userDto = userDtoOptional.get();
+            for(Long appointmentId : userDto.getAppointments()){
+                Optional<AppointmentDto> appointmentDtoOptional = appointmentService.findAppointment(appointmentId);
+                if(appointmentDtoOptional.isPresent()){
+                    AppointmentDto appointmentDto = appointmentDtoOptional.get();
+                    if(appointmentDto.getRating() != -1){
+                        sum += appointmentDto.getRating();
+                        total++;
+                    }
+                }
+            }
+        }
+
+        return total != 0 ? (sum / total) : -1;
     }
 
     @PostMapping(value = "/makeAppointment/{owner}/{sitter}/{petId}", produces = "application/json")

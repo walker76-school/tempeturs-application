@@ -176,7 +176,7 @@ Field.defaultProps = {
 
 export class Button extends React.Component {
 	static defaultProps = {
-		className: 'btn btn-primary'
+		className: 'link servicelink'
 	};
 
 	render() {
@@ -187,6 +187,6 @@ export class Button extends React.Component {
 		}
 
 		let buttonText = loading ? (<span>{loadingText} <span className="fa fa-spinner spinner"/></span>) : children;
-		return <button disabled={disabled} className={className} {...props}>{buttonText}</button>;
+		return <a className={className} {...props}>{buttonText}</a>;
 	}
 }
