@@ -43,8 +43,27 @@ import {Logout} from 'js/account/logout';
 import * as Users from 'js/api/usersAPI';
 import connect from 'react-redux/es/connect/connect';
 import {getRating} from 'js/api/appointmentAPI';
+import { MuiThemeProvider, createMuiTheme, palette } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
+
+const theme = createMuiTheme({
+	palette: {
+		primary: {
+			// light: will be calculated from palette.primary.main,
+			main: "#1e90ff",
+			// dark: will be calculated from palette.primary.main,
+			// contrastText: will be calculated to contrast with palette.primary.main
+		},
+		secondary: {
+			// light: will be calculated from palette.secondary.main,
+			main: '#FF7F50',
+			// dark: will be calculated from palette.secondary.main,
+			// contrastText: will be calculated to contrast with palette.secondary.main
+		},
+		// error: will use the default color
+	},
+});
 
 const styles = theme => ({
     root: {
@@ -224,17 +243,17 @@ class Dashboard extends React.Component {
 
         return (
             <React.Fragment>
-                <CssBaseline />
                 {this.renderRedirect()}
+                <MuiThemeProvider theme={theme}>
                 <div className={classes.root}>
                     <AppBar
-                        position="absolute"
-                        className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
-                    >
+                        position='absolute'
+                        className={classNames(classes.appBar, this.state.open && classes.appBarShift)} >
+
                         <Toolbar disableGutters={!this.state.open} className={classes.toolbar}>
                             <IconButton
-                                color="inherit"
-                                aria-label="Open drawer"
+                                color='inherit'
+                                aria-label='Open drawer'
                                 onClick={this.handleDrawerOpen}
                                 className={classNames(
                                     classes.menuButton,
@@ -244,23 +263,23 @@ class Dashboard extends React.Component {
                                 <MenuIcon />
                             </IconButton>
                             <Typography
-                                component="h1"
-                                variant="h6"
-                                color="inherit"
+                                component='h1'
+                                variant='h6'
+                                color='inherit'
                                 noWrap
                                 className={classes.title}
                             >
                                 Dashboard
                             </Typography>
-                            <IconButton color="inherit">
-                                <Badge badgeContent={4} color="secondary">
+                            <IconButton color='inherit'>
+                                <Badge badgeContent={4} color='secondary'>
                                     <NotificationsIcon />
                                 </Badge>
                             </IconButton>
                         </Toolbar>
                     </AppBar>
                     <Drawer
-                        variant="permanent"
+                        variant='permanent'
                         classes={{
                             paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
                         }}
@@ -278,26 +297,26 @@ class Dashboard extends React.Component {
                                     <ListItemIcon>
                                         <DashboardIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary="Dashboard" />
+                                    <ListItemText primary='Dashboard' />
                                 </ListItem>
                                 <ListItem button onClick={event => this.handleButtonClick(event,'Update User')}>
                                     <ListItemIcon>
                                         <PeopleIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary="Update User" />
+                                    <ListItemText primary='Update User' />
                                 </ListItem>
                                 <ListItem button onClick={event => this.handleButtonClick(event,'Calendar')}>
                                     <ListItemIcon>
                                         <CalendarIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary="Calendar" />
+                                    <ListItemText primary='Calendar' />
                                 </ListItem>
                                 {this.props.user !== null && (this.props.user.type === 'SITTER' || this.props.user.type === 'COMBO')&&
                                 <ListItem button onClick={event => this.handleButtonClick(event, 'Availability')}>
                                     <ListItemIcon>
                                         <Watch_LaterIcon/>
                                     </ListItemIcon>
-                                    <ListItemText primary="Availability"/>
+                                    <ListItemText primary='Availability'/>
                                 </ListItem>
                                 }
                                 {this.props.user !== null && (this.props.user.type === 'OWNER' || this.props.user.type === 'COMBO') &&
@@ -305,26 +324,26 @@ class Dashboard extends React.Component {
                                     <ListItemIcon>
                                         <Pets/>
                                     </ListItemIcon>
-                                    <ListItemText primary="Pets"/>
+                                    <ListItemText primary='Pets'/>
                                 </ListItem>
                                 }
                                 <ListItem button onClick={event => this.handleButtonClick(event,'Appointments')}>
                                     <ListItemIcon>
                                         <Supervisor_account/>
                                     </ListItemIcon>
-                                    <ListItemText primary="Appointments" />
+                                    <ListItemText primary='Appointments' />
                                 </ListItem>
                                 <ListItem button onClick={event => this.handleButtonClick(event,'Notifications')}>
                                     <ListItemIcon>
                                         <NotificationImport/>
                                     </ListItemIcon>
-                                    <ListItemText primary="Notifications" />
+                                    <ListItemText primary='Notifications' />
                                 </ListItem>
                                 <ListItem button onClick={event => this.handleButtonClick(event,'Logout')}>
                                     <ListItemIcon>
                                         <Reply/>
                                     </ListItemIcon>
-                                    <ListItemText primary="Logout" />
+                                    <ListItemText primary='Logout' />
                                 </ListItem>
                             </div>
                         </List>
@@ -336,7 +355,8 @@ class Dashboard extends React.Component {
                         </div>
                     </main>
                 </div>
-            </React.Fragment>
+				</MuiThemeProvider>
+			</React.Fragment>
         );
     }
 }
