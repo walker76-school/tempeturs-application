@@ -15,7 +15,7 @@ export class Services extends React.Component {
 								</div>
 								<div className="service-list-col2">
 									<h3>Convenience</h3>
-									<p>As a busy pet owner, you can schedule whenever and wherever you are.</p>
+									<p>As a busy pet owner, you can schedule wherever you are.</p>
 								</div>
 							</div>
 							<div className="service-list animated fadeInUp delay-07s">
