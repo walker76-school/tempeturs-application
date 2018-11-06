@@ -22,11 +22,9 @@ class NotificationPage extends React.Component {
 		}
 
 		return (
-			<div className='container'>
-				<div className='row'>
-					{/* Display the content, either the default label or the list of notifications */}
-					{component}
-				</div>
+			<div>
+				{/* Display the content, either the default label or the list of notifications */}
+				{component}
 			</div>
 		);
 	}

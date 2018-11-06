@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {approveAppointment, getAppointment, rateAppointment, rejectAppointment} from 'js/api/appointmentAPI';
+import {approveAppointment, getAppointment, rateAppointment, rejectAppointment, cancelAppointment} from 'js/api/appointmentAPI';
 
 export default class AppointmentComponent extends React.Component {
 
@@ -13,6 +13,7 @@ export default class AppointmentComponent extends React.Component {
 		{/* Bind the onClick functions so they know about the state */}
 		this.onClickApprove = this.onClickApprove.bind(this);
 		this.onClickReject = this.onClickReject.bind(this);
+		this.onClickCancel = this.onClickCancel.bind(this);
 	}
 
 	componentWillMount(){
@@ -47,6 +48,16 @@ export default class AppointmentComponent extends React.Component {
 	onClickReject = () => {
 		{/* Call approveAppointment which is located in js/api/appointmentApi */}
 		rejectAppointment(this.props.id);
+
+		{/* Update the state to force a refresh */}
+		this.setState({
+			update: !this.state.update
+		});
+	};
+
+	onClickCancel = () => {
+		{/* Call approveAppointment which is located in js/api/appointmentApi */}
+		cancelAppointment(this.props.id);
 
 		{/* Update the state to force a refresh */}
 		this.setState({
@@ -90,6 +101,10 @@ export default class AppointmentComponent extends React.Component {
 
 				{this.props.userType === 'SITTER' && this.state.appointment.type === 'PENDING' &&
 					<button onClick={this.onClickReject}>Reject</button>
+				}
+
+				{this.state.appointment.type === 'ACCEPTED' &&
+					<button onClick={this.onClickCancel}>Cancel</button>
 				}
 
 				{this.props.userType === 'OWNER' &&

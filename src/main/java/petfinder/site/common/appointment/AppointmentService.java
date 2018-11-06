@@ -33,6 +33,31 @@ public class AppointmentService {
         appointmentDao.reject(id);
     }
 
+    public void cancelAppointment(Long id) {
+        Optional<AppointmentDto> appointmentDtoOptional = appointmentDao.findAppointment(id);
+        if(appointmentDtoOptional.isPresent()){
+            AppointmentDto appointmentDto = appointmentDtoOptional.get();
+
+            String sitter = appointmentDto.getSitter();
+            Optional<UserAuthenticationDto> userAuthenticationDtoOptional = userDao.findUserByPrincipal(sitter);
+            if(userAuthenticationDtoOptional.isPresent()){
+                UserAuthenticationDto userAuthenticationDto = userAuthenticationDtoOptional.get();
+                userAuthenticationDto.getUser().getNotifications().add("Appointment " + id + " has been canceled");
+                userAuthenticationDto.getUser().getAppointments().remove(id);
+                userDao.save(userAuthenticationDto);
+            }
+
+            String owner = appointmentDto.getOwner();
+            userAuthenticationDtoOptional = userDao.findUserByPrincipal(owner);
+            if(userAuthenticationDtoOptional.isPresent()){
+                UserAuthenticationDto userAuthenticationDto = userAuthenticationDtoOptional.get();
+                userAuthenticationDto.getUser().getNotifications().add("Appointment " + id + " has been canceled");
+                userAuthenticationDto.getUser().getAppointments().remove(id);
+                userDao.save(userAuthenticationDto);
+            }
+        }
+    }
+
     public void rateAppointment(Long id, Integer rating){
         Optional<AppointmentDto> appointmentDtoOptional = appointmentDao.findAppointment(id);
         if(appointmentDtoOptional.isPresent()){

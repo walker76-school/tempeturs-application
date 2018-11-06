@@ -14,7 +14,7 @@ import java.util.Optional;
 public class AvailabilityEndpoint {
     @Autowired
     private UserService userService;
-    
+
     @GetMapping(value = "/get", produces = "application/json")
     public Optional<AvailabilityDto> getAvailability() {
         String principal = SecurityContextHolder.getContext().getAuthentication().getName();

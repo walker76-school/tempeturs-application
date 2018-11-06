@@ -56,6 +56,11 @@ public class AppointmentEndpoint {
         appointmentService.rejectAppointment(id);
     }
 
+    @PostMapping(value = "/cancelAppointment/{id}", produces = "application/json")
+    public void cancelAppointment(@PathVariable(name="id") Long id) {
+        appointmentService.cancelAppointment(id);
+    }
+
     @PostMapping(value = "/rateAppointment/{id}/{rating}", produces = "application/json")
     public void rateAppointment(@PathVariable(name="id") Long id, @PathVariable(name = "rating") Integer rating) {
         if(rating >= 0 && rating <= 5){
