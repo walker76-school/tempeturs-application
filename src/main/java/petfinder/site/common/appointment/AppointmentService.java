@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import petfinder.site.common.pet.PetDao;
 import petfinder.site.common.pet.PetDto;
+import petfinder.site.common.user.UserAuthenticationDto;
+import petfinder.site.common.user.UserDao;
 
 /**
  * Created by awalker on 11/5/2018.
@@ -15,6 +17,9 @@ public class AppointmentService {
 
     @Autowired
     private AppointmentDao appointmentDao;
+
+    @Autowired
+    private UserDao userDao;
 
     public Optional<AppointmentDto> findAppointment(Long id) {
         return appointmentDao.findAppointment(id);
@@ -34,6 +39,14 @@ public class AppointmentService {
             AppointmentDto appointmentDto = appointmentDtoOptional.get();
             appointmentDto.setRating(rating);
             appointmentDao.save(appointmentDto);
+
+            String sitter = appointmentDto.getSitter();
+            Optional<UserAuthenticationDto> userAuthenticationDtoOptional = userDao.findUserByPrincipal(sitter);
+            if(userAuthenticationDtoOptional.isPresent()){
+                UserAuthenticationDto userAuthenticationDto = userAuthenticationDtoOptional.get();
+                userAuthenticationDto.getUser().getNotifications().add("You have been rated " + rating.toString());
+                userDao.save(userAuthenticationDto);
+            }
         }
     }
 

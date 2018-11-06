@@ -104,6 +104,14 @@ export default class AppointmentComponent extends React.Component {
 					</div>
 				}
 
+				{
+				this.state.appointment.type === 'ACCEPTED' &&
+				this.state.appointment.rating !== -1 &&
+				<div>
+					<label>Rating: {this.state.appointment.rating}</label> <br/>
+				</div>
+				}
+
 			</div>
         );
     }
