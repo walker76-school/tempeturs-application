@@ -129,6 +129,10 @@ public class UserDto implements Momento<String> {
         return availability;
     }
 
+    public void setAvailability(AvailabilityDto availability){
+		this.availability = availability;
+	}
+
 	public List<Long> getAppointments() {
 		return appointments;
 	}

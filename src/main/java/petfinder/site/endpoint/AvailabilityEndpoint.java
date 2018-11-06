@@ -14,15 +14,14 @@ import java.util.Optional;
 public class AvailabilityEndpoint {
     @Autowired
     private UserService userService;
-
-
+    
     @GetMapping(value = "/get", produces = "application/json")
     public Optional<AvailabilityDto> getAvailability() {
         String principal = SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<UserDto> userDto = userService.findUserByPrincipal(principal);
         if(userDto.isPresent()){
             UserDto user = userDto.get();
-            if(user.getType() == UserDto.UserType.SITTER) {
+            if(user.getType() == UserDto.UserType.SITTER || user.getType() == UserDto.UserType.COMBO) {
                 return Optional.of(user.getAvailability());
             } else {
                 return Optional.empty();
@@ -37,7 +36,7 @@ public class AvailabilityEndpoint {
         Optional<UserDto> userDto = userService.findUserByPrincipal(principal);
         if(userDto.isPresent()){
             UserDto user = userDto.get();
-            if(user.getType() == UserDto.UserType.SITTER) {
+            if(user.getType() == UserDto.UserType.SITTER || user.getType() == UserDto.UserType.COMBO) {
                 return Optional.of(user.getAvailability());
             } else {
                 return Optional.empty();

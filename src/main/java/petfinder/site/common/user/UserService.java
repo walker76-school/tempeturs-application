@@ -15,6 +15,7 @@ import alloy.util.AlloyAuthentication;
 import alloy.util.Wait;
 import alloy.util._Lists;
 import alloy.util._Maps;
+import petfinder.site.common.availability.AvailabilityDto;
 import petfinder.site.common.user.UserDto.UserType;
 
 /**
@@ -139,6 +140,12 @@ public class UserService {
 
 	public UserDto update(UserDto user) {
 		String principal = SecurityContextHolder.getContext().getAuthentication().getName();
+
+		if(user.getType() == UserType.COMBO || user.getType() == UserType.SITTER){
+			if(user.getAvailability() == null){
+				user.setAvailability(new AvailabilityDto());
+			}
+		}
 		UserAuthenticationDto uadto = null;
 
 		if(userDao.findUserByPrincipal(principal).isPresent()){
