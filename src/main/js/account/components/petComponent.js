@@ -14,6 +14,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {getPet} from 'js/api/petAPI';
 import {UpdatePetForm} from 'js/forms/updatePetForm';
 import * as Bessemer from 'js/alloy/bessemer/components';
+import connect from 'react-redux/es/connect/connect';
+import * as Users from 'js/api/usersAPI';
+import * as PetAPI from 'js/api/petAPI';
 
 const styles = theme => ({
 	card: {
@@ -116,7 +119,7 @@ class PetComponent extends React.Component {
 				</CardActions>
 				<Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
 					<CardContent>
-						<Typography paragraph>Method:</Typography>
+						<Typography paragraph>Update Pet:</Typography>
 						<UpdatePetForm petKey={this.props.petKey}/>
 						<Bessemer.Button onClick={this.makeAppointment}>Make an Appointment</Bessemer.Button>
 						<Bessemer.Button onClick={this.deletePet}>Delete</Bessemer.Button>
@@ -130,5 +133,15 @@ class PetComponent extends React.Component {
 PetComponent.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
+
+PetComponent = connect(
+	state => ({
+		authentication: Users.State.getAuthentication(state),
+		user: Users.State.getUser(state)
+	}),
+	dispatch => ({
+		updateUser: user => dispatch(Users.Actions.update(user))
+	})
+)(PetComponent);
 
 export default withStyles(styles)(PetComponent);

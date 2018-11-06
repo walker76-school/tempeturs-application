@@ -14,8 +14,8 @@ export class Services extends React.Component {
 									<i className="fa fa-paw"></i>
 								</div>
 								<div className="service-list-col2">
-									<h3>Service one</h3>
-									<p>Proin iaculis purus digni consequat sem digni ssim. Donec entum digni ssim.</p>
+									<h3>Convenience</h3>
+									<p>As a busy pet owner, you can schedule wherever you are.</p>
 								</div>
 							</div>
 							<div className="service-list animated fadeInUp delay-07s">
@@ -23,8 +23,8 @@ export class Services extends React.Component {
 									<i className="fa fa-paw"></i>
 								</div>
 								<div className="service-list-col2">
-									<h3>Service one</h3>
-									<p>Proin iaculis purus digni consequat sem digni ssim. Donec entum digni ssim.</p>
+									<h3>Availability</h3>
+									<p>Schedule your pet sitting appointment with sitters that are available for your schedule.</p>
 								</div>
 							</div>
 							<div className="service-list animated fadeInUp delay-07s">
@@ -32,8 +32,8 @@ export class Services extends React.Component {
 									<i className="fa fa-paw"></i>
 								</div>
 								<div className="service-list-col2">
-									<h3>Service one</h3>
-									<p>Proin iaculis purus digni consequat sem digni ssim. Donec entum digni ssim.</p>
+									<h3>Services for various pets</h3>
+									<p>We offer pet sitting for a variety of pets. You can count on our sitters to be able to take care of your loved one.</p>
 								</div>
 							</div>
 							<div className="service-list animated fadeInUp delay-07s">
@@ -41,8 +41,8 @@ export class Services extends React.Component {
 									<i className="fa fa-paw"></i>
 								</div>
 								<div className="service-list-col2">
-									<h3>Service one</h3>
-									<p>Proin iaculis purus digni consequat sem digni ssim. Donec entum digni ssim.</p>
+									<h3>110% Satisfaction</h3>
+									<p>If for any reason you are dissatisfied with the services that were provided, you can report it directly to us. No robots to answer your concerns.</p>
 								</div>
 							</div>
 						</div>
