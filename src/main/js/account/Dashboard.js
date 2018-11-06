@@ -272,7 +272,7 @@ class Dashboard extends React.Component {
                                     </ListItemIcon>
                                     <ListItemText primary="Calendar" />
                                 </ListItem>
-                                {this.props.user !== null && this.props.user.type === 'SITTER' &&
+                                {this.props.user !== null && (this.props.user.type === 'SITTER' || this.props.user.type === 'COMBO')&&
                                 <ListItem button onClick={event => this.handleButtonClick(event, 'Availability')}>
                                     <ListItemIcon>
                                         <Watch_LaterIcon/>
@@ -280,7 +280,7 @@ class Dashboard extends React.Component {
                                     <ListItemText primary="Availability"/>
                                 </ListItem>
                                 }
-                                {this.props.user !== null && this.props.user.type === 'OWNER' &&
+                                {this.props.user !== null && (this.props.user.type === 'OWNER' || this.props.user.type === 'COMBO') &&
                                 <ListItem button onClick={event => this.handleButtonClick(event, 'Pets')}>
                                     <ListItemIcon>
                                         <Pets/>

@@ -148,6 +148,6 @@ public class UserDto implements Momento<String> {
 	}
 
 	public enum UserType {
-		OWNER, SITTER
+		OWNER, SITTER, COMBO
 	}
 }
