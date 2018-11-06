@@ -4,6 +4,7 @@ import * as Users from 'js/api/usersAPI';
 import {PetInfo} from 'js/info/petInfo';
 import {PetForm} from 'js/forms/petForm';
 import SitterList from 'js/account/components/sitterList';
+import PetComponent from 'js/account/components/petComponent';
 
 class PetPage extends React.Component {
 
@@ -49,7 +50,7 @@ class PetPage extends React.Component {
         else {
             {/* If the user is defined and there are pets then render all the pets*/}
             if (this.props.user && this.props.user['petIds'] && this.props.user['petIds'].length > 0) {
-                content = this.props.user['petIds'].map((i, index) => <PetInfo petKey={i} callBack ={this.handleAppointClick}/>);
+                content = this.props.user['petIds'].map((i, index) => <PetComponent petKey={i} callBack ={this.handleAppointClick}/>);
             } else {
 				{/* If there aren't any pets then set it to the default message */}
                 content = (<h2>Looks like you don't have any pets yet</h2>);
