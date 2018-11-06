@@ -1,14 +1,36 @@
 import React, { Component } from 'react';
 import {approveAppointment, getAppointment, rateAppointment, rejectAppointment, cancelAppointment} from 'js/api/appointmentAPI';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
+import Divider from '@material-ui/core/Divider';
 
-export default class AppointmentComponent extends React.Component {
+const styles = theme => ({
+	heading: {
+		fontSize: theme.typography.pxToRem(15),
+		flexBasis: '33.33%',
+		flexShrink: 0,
+	},
+	secondaryHeading: {
+		fontSize: theme.typography.pxToRem(15),
+		color: theme.palette.text.secondary,
+	},
+});
 
-	constructor(){
-		super();
+class AppointmentComponent extends React.Component {
+
+	constructor(props){
+		super(props);
 		{/* Setup an update state to reload the component on approval */}
 		this.state = {
 			update: false,
-			appointment: ''
+			appointment: '',
+			expanded: null,
 		};
 		{/* Bind the onClick functions so they know about the state */}
 		this.onClickApprove = this.onClickApprove.bind(this);
@@ -85,29 +107,29 @@ export default class AppointmentComponent extends React.Component {
 		rateAppointment(this.props.id, 5);
 	};
 
+	handleChange = panel => (event, expanded) => {
+		this.setState({
+			expanded: expanded ? panel : false,
+		});
+	};
+
     render() {
-    	console.log(this.state.appointment);
-    	console.log(this.props.userType);
-		console.log(this.state.appointment.type);
+		const { classes } = this.props;
+		const { expanded } = this.state;
+
         return (
-			<div>
-				<label>Owner: {this.state.appointment.owner}</label> <br/>
-				<label>Sitter: {this.state.appointment.sitter}</label> <br/>
-				<label>Pet: {this.state.appointment.petId}</label> <br/>
-				<label>Type: {this.state.appointment.type}</label> <br/>
-				{this.props.userType === 'SITTER' && this.state.appointment.type === 'PENDING' &&
-					<button onClick={this.onClickApprove}>Approve</button>
-				}
-
-				{this.props.userType === 'SITTER' && this.state.appointment.type === 'PENDING' &&
-					<button onClick={this.onClickReject}>Reject</button>
-				}
-
-				{this.state.appointment.type === 'ACCEPTED' &&
-					<button onClick={this.onClickCancel}>Cancel</button>
-				}
-
-				{this.props.userType === 'OWNER' &&
+			<ExpansionPanel expanded={expanded === ('panel' + this.props.index)} onChange={this.handleChange('panel' + this.props.index)}>
+				<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+					<Typography className={classes.heading}>Pet: {this.state.appointment.petId}</Typography>
+					<Typography className={classes.secondaryHeading}>Type: {this.state.appointment.type}</Typography>
+				</ExpansionPanelSummary>
+				<ExpansionPanelDetails>
+					<Typography>
+						Owner: {this.state.appointment.owner}
+						<br/>
+						Sitter: {this.state.appointment.sitter}
+						<br/>
+					{(this.props.userType === 'OWNER' || this.props.userType === 'COMBO') &&
 					this.state.appointment.type === 'ACCEPTED' &&
 					this.state.appointment.rating === -1 &&
 					<div>
@@ -117,17 +139,41 @@ export default class AppointmentComponent extends React.Component {
 						<button onClick={this.rate4}>4</button>
 						<button onClick={this.rate5}>5</button>
 					</div>
-				}
+					}
 
-				{
-				this.state.appointment.type === 'ACCEPTED' &&
-				this.state.appointment.rating !== -1 &&
-				<div>
-					<label>Rating: {this.state.appointment.rating}</label> <br/>
-				</div>
-				}
+					{
+						this.state.appointment.type === 'ACCEPTED' &&
+						this.state.appointment.rating !== -1 &&
+						<div>
+							<label>Rating: {this.state.appointment.rating}</label> <br/>
+						</div>
+					}
+					</Typography>
+				</ExpansionPanelDetails>
+				<Divider />
+				<ExpansionPanelActions>
+					{(this.props.userType === 'SITTER' || this.props.userType === 'COMBO') && this.state.appointment.type === 'PENDING' &&
+					<button onClick={this.onClickApprove}>Approve</button>
+					}
 
-			</div>
+					{(this.props.userType === 'SITTER' || this.props.userType === 'COMBO') && this.state.appointment.type === 'PENDING' &&
+					<button onClick={this.onClickReject}>Reject</button>
+					}
+
+					{this.state.appointment.type === 'ACCEPTED' &&
+						<button onClick={this.onClickCancel}>Cancel Appointment</button>
+					}
+
+
+				</ExpansionPanelActions>
+			</ExpansionPanel>
+
         );
     }
 }
+
+AppointmentComponent.propTypes = {
+	classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(AppointmentComponent);

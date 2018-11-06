@@ -2,10 +2,19 @@ import React from 'react';
 import AppointmentComponent from 'js/account/components/appointmentComponent';
 import connect from 'react-redux/es/connect/connect';
 import * as Users from 'js/api/usersAPI';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+	root: {
+		width: '100%',
+	},
+});
 
 class AppointmentPage extends React.Component {
-    
+
     render() {
+		const { classes } = this.props;
 
 		{/* Setup initial content */}
 		let component = (<div>You don't have any appointments.</div>);
@@ -15,20 +24,22 @@ class AppointmentPage extends React.Component {
 
 			{/* Map each appointment to a new appointment component */}
 			component = this.props.user.appointments.map((i, index) =>
-				<AppointmentComponent userType={this.props.user.type} id={i}/>
+				<AppointmentComponent userType={this.props.user.type} id={i} index={index}/>
 			);
 		}
 
         return (
-            <div className='container'>
-                <div className='row'>
-					{/* Display the content, either the default label or the list of appointments */}
-					{component}
-                </div>
+			<div className={classes.root}>
+				{/* Display the content, either the default label or the list of appointments */}
+				{component}
             </div>
         );
     }
 }
+
+AppointmentPage.propTypes = {
+	classes: PropTypes.object.isRequired,
+};
 
 {/* Connect to the Redux store to have access to the user data */}
 AppointmentPage = connect(
@@ -37,4 +48,4 @@ AppointmentPage = connect(
 	})
 )(AppointmentPage);
 
-export { AppointmentPage };
+export default withStyles(styles)(AppointmentPage);
