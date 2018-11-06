@@ -34,6 +34,8 @@ img{ max-width:100%;}
 
 a, a:hover, a:active{ outline:0 !important}
 
+button, button:hover, button:active{ outline:0 !important}
+
 /* Primary Styles
 ---------------------------------*/
 body {

@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
 import Divider from '@material-ui/core/Divider';
+import * as Bessemer from 'js/alloy/bessemer/components';
 
 const styles = theme => ({
 	heading: {
@@ -153,15 +154,15 @@ class AppointmentComponent extends React.Component {
 				<Divider />
 				<ExpansionPanelActions>
 					{(this.props.userType === 'SITTER' || this.props.userType === 'COMBO') && this.state.appointment.type === 'PENDING' &&
-					<button onClick={this.onClickApprove}>Approve</button>
+					<Bessemer.Button onClick={this.onClickApprove}>Approve</Bessemer.Button>
 					}
 
 					{(this.props.userType === 'SITTER' || this.props.userType === 'COMBO') && this.state.appointment.type === 'PENDING' &&
-					<button onClick={this.onClickReject}>Reject</button>
+					<Bessemer.Button onClick={this.onClickReject}>Reject</Bessemer.Button>
 					}
 
 					{this.state.appointment.type === 'ACCEPTED' &&
-						<button onClick={this.onClickCancel}>Cancel Appointment</button>
+						<Bessemer.Button onClick={this.onClickCancel}>Cancel Appointment</Bessemer.Button>
 					}
 
 
