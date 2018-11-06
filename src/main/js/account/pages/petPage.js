@@ -1,10 +1,10 @@
 import React from 'react';
 import connect from 'react-redux/es/connect/connect';
 import * as Users from 'js/api/usersAPI';
-import {PetInfo} from 'js/info/petInfo';
 import {PetForm} from 'js/forms/petForm';
 import SitterList from 'js/account/components/sitterList';
 import PetComponent from 'js/account/components/petComponent';
+import * as Bessemer from 'js/alloy/bessemer/components';
 
 class PetPage extends React.Component {
 
@@ -61,7 +61,7 @@ class PetPage extends React.Component {
             <div>
                 <div className='addPetWrapper'>
                     {content}
-                    <a className='link petLink' onClick={this.showPetForm}>Add Pet</a>
+                    <Bessemer.Button className='link petLink' onClick={this.showPetForm}>Add Pet</Bessemer.Button>
                 </div>
             </div>
         );

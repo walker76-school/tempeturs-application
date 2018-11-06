@@ -144,52 +144,16 @@ p{
     -moz-transition:all 0.3s ease-in-out;
     -webkit-transition:all 0.3s ease-in-out;
 }
-.link:hover {
-    text-decoration:none;
-    color:coral !important;
-    background:#fff;
-}
-
-.link:active, .link:focus {
+.link:hover, .link:active, .link:focus {
     background: coral;
     text-decoration:none;
     color:#fff !important;
 }
 
 .loginlink{
-    padding:15px 35px;
-    background-color: #0066ff;
-    color:#fff !important;
-    font-size:16px;
-    font-weight:400;
-    font-family: 'Montserrat', sans-serif;
-    display:inline-block;
-    border: 2px solid white;
-    border-radius:25px;
-    text-transform:uppercase;
-    line-height:25px;
-    margin-bottom:20px;
-    transition:all 0.3s ease-in-out;
-    -moz-transition:all 0.3s ease-in-out;
-    -webkit-transition:all 0.3s ease-in-out;
     position: absolute;
     top: 20px;
     right: 20px;
-}
-.loginlink:hover {
-    text-decoration:none;
-    border-color: coral;
-    background-color: #0066ff;
-    color:#fff !important;
-    background-position-x: center;
-    background-position-y: -42px;
-    background-size: cover;
-}
-
-.loginlink:active, .loginlink:focus {
-    background: coral;
-    text-decoration:none;
-    color:#fff !important;
 }
 
 .main-section{
