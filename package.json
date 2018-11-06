@@ -73,6 +73,7 @@
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.4",
     "material-ui": "^0.20.2",
+    "material-ui-rating": "^2.0.0",
     "promise": "^8.0.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.0",
