@@ -78,7 +78,7 @@ class AvailabilityPage extends React.Component {
 		return (
 			<div className='container'>
 				<div className='row'>
-					<div className='col-sm'>
+					<div className='col-md'>
 						<label>Sunday</label>
 						<hr/>
 						<AvailabilityComponent day='sunday' name='Morning' callBack={this.onChange}/>
@@ -87,7 +87,7 @@ class AvailabilityPage extends React.Component {
 						<AvailabilityComponent day='sunday' name='Evening' callBack={this.onChange}/>
 					</div>
 
-					<div className='col-sm'>
+					<div className='col-md'>
 						<label>Monday</label>
 						<hr/>
 						<AvailabilityComponent day='monday' name='Morning' callBack={this.onChange}/>
@@ -96,7 +96,7 @@ class AvailabilityPage extends React.Component {
 						<AvailabilityComponent day='monday' name='Evening' callBack={this.onChange}/>
 					</div>
 
-					<div className='col-sm'>
+					<div className='col-md'>
 						<label>Tuesday</label>
 						<hr/>
 						<AvailabilityComponent day='tuesday' name='Morning' callBack={this.onChange}/>
@@ -105,7 +105,7 @@ class AvailabilityPage extends React.Component {
 						<AvailabilityComponent day='tuesday' name='Evening' callBack={this.onChange}/>
 					</div>
 
-					<div className='col-sm'>
+					<div className='col-md'>
 						<label>Wednesday</label>
 						<hr/>
 						<AvailabilityComponent day='wednesday' name='Morning' callBack={this.onChange}/>
@@ -114,7 +114,7 @@ class AvailabilityPage extends React.Component {
 						<AvailabilityComponent day='wednesday' name='Evening' callBack={this.onChange}/>
 					</div>
 
-					<div className='col-sm'>
+					<div className='col-md'>
 						<label>Thursday</label>
 						<hr/>
 						<AvailabilityComponent day='thursday' name='Morning' callBack={this.onChange}/>
@@ -123,7 +123,7 @@ class AvailabilityPage extends React.Component {
 						<AvailabilityComponent day='thursday' name='Evening' callBack={this.onChange}/>
 					</div>
 
-					<div className='col-sm'>
+					<div className='col-md'>
 						<label>Friday</label>
 						<hr/>
 						<AvailabilityComponent day='friday' name='Morning' callBack={this.onChange}/>
@@ -132,7 +132,7 @@ class AvailabilityPage extends React.Component {
 						<AvailabilityComponent day='friday' name='Evening' callBack={this.onChange}/>
 					</div>
 
-					<div className='col-sm'>
+					<div className='col-md'>
 						<label>Saturday</label>
 						<hr/>
 						<AvailabilityComponent day='saturday' name='Morning' callBack={this.onChange}/>
@@ -141,6 +141,7 @@ class AvailabilityPage extends React.Component {
 						<AvailabilityComponent day='saturday' name='Evening' callBack={this.onChange}/>
 					</div>
 				</div>
+				<br/>
 				<Bessemer.Button onClick={this.onSubmit}>Submit</Bessemer.Button>
 			</div>
 		);

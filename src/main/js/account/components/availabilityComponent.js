@@ -64,7 +64,7 @@ class AvailabilityComponent extends React.Component {
 		return (
 			<div>
 				{/* This is just a label with the name, e.x. "Evening" */}
-				<label>{this.props.name}</label>
+				<label style={{width: 100}}>{this.props.name}:</label>
 				{/* This is a toggle component from the npm package react-toggle.
 				  * This is used to render a toggle button.
 				  * We also need to use the toggle.css for this component
