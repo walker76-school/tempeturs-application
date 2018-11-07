@@ -89,25 +89,9 @@ class AppointmentComponent extends React.Component {
 			update: !this.state.update
 		});
 	};
-
-	rate1 = () => {
-		rateAppointment(this.props.id, 1);
-	};
-
-	rate2 = () => {
-		rateAppointment(this.props.id, 2);
-	};
-
-	rate3 = () => {
-		rateAppointment(this.props.id, 3);
-	};
-
-	rate4 = () => {
-		rateAppointment(this.props.id, 4);
-	};
-
-	rate5 = () => {
-		rateAppointment(this.props.id, 5);
+	
+	onRate = (val) => {
+		rateAppointment(this.props.id, val);
 	};
 
 	handleChange = panel => (event, expanded) => {
@@ -140,13 +124,10 @@ class AppointmentComponent extends React.Component {
                         <Rating
                             value={this.state.appointment.rating}
                             max={5}
+                            onChange={(value) => this.onRate(value)}
                         />
 						</MuiThemeProvider>
-                        <button onClick={this.rate1}>1</button>
-                        <button onClick={this.rate2}>2</button>
-                        <button onClick={this.rate3}>3</button>
-                        <button onClick={this.rate4}>4</button>
-                        <button onClick={this.rate5}>5</button>
+
 					</div>
 					}
 
