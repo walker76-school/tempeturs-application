@@ -44,7 +44,7 @@ public class AppointmentEndpoint {
                 Optional<AppointmentDto> appointmentDtoOptional = appointmentService.findAppointment(appointmentId);
                 if(appointmentDtoOptional.isPresent()){
                     AppointmentDto appointmentDto = appointmentDtoOptional.get();
-                    if(appointmentDto.getRating() != -1){
+                    if(appointmentDto.getRating() != -1 && principal.equals(appointmentDto.getSitter())){
                         sum += appointmentDto.getRating();
                         total++;
                     }

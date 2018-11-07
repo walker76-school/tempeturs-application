@@ -89,7 +89,7 @@ class AppointmentComponent extends React.Component {
 			update: !this.state.update
 		});
 	};
-	
+
 	onRate = (val) => {
 		rateAppointment(this.props.id, val);
 	};
