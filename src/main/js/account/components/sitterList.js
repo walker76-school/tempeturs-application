@@ -4,8 +4,8 @@ import {SitterComponent} from 'js/account/components/sitterComponent';
 
 export default class SitterList extends React.Component {
 
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		{/* Setup a property in the state to hold the list of sitters */}
 		this.state = {

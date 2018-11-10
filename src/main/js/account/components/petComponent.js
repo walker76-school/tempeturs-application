@@ -51,6 +51,7 @@ class PetComponent extends React.Component {
 
 	constructor(props) {
 		super(props);
+		console.log('Constructing PetComponent: ' + this.props.petKey);
 		this.state = {id: '', name: '', type: '', expanded: false};
 		this.deletePet = this.deletePet.bind(this);
 	}
@@ -71,12 +72,14 @@ class PetComponent extends React.Component {
 
 	deletePet = () => {
 		let updatedUser = this.props.user;
+        let temp = [];
 
 		for( let i = 0; i < updatedUser['petIds'].length ; i++){
-			if ( updatedUser['petIds'][i] === this.props.petKey) {
-				updatedUser['petIds'].splice(i, 1);
+			if ( updatedUser['petIds'][i] !== this.props.petKey) {
+				temp.push(updatedUser['petIds'][i]);
 			}
 		}
+		updatedUser['petIds'] = temp;
 
 		console.log('Updating user...');
 		this.props.updateUser(updatedUser);

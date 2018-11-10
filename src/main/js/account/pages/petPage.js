@@ -49,18 +49,21 @@ class PetPage extends React.Component {
         if(this.state.content === 'Form'){
 			{/* If the content key is Form then render the PetForm */}
             content = (<PetForm callBack={this.showPets}/>);
-        }
-        else if(this.state.content === 'Appointment') {
-			{/* If the content key is appointment then render the list of sitters */}
-            content = (<SitterList refresh={this.props.refresh} zip={this.props.user.zip} id={this.state.id}/>);
-        }
-        else {
+        } else {
+            console.log('Rendering pets...');
             {/* If the user is defined and there are pets then render all the pets*/}
             if (this.props.user && this.props.user['petIds'] && this.props.user['petIds'].length > 0) {
-                let tempContent = this.props.user['petIds'].map((i, index) => <PetComponent petKey={i} callBack={this.refresh}/>);
+                console.log('petIds: ');
+                console.log(this.props.user.petIds);
+                let tempContent = this.props.user['petIds'].map((i, index) => {
+                    console.log(i);
+                    return(<PetComponent key={i} petKey={i} callBack={this.refresh}/>);
+                });
                 content = (
                     <div>
-                        {tempContent}
+                        <div style={{ display: 'inline-flex', flexWrap: 'wrap' }}>
+                            {tempContent}
+                        </div>
                         <Bessemer.Button className='link petlink' onClick={this.showPetForm}>Add Pet</Bessemer.Button>
                     </div>
                 );
