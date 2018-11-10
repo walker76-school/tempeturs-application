@@ -156,6 +156,18 @@ p{
     right: 20px;
 }
 
+.appointmentlink{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.petlink{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
 .main-section{
     padding:90px 0 110px;
     min-height: 100vh;

@@ -53,7 +53,6 @@ class PetComponent extends React.Component {
 		super(props);
 		this.state = {id: '', name: '', type: '', expanded: false};
 		this.deletePet = this.deletePet.bind(this);
-		this.makeAppointment = this.makeAppointment.bind(this);
 	}
 
 	componentDidMount() {
@@ -70,21 +69,19 @@ class PetComponent extends React.Component {
 		});
 	}
 
-	deletePet(){
+	deletePet = () => {
 		let updatedUser = this.props.user;
 
-		for( let i = 0; i < updatedUser['petIds'].length - 1; i++){
+		for( let i = 0; i < updatedUser['petIds'].length ; i++){
 			if ( updatedUser['petIds'][i] === this.props.petKey) {
 				updatedUser['petIds'].splice(i, 1);
 			}
 		}
 
-		return this.props.updateUser(updatedUser);
-	}
-
-	makeAppointment(){
-		this.props.callBack(this.props.petKey);
-	}
+		console.log('Updating user...');
+		this.props.updateUser(updatedUser);
+		this.props.callBack();
+	};
 
 	handleExpandClick = () => {
 		this.setState(state => ({ expanded: !state.expanded }));
@@ -121,7 +118,6 @@ class PetComponent extends React.Component {
 					<CardContent>
 						<Typography paragraph>Update Pet:</Typography>
 						<UpdatePetForm petKey={this.props.petKey}/>
-						<Bessemer.Button onClick={this.makeAppointment}>Make an Appointment</Bessemer.Button>
 						<Bessemer.Button onClick={this.deletePet}>Delete</Bessemer.Button>
 					</CardContent>
 				</Collapse>
@@ -140,7 +136,7 @@ PetComponent = connect(
 		user: Users.State.getUser(state)
 	}),
 	dispatch => ({
-		updateUser: user => dispatch(Users.Actions.update(user))
+		updateUser: (user) => dispatch(Users.Actions.update(user))
 	})
 )(PetComponent);
 

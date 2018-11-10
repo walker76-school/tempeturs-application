@@ -13,14 +13,14 @@ class PetPage extends React.Component {
 
         this.state = {
             content: '',
-            id: ''
+            id: '',
+            refresh: false
         };
 
 		{/* Bind the showPetForm function so it knows about the state */}
 		this.showPetForm = this.showPetForm.bind(this);
-
-        {/* Bind the handleAppointClick function so it knows about the state */}
-		this.handleAppointClick = this.handleAppointClick.bind(this);
+        this.showPets = this.showPets.bind(this);
+        this.refresh = this.refresh.bind(this);
     }
 
     showPetForm(){
@@ -29,10 +29,17 @@ class PetPage extends React.Component {
         });
     }
 
-    handleAppointClick(id){
+    showPets(){
         this.setState({
-			content: 'Appointment',
-            id: id
+            content: ''
+        });
+    }
+
+    refresh(){
+        console.log('Refreshing PetPage...');
+        this.setState({
+            content: '',
+            refresh: !this.state.refresh
         });
     }
 
@@ -41,7 +48,7 @@ class PetPage extends React.Component {
         let content;
         if(this.state.content === 'Form'){
 			{/* If the content key is Form then render the PetForm */}
-            content = (<PetForm refresh={this.props.refresh}/>);
+            content = (<PetForm callBack={this.showPets}/>);
         }
         else if(this.state.content === 'Appointment') {
 			{/* If the content key is appointment then render the list of sitters */}
@@ -50,10 +57,21 @@ class PetPage extends React.Component {
         else {
             {/* If the user is defined and there are pets then render all the pets*/}
             if (this.props.user && this.props.user['petIds'] && this.props.user['petIds'].length > 0) {
-                content = this.props.user['petIds'].map((i, index) => <PetComponent petKey={i} callBack ={this.handleAppointClick}/>);
+                let tempContent = this.props.user['petIds'].map((i, index) => <PetComponent petKey={i} callBack={this.refresh}/>);
+                content = (
+                    <div>
+                        {tempContent}
+                        <Bessemer.Button className='link petlink' onClick={this.showPetForm}>Add Pet</Bessemer.Button>
+                    </div>
+                );
             } else {
 				{/* If there aren't any pets then set it to the default message */}
-                content = (<h2>Looks like you don't have any pets yet</h2>);
+                content = (
+                    <div>
+                        <div>You don't have any pets.</div>
+                        <Bessemer.Button className='link petlink' onClick={this.showPetForm}>Add Pet</Bessemer.Button>
+                    </div>
+                );
             }
         }
 
@@ -61,7 +79,6 @@ class PetPage extends React.Component {
             <div>
                 <div className='addPetWrapper'>
                     {content}
-                    <Bessemer.Button className='link petLink' onClick={this.showPetForm}>Add Pet</Bessemer.Button>
                 </div>
             </div>
         );
@@ -72,6 +89,9 @@ class PetPage extends React.Component {
 PetPage = connect(
     state => ({
         user: Users.State.getUser(state),
+    }),
+    dispatch => ({
+
     })
 )(PetPage);
 

@@ -4,6 +4,7 @@ import connect from 'react-redux/es/connect/connect';
 import * as Users from 'js/api/usersAPI';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import * as Bessemer from 'js/alloy/bessemer/components';
 
 const styles = theme => ({
 	root: {
@@ -32,6 +33,7 @@ class AppointmentPage extends React.Component {
 			<div className={classes.root}>
 				{/* Display the content, either the default label or the list of appointments */}
 				{component}
+                <Bessemer.Button className='link appointmentlink'>Make Appointment</Bessemer.Button>
             </div>
         );
     }
