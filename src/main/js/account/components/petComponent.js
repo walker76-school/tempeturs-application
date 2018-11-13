@@ -16,7 +16,6 @@ import {UpdatePetForm} from 'js/forms/updatePetForm';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import connect from 'react-redux/es/connect/connect';
 import * as Users from 'js/api/usersAPI';
-import * as PetAPI from 'js/api/petAPI';
 
 const styles = theme => ({
 	card: {

@@ -5,7 +5,7 @@ import * as Users from 'js/api/usersAPI';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import * as Bessemer from 'js/alloy/bessemer/components';
-import {AppointmentForm} from 'js/forms/appointmentForm';
+import AppointmentForm from 'js/forms/appointmentForm';
 
 const styles = theme => ({
 	root: {

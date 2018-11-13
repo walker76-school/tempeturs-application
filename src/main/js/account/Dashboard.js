@@ -35,34 +35,15 @@ import {Logout} from 'js/account/components/logout';
 import * as Users from 'js/api/usersAPI';
 import connect from 'react-redux/es/connect/connect';
 import {getRating} from 'js/api/appointmentAPI';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
-
-const theme = createMuiTheme({
-	palette: {
-		primary: {
-			// light: will be calculated from palette.primary.main,
-			main: '#1e90ff',
-			// dark: will be calculated from palette.primary.main,
-			// contrastText: will be calculated to contrast with palette.primary.main
-		},
-		secondary: {
-			// light: will be calculated from palette.secondary.main,
-			main: '#FF7F50',
-			// dark: will be calculated from palette.secondary.main,
-			// contrastText: will be calculated to contrast with palette.secondary.main
-		},
-		// error: will use the default color
-	},
-});
 
 const styles = theme => ({
     root: {
         display: 'flex',
     },
     toolbar: {
-        paddingRight: 24, // keep right padding when drawer closed
+        paddingRight: 24,
     },
     toolbarIcon: {
         display: 'flex',
@@ -236,7 +217,6 @@ class Dashboard extends React.Component {
         return (
             <React.Fragment>
                 {this.renderRedirect()}
-                <MuiThemeProvider theme={theme}>
                 <div className={classes.root}>
                     <AppBar
                         position='absolute'
@@ -347,7 +327,6 @@ class Dashboard extends React.Component {
                         </div>
                     </main>
                 </div>
-				</MuiThemeProvider>
 			</React.Fragment>
         );
     }

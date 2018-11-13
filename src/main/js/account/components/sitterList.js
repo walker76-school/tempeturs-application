@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {getSitters} from 'js/api/appointmentAPI';
-import {SitterComponent} from 'js/account/components/sitterComponent';
+import SitterComponent from 'js/account/components/sitterComponent';
 
 export default class SitterList extends React.Component {
 
@@ -19,6 +19,8 @@ export default class SitterList extends React.Component {
 		getSitters(this.props.zip)
 			.then(
 				(response) => {
+				    console.log('Response...');
+				    console.log(response);
 					{/*The .then waits for a response from the API and then executes the following code */}
 
 					{/* Set the state to the response value, which is a list of possible sitters */}
@@ -31,8 +33,6 @@ export default class SitterList extends React.Component {
 			  */}
 			  alert(error);
 		});
-
-
 	}
 
 	render() {
@@ -42,14 +42,15 @@ export default class SitterList extends React.Component {
 
 		{/* If there are available sitters, then map them */}
 		if(this.state.sitters.length > 0){
+		    console.log('There are possible sitters');
 			{/* Map each possible sitter to a new sitter component */}
 			content = this.state.sitters.map((i, index) =>
-				<SitterComponent refresh={this.props.refresh} id={this.props.id} sitter={i}/>
+				<SitterComponent key={index} sitter={i} callBack={this.props.callBack}/>
 			);
 		}
 
 		return (
-			<div>
+            <div style={{ display: 'inline-flex', flexWrap: 'wrap' }}>
 				{/* Display the content, either the default label or the list of sitters */}
 				{content}
 			</div>
