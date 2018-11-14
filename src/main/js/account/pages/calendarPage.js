@@ -1,16 +1,21 @@
 import React from 'react';
-import CalendarComponent from 'js/account/components/calendarComponent';
+import Calendar from 'material-ui/DatePicker/Calendar';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 
 export default class CalendarPage extends React.Component {
 
+
     render() {
-        {/* Right now this page is merely a wrapper for the CalendarComponent to follow convention */}
         return (
-            <div className='container'>
-                <div className='row'>
-                    <CalendarComponent/>
-                </div>
+
+            <div>
+
+                <MuiThemeProvider>
+                    <Calendar/>
+                </MuiThemeProvider>
             </div>
+
         );
     }
 }
