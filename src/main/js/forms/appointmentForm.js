@@ -217,6 +217,7 @@ class AppointmentForm extends React.Component {
                     onChange={this.handleStartTime}
                 />
 
+
                 <TextField
                     id="time"
                     label="End Time"

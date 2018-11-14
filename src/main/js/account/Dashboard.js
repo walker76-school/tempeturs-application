@@ -35,6 +35,7 @@ import {Logout} from 'js/account/components/logout';
 import * as Users from 'js/api/usersAPI';
 import connect from 'react-redux/es/connect/connect';
 import {getRating} from 'js/api/appointmentAPI';
+import SitterList from 'js/account/components/sitterList';
 
 const drawerWidth = 240;
 
@@ -195,6 +196,9 @@ class Dashboard extends React.Component {
                     <label>User Type: {this.props.user.type} </label>
 					<br/>
 					{component}
+					<br/>
+                    <h5>Suggested Sitters:</h5>
+                    <SitterList zip={this.props.user.zip} />
                 </div>
             );
         }
