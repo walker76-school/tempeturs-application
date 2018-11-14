@@ -1,5 +1,7 @@
 package petfinder.site.common.appointment;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,66 @@ public class AppointmentService {
 
     public void approveAppointment(Long id) {
         appointmentDao.approve(id);
+    }
+
+    public static class AppointmentRequest {
+        private Long id;
+        private String owner;
+        private String sitter;
+        private List<Long> petIds;
+        private Date startDate;
+        private Date endDate;
+
+        public AppointmentRequest() {
+            // Required for serialization
+        }
+
+        public AppointmentRequest(Long id, String owner, String sitter, List<Long> petIds, Date startDate, Date endDate) {
+            this.id = id;
+            this.owner = owner;
+            this.sitter = sitter;
+            this.petIds = petIds;
+            this.startDate = startDate;
+            this.endDate = endDate;
+        }
+
+        public Long getId() {
+            return id;
+        }
+        public String getOwner() {
+            return owner;
+        }
+        public void setId(Long id) {
+            this.id = id;
+        }
+        public void setOwner(String owner) {
+            this.owner = owner;
+        }
+        public void setSitter(String sitter) {
+            this.sitter = sitter;
+        }
+        public void setPetIds(List<Long> petIds) {
+            this.petIds = petIds;
+        }
+        public void setStartDate(Date startDate) {
+            this.startDate = startDate;
+        }
+        public void setEndDate(Date endDate) {
+            this.endDate = endDate;
+        }
+        public String getSitter() {
+
+            return sitter;
+        }
+        public List<Long> getPetIds() {
+            return petIds;
+        }
+        public Date getStartDate() {
+            return startDate;
+        }
+        public Date getEndDate() {
+            return endDate;
+        }
     }
 
     public void rejectAppointment(Long id) {

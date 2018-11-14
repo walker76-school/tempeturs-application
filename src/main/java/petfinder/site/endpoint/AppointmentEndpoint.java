@@ -55,14 +55,12 @@ public class AppointmentEndpoint {
         return total != 0 ? (sum / total) : -1;
     }
 
-    @PostMapping(value = "/makeAppointment/{owner}/{sitter}/{petId}", produces = "application/json")
-    public void makeAppointment(@PathVariable(name="owner") String ownerPrincipal,
-                                @PathVariable("sitter") String sitterPrincipal,
-                                @PathVariable("petId") Long petId) {
+    @PostMapping(value = "/makeAppointment", produces = "application/json")
+    public void makeAppointment(@RequestBody AppointmentService.AppointmentRequest request) {
         Integer id = generateUniqueId();
-        AppointmentDto appointment = new AppointmentDto(id.longValue(), ownerPrincipal, sitterPrincipal, petId);
+        AppointmentDto appointment = new AppointmentDto(id.longValue(), request.getOwner(), request.getSitter(), request.getPetIds(), request.getStartDate(), request.getEndDate());
         appointmentService.save(appointment);
-        userService.makeAppointment(ownerPrincipal, sitterPrincipal, id.longValue());
+        userService.makeAppointment(request.getOwner(), request.getSitter(), id.longValue());
     }
 
     @GetMapping(value = "/getAppointment/{id}", produces = "application/json")
