@@ -194,7 +194,7 @@ class AppointmentForm extends React.Component {
 
                 <TextField
                     id="date"
-                    label="Appointment Date"
+                    label="Appointment Start Date"
                     type="date"
                     defaultValue={this.state.date}
                     InputLabelProps={{
@@ -216,6 +216,18 @@ class AppointmentForm extends React.Component {
                     }}
                     onChange={this.handleStartTime}
                 />
+
+                <TextField
+                    id="date"
+                    label="Appointment End Date"
+                    type="date"
+                    defaultValue={this.state.date}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    onChange={this.handleDate}
+                />
+
 
                 <TextField
                     id="time"
