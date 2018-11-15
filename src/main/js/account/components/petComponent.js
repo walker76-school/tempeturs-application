@@ -51,7 +51,7 @@ class PetComponent extends React.Component {
 	constructor(props) {
 		super(props);
 		console.log('Constructing PetComponent: ' + this.props.petKey);
-		this.state = {id: '', name: '', type: '', expanded: false};
+		this.state = {id: '', name: '', type: '', bio: '', expanded: false};
 		this.deletePet = this.deletePet.bind(this);
 	}
 
@@ -62,7 +62,8 @@ class PetComponent extends React.Component {
 					this.setState({
 						id: response['id'],
 						name: response['name'],
-						type: response['type']
+						type: response['type'],
+                        bio: reponse['bio']
 					});
 				}).catch((error) => {
 			alert(error);
@@ -100,8 +101,7 @@ class PetComponent extends React.Component {
 				/>
 				<CardContent>
 					<Typography component="p">
-						This impressive paella is a perfect party dish and a fun meal to cook together with your
-						guests. Add 1 cup of frozen peas along with the mussels, if you like.
+						Work in progress
 					</Typography>
 				</CardContent>
 				<CardActions className={classes.actions} disableActionSpacing>
