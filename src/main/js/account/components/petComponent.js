@@ -20,6 +20,7 @@ import * as Users from 'js/api/usersAPI';
 const styles = theme => ({
 	card: {
 		maxWidth: 400,
+		minWidth: 400
 	},
 	media: {
 		height: 0,

@@ -1,8 +1,6 @@
 import React from 'react';
 import * as ReduxForm from 'redux-form';
 import { connect } from 'react-redux';
-
-import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import * as PetAPI from 'js/api/petAPI';
 import {getPet} from 'js/api/petAPI';
@@ -56,13 +54,13 @@ class UpdatePetForm extends React.Component {
 		return (
 			<form name="form" onSubmit={handleSubmit(form => this.onSubmit(form))}>
 				<Bessemer.Field name="name" friendlyName="Pet Name"
-								validators={[Validation.requiredValidator]}
+								validators={[]}
 								field={<input className="form-control" placeholder={this.state.name} />}/>
 				<Bessemer.Field name="type" friendlyName="Pet Type"
-								validators={[Validation.requiredValidator]}
+								validators={[]}
 								field={<input className="form-control" placeholder={this.state.type} />}/>
                 <Bessemer.Field name="bio" friendlyName="Pet Bio"
-                                validators={[Validation.requiredValidator]}
+                                validators={[]}
                                 field={<input className="form-control" placeholder={this.state.bio} />}/>
 				<Bessemer.Button loading={submitting}>Save</Bessemer.Button>
 			</form>
