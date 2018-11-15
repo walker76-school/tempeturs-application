@@ -6,25 +6,39 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import DateTimePicker from 'material-ui-datetimepicker';
 import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
+import {createMuiTheme} from '@material-ui/core/styles/index';
 //import { withStyles } from '@material-ui/core/styles';
 
+const theme = createMuiTheme({
+    datePicker: {
+        color: '#FFFFFF',
+        textColor: '#FFFFFF',
+        calendarTextColor: '#FFFFFF',
+        selectColor: '#FFFFFF',
+        selectTextColor: '#FFFFFF',
+        calendarYearBackgroundColor: '#FFFFFF',
+        headerColor: '#FFFFFF',
+    }
+});
 
 class CalendarPage extends React.Component {
 
     state = {
-        dateTime: null
+        dateTime: new Date()
     }
 
-    setDate = (dateTime) => this.setState({dateTime})
+    setDate = (dateTime) => this.setState({
+        dateTime: new Date(dateTime)
+    });
 
     render() {
         return (
-            <MuiThemeProvider>
-                <Calendar
-                    value={new Date()} // picker value moment/string/number/js Date
-                    format='MMM DD, YYYY hh:mm A'
+            <MuiThemeProvider theme={theme}>
+                <DatePicker
+                    value={this.state.dateTime} // picker value moment/string/number/js Date
+                    format='MMM DD, YYYY HH:mm'
                     timePickerDelay={150}
-                    returnMomentDate={false} // if true will return moment object
+                    returnMomentDate={true} // if true will return moment object
                     className='datetime-container'
                     textFieldClassName='datetime-input'
                     name='picker' // form value name
@@ -37,8 +51,7 @@ class CalendarPage extends React.Component {
                     showCurrentDateByDefault={false}
                    // clearIcon={<ClearIcon/>} // set null to not render nothing
                     // available callbacks
-                    onChange={() => {
-                    }}
+                    onChange={(date) => this.setDate(date)}
                     onTimePickerShow={() => {
                     }}
                     onDatePickerShow={() => {
@@ -53,10 +66,10 @@ class CalendarPage extends React.Component {
                     TimePicker={TimePickerDialog}
                     // styles
 
-                    clearIconStyle={{}}
-                    textFieldStyle={{}}
-                    style={{}} // root
-                    timePickerBodyStyle={{}}
+                    clearIconStyle={theme}
+                    textFieldStyle={theme}
+                    style={{theme}}// root
+                    timePickerBodyStyle={theme}
                     fullWidth={true}
 
                 />
