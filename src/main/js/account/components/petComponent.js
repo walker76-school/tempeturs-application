@@ -63,7 +63,7 @@ class PetComponent extends React.Component {
 						id: response['id'],
 						name: response['name'],
 						type: response['type'],
-                        bio: reponse['bio']
+                        bio: response['bio']
 					});
 				}).catch((error) => {
 			alert(error);
@@ -101,7 +101,7 @@ class PetComponent extends React.Component {
 				/>
 				<CardContent>
 					<Typography component="p">
-						Work in progress
+
 					</Typography>
 				</CardContent>
 				<CardActions className={classes.actions} disableActionSpacing>

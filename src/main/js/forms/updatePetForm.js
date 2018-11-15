@@ -27,8 +27,8 @@ class UpdatePetForm extends React.Component {
 						bio: response['bio']
 					});
 				}).catch((error) => {
-			alert(error);
-		});
+				    alert(error);
+				});
 	}
 	
 	// Update the pet on submit
@@ -43,7 +43,7 @@ class UpdatePetForm extends React.Component {
 
 		if(pet['bio'] == null){
 		    pet['bio'] = this.state.bio;
-        }
+		}
 
 		pet['id'] = this.state.id;
 
@@ -73,9 +73,9 @@ class UpdatePetForm extends React.Component {
 UpdatePetForm = ReduxForm.reduxForm({form: 'pet'})(UpdatePetForm);
 
 UpdatePetForm = connect(
-	state => ({
+    state => ({
 
-	}),
+    }),
 	dispatch => ({
 		updatePet: pet => dispatch(PetAPI.Actions.updatePet(pet))
 	})
