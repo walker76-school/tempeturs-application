@@ -8,7 +8,7 @@ export class Landing extends React.Component {
 			  	  * href is how you tell the a tag where to redirect (hyperlink reference)
 			      * In React these hrefs get mapped into urls in the HashRouter
 			      */}
-				<a className="loginlink animated fadeInUp delay-1s servicelink" href="#login">Login</a>
+				<a className="loginlink link animated fadeInUp delay-1s servicelink" href="#login">Login</a>
 
 				<div className="container">
 					<figure className="logo animated fadeInDown delay-07s">

@@ -187,6 +187,6 @@ export class Button extends React.Component {
 		}
 
 		let buttonText = loading ? (<span>{loadingText} <span className="fa fa-spinner spinner"/></span>) : children;
-		return <a className={className} {...props}>{buttonText}</a>;
+		return <button className={className} {...props}>{buttonText}</button>;
 	}
 }

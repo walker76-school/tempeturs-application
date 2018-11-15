@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -18,20 +17,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PeopleIcon from '@material-ui/icons/PermIdentityTwoTone';
 import Pets from '@material-ui/icons/PetsTwoTone';
 import Reply from '@material-ui/icons/ReplayTwoTone';
 import Supervisor_account from '@material-ui/icons/SupervisorAccountTwoTone';
-import BarChartIcon from '@material-ui/icons/BarChart';
 import CalendarIcon from '@material-ui/icons/CalendarTodayTwoTone';
 import Watch_LaterIcon from '@material-ui/icons/WatchLaterTwoTone';
-import LayersIcon from '@material-ui/icons/Layers';
 import NotificationImport from '@material-ui/icons/NotificationImportantTwoTone';
-import AssignmentIcon from '@material-ui/icons/Assignment';
-import { mainListItems, secondaryListItems } from './listItems';
-import SimpleLineChart from './SimpleLineChart';
-import SimpleTable from './SimpleTable';
 import {AvailabilityPage} from 'js/account/pages/availabilityPage';
 import {PetPage} from 'js/account/pages/petPage';
 import UpdateUserPage from 'js/account/pages/updateUserPage';
@@ -39,38 +31,22 @@ import { Redirect } from 'react-router-dom';
 import CalendarPage from 'js/account/pages/calendarPage';
 import AppointmentPage from 'js/account/pages/appointmentPage';
 import {NotificationPage} from 'js/account/pages/notificationPage';
-import {Logout} from 'js/account/logout';
+import {Logout} from 'js/account/components/logout';
 import * as Users from 'js/api/usersAPI';
 import connect from 'react-redux/es/connect/connect';
 import {getRating} from 'js/api/appointmentAPI';
-import { MuiThemeProvider, createMuiTheme, palette } from '@material-ui/core/styles';
+import SitterList from 'js/account/components/sitterList';
+import DatePicker from 'material-ui/DatePicker/Calendar';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const drawerWidth = 240;
-
-const theme = createMuiTheme({
-	palette: {
-		primary: {
-			// light: will be calculated from palette.primary.main,
-			main: '#1e90ff',
-			// dark: will be calculated from palette.primary.main,
-			// contrastText: will be calculated to contrast with palette.primary.main
-		},
-		secondary: {
-			// light: will be calculated from palette.secondary.main,
-			main: '#FF7F50',
-			// dark: will be calculated from palette.secondary.main,
-			// contrastText: will be calculated to contrast with palette.secondary.main
-		},
-		// error: will use the default color
-	},
-});
 
 const styles = theme => ({
     root: {
         display: 'flex',
     },
     toolbar: {
-        paddingRight: 24, // keep right padding when drawer closed
+        paddingRight: 24,
     },
     toolbarIcon: {
         display: 'flex',
@@ -222,6 +198,9 @@ class Dashboard extends React.Component {
                     <label>User Type: {this.props.user.type} </label>
 					<br/>
 					{component}
+					<br/>
+                    <h5>Suggested Sitters:</h5>
+                    <SitterList zip={this.props.user.zip} />
                 </div>
             );
         }
@@ -244,7 +223,6 @@ class Dashboard extends React.Component {
         return (
             <React.Fragment>
                 {this.renderRedirect()}
-                <MuiThemeProvider theme={theme}>
                 <div className={classes.root}>
                     <AppBar
                         position='absolute'
@@ -355,7 +333,6 @@ class Dashboard extends React.Component {
                         </div>
                     </main>
                 </div>
-				</MuiThemeProvider>
 			</React.Fragment>
         );
     }

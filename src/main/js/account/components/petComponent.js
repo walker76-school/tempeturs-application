@@ -14,6 +14,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {getPet} from 'js/api/petAPI';
 import {UpdatePetForm} from 'js/forms/updatePetForm';
 import * as Bessemer from 'js/alloy/bessemer/components';
+import connect from 'react-redux/es/connect/connect';
+import * as Users from 'js/api/usersAPI';
 
 const styles = theme => ({
 	card: {
@@ -48,9 +50,9 @@ class PetComponent extends React.Component {
 
 	constructor(props) {
 		super(props);
+		console.log('Constructing PetComponent: ' + this.props.petKey);
 		this.state = {id: '', name: '', type: '', expanded: false};
 		this.deletePet = this.deletePet.bind(this);
-		this.makeAppointment = this.makeAppointment.bind(this);
 	}
 
 	componentDidMount() {
@@ -67,21 +69,21 @@ class PetComponent extends React.Component {
 		});
 	}
 
-	deletePet(){
+	deletePet = () => {
 		let updatedUser = this.props.user;
+        let temp = [];
 
-		for( let i = 0; i < updatedUser['petIds'].length - 1; i++){
-			if ( updatedUser['petIds'][i] === this.props.petKey) {
-				updatedUser['petIds'].splice(i, 1);
+		for( let i = 0; i < updatedUser['petIds'].length ; i++){
+			if ( updatedUser['petIds'][i] !== this.props.petKey) {
+				temp.push(updatedUser['petIds'][i]);
 			}
 		}
+		updatedUser['petIds'] = temp;
 
-		return this.props.updateUser(updatedUser);
-	}
-
-	makeAppointment(){
-		this.props.callBack(this.props.petKey);
-	}
+		console.log('Updating user...');
+		this.props.updateUser(updatedUser);
+		this.props.callBack();
+	};
 
 	handleExpandClick = () => {
 		this.setState(state => ({ expanded: !state.expanded }));
@@ -116,9 +118,8 @@ class PetComponent extends React.Component {
 				</CardActions>
 				<Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
 					<CardContent>
-						<Typography paragraph>Method:</Typography>
+						<Typography paragraph>Update Pet:</Typography>
 						<UpdatePetForm petKey={this.props.petKey}/>
-						<Bessemer.Button onClick={this.makeAppointment}>Make an Appointment</Bessemer.Button>
 						<Bessemer.Button onClick={this.deletePet}>Delete</Bessemer.Button>
 					</CardContent>
 				</Collapse>
@@ -130,5 +131,15 @@ class PetComponent extends React.Component {
 PetComponent.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
+
+PetComponent = connect(
+	state => ({
+		authentication: Users.State.getAuthentication(state),
+		user: Users.State.getUser(state)
+	}),
+	dispatch => ({
+		updateUser: (user) => dispatch(Users.Actions.update(user))
+	})
+)(PetComponent);
 
 export default withStyles(styles)(PetComponent);

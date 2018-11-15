@@ -23,22 +23,25 @@ class PetForm extends React.Component {
 		let updatedUser = this.props.user;
 		updatedUser['petIds'].push(id);
 		this.props.addPet(updatedUser);
-		this.props.refresh();
+		this.props.callBack();
 	};
 
     render() {
         let { handleSubmit, submitting } = this.props;
 
         return (
-            <form name="form" onSubmit={handleSubmit(form => this.onSubmit(form))}>
-                <Bessemer.Field name="name" friendlyName="Pet Name"
-                                validators={[Validation.requiredValidator]} />
-                <Bessemer.Field name="type" friendlyName="Pet Type"
-                                validators={[Validation.requiredValidator]} />
+            <div>
+                <form name="form" onSubmit={handleSubmit(form => this.onSubmit(form))}>
+                    <Bessemer.Field name="name" friendlyName="Pet Name"
+                                    validators={[Validation.requiredValidator]} />
+                    <Bessemer.Field name="type" friendlyName="Pet Type"
+                                    validators={[Validation.requiredValidator]} />
 
-                <Bessemer.Button loading={submitting}>Register Pet</Bessemer.Button>
-            </form>
-        );
+                    <Bessemer.Button loading={submitting}>Register Pet</Bessemer.Button>
+                </form>
+                <Bessemer.Button className='link petlink' onClick={this.props.callBack}>Go Back</Bessemer.Button>
+            </div>
+    );
     }
 }
 
