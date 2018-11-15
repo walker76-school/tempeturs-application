@@ -12,7 +12,7 @@ class UpdatePetForm extends React.Component {
 	// Store the values in the state
 	constructor(props) {
 		super(props);
-		this.state = {id: '', name: '', type: ''};
+		this.state = {id: '', name: '', type: '', bio: ''};
 	}
 
 	// We load up the pet info to auto fill in the form
@@ -23,7 +23,8 @@ class UpdatePetForm extends React.Component {
 					this.setState({
 						id: response['id'],
 						name: response['name'],
-						type: response['type']
+						type: response['type'],
+						bio: response['bio']
 					});
 				}).catch((error) => {
 			alert(error);
@@ -39,6 +40,10 @@ class UpdatePetForm extends React.Component {
 		if(pet['type'] == null){
 			pet['type'] = this.state.type;
 		}
+
+		if(pet['bio'] == null){
+		    pet['bio'] = this.state.bio;
+        }
 
 		pet['id'] = this.state.id;
 
@@ -57,6 +62,10 @@ class UpdatePetForm extends React.Component {
 				<Bessemer.Field name="type" friendlyName="Pet Type"
 								validators={[Validation.requiredValidator]}
 								field={<input className="form-control" placeholder={this.state.type} />}/>
+
+                <Bessemer.Field name="bio" friendlyName="Pet Bio"
+                                validators={[Validation.requiredValidator]}
+                                field={<input className="form-control" placeholder={this.state.bio} />}/>
 
 				<Bessemer.Button loading={submitting}>Save</Bessemer.Button>
 			</form>
