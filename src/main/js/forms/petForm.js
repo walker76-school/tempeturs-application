@@ -36,6 +36,8 @@ class PetForm extends React.Component {
                                     validators={[Validation.requiredValidator]} />
                     <Bessemer.Field name="type" friendlyName="Pet Type"
                                     validators={[Validation.requiredValidator]} />
+                    <Bessemer.Field name="bio" friendlyName="Pet Bio"
+                                    validators={[Validation.requiredValidator]} />
 
                     <Bessemer.Button loading={submitting}>Register Pet</Bessemer.Button>
                 </form>
