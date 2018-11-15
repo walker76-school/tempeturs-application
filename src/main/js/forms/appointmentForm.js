@@ -12,6 +12,13 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import * as moment from 'moment';
 import TextField from '@material-ui/core/TextField';
+import TimePickerDialog from "material-ui/TimePicker/TimePickerDialog";
+import DatePickerDialog from "material-ui/DatePicker/DatePickerDialog";
+import DatePicker from 'material-ui-datetimepicker';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import DateTimePicker from 'material-ui-datetimepicker';
+import {createMuiTheme} from '@material-ui/core/styles/index';
 
 const styles = theme => ({
     container: {
@@ -23,6 +30,18 @@ const styles = theme => ({
         marginRight: theme.spacing.unit,
         width: 200,
     },
+});
+
+const theme = createMuiTheme({
+    datePicker: {
+        color: '#FFFFFF',
+        textColor: '#FFFFFF',
+        calendarTextColor: '#FFFFFF',
+        selectColor: '#FFFFFF',
+        selectTextColor: '#FFFFFF',
+        calendarYearBackgroundColor: '#FFFFFF',
+        headerColor: '#FFFFFF',
+    }
 });
 
 
@@ -38,7 +57,9 @@ class AppointmentForm extends React.Component {
             startTime: null,
             endTime: null,
             sitters: false,
-            errorCode: 0
+            errorCode: 0,
+            dateStartTime: new Date(),
+            dateEndTime: new Date()
         };
 
         this.addAppointment = this.addAppointment.bind(this);
@@ -47,11 +68,21 @@ class AppointmentForm extends React.Component {
         this.handleEndTime = this.handleEndTime.bind(this);
     }
 
+
+    setStartDate = (dateTime) => this.setState({
+        dateStartTime: new Date(dateTime)
+    });
+
+    setEndDate = (dateTime) => this.setState({
+        dateEndTime: new Date(dateTime)
+    });
+
     handleDate(e){
         let date = moment(e.target.value);
         this.setState({date: date});
         console.log(date);
     }
+
 
     handleStartTime(e){
         console.log(e.target.value);
@@ -192,63 +223,96 @@ class AppointmentForm extends React.Component {
                 {content}
                 <br/>
 
-                <TextField
-                    id="date"
-                    label="Appointment Start Date"
-                    type="date"
-                    defaultValue={this.state.date}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    onChange={this.handleDate}
-                />
+                <MuiThemeProvider theme={theme}>
+                    <DatePicker
+                        value={this.state.dateStartTime} // picker value moment/string/number/js Date
+                        format='MMM DD, YYYY HH:mm'
+                        timePickerDelay={150}
+                        returnMomentDate={true} // if true will return moment object
+                        //className='datetime-container'
+                        //textFieldClassName='datetime-input'
+                        //name='picker' // form value name
+                        datePickerMode='landscape' // or landscape
+                        openToYearSelection={false}
+                        disableYearSelection={false}
+                        hideCalendarDate={false}
+                        firstDayOfWeek={1}
+                        minutesStep={1}
+                        showCurrentDateByDefault={false}
+                        // clearIcon={<ClearIcon/>} // set null to not render nothing
+                        // available callbacks
+                        onChange={(date) => this.setStartDate(date)}
+                        onTimePickerShow={() => {
+                        }}
+                        onDatePickerShow={() => {
+                        }}
+                        onDateSelected={() => {
+                        }}
+                        onTimeSelected={() => {
+                        }}
+                        shouldDisableDate={() => {
+                        }}
+                        DatePicker={DatePickerDialog}
+                        TimePicker={TimePickerDialog}
+                        // styles
 
-                <TextField
-                    id="time"
-                    label="Start Time"
-                    type="time"
-                    defaultValue={this.state.startTime}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    inputProps={{
-                        step: 300, // 5 min
-                    }}
-                    onChange={this.handleStartTime}
-                />
+                        clearIconStyle={{}}
+                        textFieldStyle={{}}
+                        style={{}}// root
+                        timePickerBodyStyle={{}}
+                        fullWidth={true}
+                    />
+                </MuiThemeProvider>
 
+                <MuiThemeProvider theme={theme}>
+                    <DatePicker
+                        value={this.state.dateEndTime} // picker value moment/string/number/js Date
+                        format='MMM DD, YYYY HH:mm'
+                        timePickerDelay={150}
+                        returnMomentDate={true} // if true will return moment object
+                        //className='datetime-container'
+                        //textFieldClassName='datetime-input'
+                        //name='picker' // form value name
+                        datePickerMode='landscape' // or landscape
+                        openToYearSelection={false}
+                        disableYearSelection={false}
+                        hideCalendarDate={false}
+                        firstDayOfWeek={1}
+                        minutesStep={1}
+                        showCurrentDateByDefault={false}
+                        // clearIcon={<ClearIcon/>} // set null to not render nothing
+                        // available callbacks
+                        onChange={(date) => this.setEndDate(date)}
+                        onTimePickerShow={() => {
+                        }}
+                        onDatePickerShow={() => {
+                        }}
+                        onDateSelected={() => {
+                        }}
+                        onTimeSelected={() => {
+                        }}
+                        shouldDisableDate={() => {
+                        }}
+                        DatePicker={DatePickerDialog}
+                        TimePicker={TimePickerDialog}
+                        // styles
 
-                <TextField
-                    id="date"
-                    label="Appointment End Date"
-                    type="date"
-                    defaultValue={this.state.date}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    onChange={this.handleDate}
-                />
-
-
-                <TextField
-                    id="time"
-                    label="End Time"
-                    type="time"
-                    defaultValue={this.state.endTime}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    inputProps={{
-                        step: 300, // 5 min
-                    }}
-                    onChange={this.handleEndTime}
-                />
+                        clearIconStyle={{}}
+                        textFieldStyle={{}}
+                        style={{}}// root
+                        timePickerBodyStyle={{}}
+                        fullWidth={true}
+                    />
+                </MuiThemeProvider>
 
                 <Bessemer.Button className='link' onClick={this.showSitters}>Find Sitters</Bessemer.Button>
                 <br/>
                 {sitterContent}
 
                 <Bessemer.Button className='link petlink' onClick={this.props.callBack}>Go Back</Bessemer.Button>
+
+
+
             </div>
         );
     }
