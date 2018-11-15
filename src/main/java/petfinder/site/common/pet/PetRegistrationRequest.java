@@ -5,6 +5,7 @@ import java.util.Map;
 public class PetRegistrationRequest {
     private String name;
     private String type;
+    private String bio;
 
     private Map<String, Object> attributes;
 
@@ -22,6 +23,14 @@ public class PetRegistrationRequest {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 
     public Map<String, Object> getAttributes() {
