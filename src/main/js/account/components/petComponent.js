@@ -101,7 +101,7 @@ class PetComponent extends React.Component {
 				/>
 				<CardContent>
 					<Typography component="p">
-
+						{this.state.bio}
 					</Typography>
 				</CardContent>
 				<CardActions className={classes.actions} disableActionSpacing>
