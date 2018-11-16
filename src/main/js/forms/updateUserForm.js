@@ -62,7 +62,7 @@ export default class UpdateUserForm extends React.Component {
 			<div>
 				<h3>Update User Info</h3>
 				<form name='form' onSubmit={handleSubmit(form => this.onSubmit(form))}>
-					<Bessemer.Field name='name' friendlyName='Name'
+					<Bessemer.Field name='name' friendlyName='Name' format1='First_Name Last_Name'
 									field={<input className="form-control" value={this.state.name}/>}
 									validators={[Validation.requiredValidator]} />
 
