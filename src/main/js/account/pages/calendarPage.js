@@ -1,28 +1,62 @@
 import React from 'react';
-import Calendar from 'material-ui/DatePicker/Calendar';
-import DatePicker from 'material-ui-datetimepicker';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import DateTimePicker from 'material-ui-datetimepicker';
-import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
-import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
-//import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles/index';
+
+import BigCalendar from 'react-big-calendar';
+import moment from 'moment';
+import 'moment/locale/nb';
+import '!style-loader!css-loader!react-big-calendar/lib/css/react-big-calendar.css';
+
+BigCalendar.momentLocalizer(moment);
+
+const myEventsList = [
+    {
+        start: '2018-11-20',
+        end: '2018-11-21',
+        eventClasses: 'optionalEvent',
+        title: 'test event',
+        description: 'This is a test description of an event',
+    },
+    {
+        start: '2018-11-19',
+        end: '2018-11-25',
+        title: 'test event',
+        description: 'This is a test description of an event',
+        data: 'you can add what ever random data you may want to use later',
+    },
+];
+
+let formats = {
+    dateFormat: 'dd',
+
+    dayFormat: (date, culture, localizer) =>
+        localizer.format(date, 'DDD', culture),
+
+    dayRangeHeaderFormat: ({ start, end }, culture, local) =>
+        local.format(start, { date: 'short' }, culture) + ' — ' +
+        local.format(end, { date: 'short' }, culture)
+};
+//const allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k]);
+
+const localizer =  BigCalendar.momentLocalizer(moment);
+
+class CalendarPage extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+    }
+
+    render() {
+        return (
+            <div>
+                <BigCalendar
+                    localizer={localizer}
+                    format={formats}
+                    culture='en-GB'
+                    events={myEventsList}
+                    views={['month', 'week']}/>
+            </div>
+        );
+    }
+}
 
 
-import BigCalendar from 'react-big-calendar'
-import moment from 'moment'
-
-// Setup the localizer by providing the moment (or globalize) Object
-// to the correct localizer.
-const localizer = BigCalendar.momentLocalizer(moment) // or globalizeLocalizer
-
-const MyCalendar = props => (
-    <div>
-        <BigCalendar
-            localizer={localizer}
-            events={myEventsList}
-            startAccessor="start"
-            endAccessor="end"
-        />
-    </div>
-);
+export default (CalendarPage);
