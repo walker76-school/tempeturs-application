@@ -3,34 +3,43 @@ package petfinder.site.common.appointment;
 import alloy.util.Identifiable;
 import petfinder.site.common.user.UserDao;
 
+import java.util.Date;
+import java.util.List;
+
 public class AppointmentDto implements Identifiable {
     private Long id;
     private String owner;
     private String sitter;
-    private Long petId;
+    private List<Long> petIds;
     private UserDao.AppointmentType type;
     private Integer rating;
+    private Date startDate;
+    private Date endDate;
 
     public AppointmentDto() {
         // Required for deserialization
     }
 
-    public AppointmentDto(Long id, String owner, String sitter, Long petId) {
+    public AppointmentDto(Long id, String owner, String sitter, List<Long> petIds, Date startDate, Date endDate) {
         this.id = id;
         this.owner = owner;
         this.sitter = sitter;
-        this.petId = petId;
+        this.petIds = petIds;
         this.type = UserDao.AppointmentType.PENDING;
         this.rating = -1;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
-    public AppointmentDto(Long id, String owner, String sitter, Long petId, UserDao.AppointmentType type) {
+    public AppointmentDto(Long id, String owner, String sitter, List<Long> petIds, UserDao.AppointmentType type, Integer rating, Date startDate, Date endDate) {
         this.id = id;
         this.owner = owner;
         this.sitter = sitter;
-        this.petId = petId;
+        this.petIds = petIds;
         this.type = type;
-        this.rating = -1;
+        this.rating = rating;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     @Override
@@ -58,12 +67,12 @@ public class AppointmentDto implements Identifiable {
         this.sitter = sitter;
     }
 
-    public Long getPetId() {
-        return petId;
+    public List<Long> getPetIds() {
+        return petIds;
     }
 
-    public void setPetId(Long petId) {
-        this.petId = petId;
+    public void setPetIds(List<Long> petIds) {
+        this.petIds = petIds;
     }
 
     public UserDao.AppointmentType getType() {
@@ -80,5 +89,21 @@ public class AppointmentDto implements Identifiable {
 
     public void setRating(Integer rating) {
         this.rating = rating;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 }
