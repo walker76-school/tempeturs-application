@@ -14,7 +14,7 @@ Spec.makeOptional = spec => val => _.isEmpty(val) ? true : spec(val);
 export { Spec };
 
 export const required = value => !!value;
-export const requiredValidator = new Validator(required, (details) => details.friendlyName + ' is required.');
+export const requiredValidator = new Validator(required, (details) => details.friendlyName + ' is required.'+ 'Format is ' + details.format1 );
 
 export const isEmail = (val) => val.match(/^[a-zA-Z0-9](\.?\+?[a-zA-Z0-9_-]){0,}@[a-zA-Z0-9-]+\.([a-zA-Z]{1,6}\.)?[a-zA-Z]{2,6}$/);
 export const emailValidator = new Validator(isEmail, (details, value) => 'Invalid Email Address');
@@ -37,8 +37,8 @@ export const isValidPassword = (val) => (val.match(/^[a-zA-Z0-9!@#$%^&*()?<>;:]+
 	(val.match(/[0-9]+/)) &&
     /*check for special characters*/
 	(val.match(/[!@#$%^&*()?<>;:]+/)));
-export const passwordValidator = new Validator(isValidPassword, (details) => 'Invalid Password. You need at least one ' +
-	'of each of the following: lowercase letter, uppercase letter, number, special character.');
+export const passwordValidator = new Validator(isValidPassword, (details) => 'Invalid Password. At least one ' +
+	'of each of the following: lowercase letter, uppercase letter, number, and special character.');
 
 export const passShortLength = (val) => val.toString().length >= 6;
 export const passShortLengthValidator = new Validator(passShortLength, (details) => 'Increase Password Length');

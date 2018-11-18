@@ -13,7 +13,8 @@ class PetListComponent extends React.Component {
             checkedVal: false,
             id: '',
             name: '',
-            type: ''
+            type: '',
+            bio: ''
         };
 
         {/* Bind the onClick function so it knows about the state */}
@@ -27,7 +28,8 @@ class PetListComponent extends React.Component {
                     this.setState({
                         id: response['id'],
                         name: response['name'],
-                        type: response['type']
+                        type: response['type'],
+                        bio: response['bio']
                     });
                 }).catch((error) => {
             alert(error);

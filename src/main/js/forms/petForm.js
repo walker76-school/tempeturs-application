@@ -32,9 +32,11 @@ class PetForm extends React.Component {
         return (
             <div>
                 <form name="form" onSubmit={handleSubmit(form => this.onSubmit(form))}>
-                    <Bessemer.Field name="name" friendlyName="Pet Name"
+                    <Bessemer.Field name="name" friendlyName="Pet Name" format1='First_Name'
                                     validators={[Validation.requiredValidator]} />
                     <Bessemer.Field name="type" friendlyName="Pet Type"
+                                    validators={[Validation.requiredValidator]} />
+                    <Bessemer.Field name="bio" friendlyName="Pet Bio"
                                     validators={[Validation.requiredValidator]} />
 
                     <Bessemer.Button loading={submitting}>Register Pet</Bessemer.Button>
