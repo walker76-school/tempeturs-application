@@ -66,7 +66,7 @@ class AppointmentPage extends React.Component {
                 {/* Map each appointment to a new appointment component */
                 }
                 let tempContent = this.props.user.appointments.map((i, index) =>
-                    <AppointmentComponent userType={this.props.user.type} id={i} index={index}/>
+                    <AppointmentComponent key={index} userType={this.props.user.type} id={i} index={index}/>
                 );
                 component = (
                     <div>

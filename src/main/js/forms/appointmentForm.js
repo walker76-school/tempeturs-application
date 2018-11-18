@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import * as PetAPI from 'js/api/petAPI';
+import * as AppointmentAPI from 'js/api/appointmentAPI';
 import * as Users from 'js/api/usersAPI';
 import {PetListComponent} from 'js/account/components/petListComponent';
 import {withStyles} from '@material-ui/core/styles';
@@ -12,8 +13,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import * as moment from 'moment';
 import TextField from '@material-ui/core/TextField';
-import TimePickerDialog from "material-ui/TimePicker/TimePickerDialog";
-import DatePickerDialog from "material-ui/DatePicker/DatePickerDialog";
+import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
+import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 import DatePicker from 'material-ui-datetimepicker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -46,13 +47,13 @@ const theme = createMuiTheme({
 
 Date.prototype.customFormat = function(formatString){
     var YYYY,YY,MMMM,MMM,MM,M,DDDD,DDD,DD,D,hhhh,hhh,hh,h,mm,m,ss,s,ampm,AMPM,dMod,th;
-    YY = ((YYYY=this.getFullYear())+"").slice(-2);
+    YY = ((YYYY=this.getFullYear())+'').slice(-2);
     MM = (M=this.getMonth()+1)<10?('0'+M):M;
-    MMM = (MMMM=["January","February","March","April","May","June","July","August","September","October","November","December"][M-1]).substring(0,3);
+    MMM = (MMMM=['January','February','March','April','May','June','July','August','September','October','November','December'][M-1]).substring(0,3);
     DD = (D=this.getDate())<10?('0'+D):D;
-    DDD = (DDDD=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][this.getDay()]).substring(0,3);
+    DDD = (DDDD=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][this.getDay()]).substring(0,3);
     th=(D>=10&&D<=20)?'th':((dMod=D%10)==1)?'st':(dMod==2)?'nd':(dMod==3)?'rd':'th';
-    formatString = formatString.replace("#YYYY#",YYYY).replace("#YY#",YY).replace("#MMMM#",MMMM).replace("#MMM#",MMM).replace("#MM#",MM).replace("#M#",M).replace("#DDDD#",DDDD).replace("#DDD#",DDD).replace("#DD#",DD).replace("#D#",D).replace("#th#",th);
+    formatString = formatString.replace('#YYYY#',YYYY).replace('#YY#',YY).replace('#MMMM#',MMMM).replace('#MMM#',MMM).replace('#MM#',MM).replace('#M#',M).replace('#DDDD#',DDDD).replace('#DDD#',DDD).replace('#DD#',DD).replace('#D#',D).replace('#th#',th);
     h=(hhh=this.getHours());
     if (h==0) h=24;
     if (h>12) h-=12;
@@ -61,15 +62,13 @@ Date.prototype.customFormat = function(formatString){
     AMPM=(ampm=hhh<12?'am':'pm').toUpperCase();
     mm=(m=this.getMinutes())<10?('0'+m):m;
     ss=(s=this.getSeconds())<10?('0'+s):s;
-    return formatString.replace("#hhhh#",hhhh).replace("#hhh#",hhh).replace("#hh#",hh).replace("#h#",h).replace("#mm#",mm).replace("#m#",m).replace("#ss#",ss).replace("#s#",s).replace("#ampm#",ampm).replace("#AMPM#",AMPM);
+    return formatString.replace('#hhhh#',hhhh).replace('#hhh#',hhh).replace('#hh#',hh).replace('#h#',h).replace('#mm#',mm).replace('#m#',m).replace('#ss#',ss).replace('#s#',s).replace('#ampm#',ampm).replace('#AMPM#',AMPM);
 };
 
 class AppointmentForm extends React.Component {
 
     constructor(props) {
         super(props);
-        this.addAppointment = this.addAppointment.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
         this.state = {
             pets: [],
             date: moment(),
@@ -81,47 +80,20 @@ class AppointmentForm extends React.Component {
             dateEndTime: new Date().getTime()
         };
 
+        this.bookAppointment = this.bookAppointment.bind(this);
         this.addAppointment = this.addAppointment.bind(this);
-        this.handleDate = this.handleDate.bind(this);
-        this.handleStartTime = this.handleStartTime.bind(this);
-        this.handleEndTime = this.handleEndTime.bind(this);
     }
 
 
     setStartDate = (dateTime) => this.setState({
-        dateStartTime: dateTime
+        dateStartTime: dateTime.getTime()
     });
 
     setEndDate = (dateTime) => this.setState({
-        dateEndTime: dateTime
+        dateEndTime: dateTime.getTime()
     });
 
-    handleDate(e){
-        let date = moment(e.target.value);
-        this.setState({date: date});
-        console.log(date);
-    }
-
-
-    handleStartTime(e){
-        console.log(e.target.value);
-        let time = moment(e.target.value);
-        this.setState({startTime: time});
-        console.log(time);
-    }
-
-    handleEndTime(e){
-        console.log(e.target.value);
-        let time = moment(e.target.value);
-        this.setState({endTime: time});
-        console.log(time);
-    }
-
-    onSubmit = appointment => {
-        return this.props.registerAppointment(appointment, this.addAppointment);
-    };
-
-    addAppointment = principal => {
+    bookAppointment = principal => {
 
         let appointmentRequest = {
             pets: [],
@@ -130,28 +102,21 @@ class AppointmentForm extends React.Component {
             startDate: '',
             endDate: ''
         };
-        appointmentRequest['pets'] = this.state.pets;
+        appointmentRequest['petIds'] = this.state.pets;
         appointmentRequest['owner'] = this.props.user.principal;
         appointmentRequest['sitter'] = principal;
         appointmentRequest['startDate'] = this.state.dateStartTime;
         appointmentRequest['endDate'] = this.state.dateEndTime;
 
         console.log(appointmentRequest);
+        return this.props.registerAppointment(appointmentRequest, this.addAppointment);
+    };
 
-        //let momentTime = moment(this.state.time);
-        //let momentDate = moment(this.state.date);
-        let renderedDateTime = moment({
-            year: momentDate.year(),
-            month: momentDate.month(),
-            day: momentDate.date(),
-            hour: momentTime.hours(),
-            minute: momentTime.minutes()
-        });
-
-        /*let updatedUser = this.props.user;
+    addAppointment = id => {
+        let updatedUser = this.props.user;
         updatedUser['appointments'].push(id);
         this.props.addAppointment(updatedUser);
-        this.props.callBack();*/
+        this.props.callBack();
     };
 
     enqueuePet = (id) => {
@@ -231,7 +196,7 @@ class AppointmentForm extends React.Component {
         let sitterContent;
         if(this.state.sitters && this.props.user){
             console.log('Showing sitters...');
-            sitterContent = ( <SitterList zip={this.props.user.zip} callBack={this.addAppointment}/> );
+            sitterContent = ( <SitterList zip={this.props.user.zip} callBack={this.bookAppointment}/> );
         }
 
         return (
@@ -243,13 +208,10 @@ class AppointmentForm extends React.Component {
                 <MuiThemeProvider theme={theme}>
                     Start Date
                     <DatePicker
-                        value={(new Date(this.state.dateStartTime)).customFormat( "#DDD# #MMM# #DD#, #YYYY# #hh#:#mm#:#ss# #AMPM#" )} // picker value moment/string/number/js Date
+                        value={(new Date(this.state.dateStartTime)).customFormat( '#DDD# #MMM# #DD#, #YYYY# #hh#:#mm#:#ss# #AMPM#' )} // picker value moment/string/number/js Date
                         format='MMM DD, YYYY HH:mm'
                         timePickerDelay={150}
-                        returnMomentDate={true} // if true will return moment object
-                        //className='datetime-container'
-                        //textFieldClassName='datetime-input'
-                        //name='picker' // form value name
+                        returnMomentDate={false} // if true will return moment object
                         datePickerMode='landscape' // or landscape
                         openToYearSelection={false}
                         disableYearSelection={false}
@@ -257,27 +219,9 @@ class AppointmentForm extends React.Component {
                         firstDayOfWeek={1}
                         minutesStep={1}
                         showCurrentDateByDefault={true}
-                        // clearIcon={<ClearIcon/>} // set null to not render nothing
-                        // available callbacks
                         onChange={(date) => this.setStartDate(date)}
-                        onTimePickerShow={() => {
-                        }}
-                        onDatePickerShow={() => {
-                        }}
-                        onDateSelected={() => {
-                        }}
-                        onTimeSelected={() => {
-                        }}
-                        shouldDisableDate={() => {
-                        }}
                         DatePicker={DatePickerDialog}
                         TimePicker={TimePickerDialog}
-                        // styles
-
-                        clearIconStyle={{}}
-                        textFieldStyle={{}}
-                        style={{}}// root
-                        timePickerBodyStyle={{}}
                         fullWidth={false}
                     />
                 </MuiThemeProvider>
@@ -285,13 +229,10 @@ class AppointmentForm extends React.Component {
                 <MuiThemeProvider theme={theme}>
                     End Date
                     <DatePicker
-                        value={(new Date(this.state.dateEndTime)).customFormat( "#DDD# #MMM# #DD#, #YYYY# #hh#:#mm#:#ss# #AMPM#" )} // picker value moment/string/number/js Date
+                        value={(new Date(this.state.dateEndTime)).customFormat( '#DDD# #MMM# #DD#, #YYYY# #hh#:#mm#:#ss# #AMPM#' )} // picker value moment/string/number/js Date
                         format='MMM DD, YYYY HH:mm'
                         timePickerDelay={150}
-                        returnMomentDate={true} // if true will return moment object
-                        //className='datetime-container'
-                        //textFieldClassName='datetime-input'
-                        //name='picker' // form value name
+                        returnMomentDate={false} // if true will return moment object
                         datePickerMode='landscape' // or landscape
                         openToYearSelection={false}
                         disableYearSelection={false}
@@ -299,27 +240,9 @@ class AppointmentForm extends React.Component {
                         firstDayOfWeek={1}
                         minutesStep={1}
                         showCurrentDateByDefault={true}
-                        // clearIcon={<ClearIcon/>} // set null to not render nothing
-                        // available callbacks
                         onChange={(date) => this.setEndDate(date)}
-                        onTimePickerShow={() => {
-                        }}
-                        onDatePickerShow={() => {
-                        }}
-                        onDateSelected={() => {
-                        }}
-                        onTimeSelected={() => {
-                        }}
-                        shouldDisableDate={() => {
-                        }}
                         DatePicker={DatePickerDialog}
                         TimePicker={TimePickerDialog}
-                        // styles
-
-                        clearIconStyle={{}}
-                        textFieldStyle={{}}
-                        style={{}}// root
-                        timePickerBodyStyle={{}}
                         fullWidth={false}
                     />
                 </MuiThemeProvider>
@@ -343,7 +266,7 @@ AppointmentForm = connect(
         user: Users.State.getUser(state)
     }),
     dispatch => ({
-        registerAppointment: (appointment, callback) => dispatch(PetAPI.Actions.registerPet(appointment, callback)),
+        registerAppointment: (appointment, callback) => dispatch(AppointmentAPI.Actions.registerAppointment(appointment, callback)),
         addAppointment: user => dispatch(Users.Actions.update(user))
     })
 )(AppointmentForm);

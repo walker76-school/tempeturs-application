@@ -8,8 +8,8 @@ export function getRating(){
 	return axios.get('api/appointment/rating');
 }
 
-export function makeAppointment(ownerPrincipal, sitterPrincipal, petId) {
-	return axios.post('/api/appointment/makeAppointment/' + ownerPrincipal + '/' + sitterPrincipal + '/' + petId);
+export function makeAppointment(appointment) {
+	return axios.post('/api/appointment/makeAppointment/', appointment);
 }
 
 export function getAppointment(id){
@@ -31,3 +31,18 @@ export function cancelAppointment(id){
 export function rateAppointment(id, rating){
 	return axios.post('/api/appointment/rateAppointment/' + id + '/' + rating);
 }
+
+let Actions = {};
+
+Actions.registerAppointment = (appointment, callback) => {
+    return (dispatch) => {
+        return makeAppointment(appointment).then((retApp) => {
+            if(callback !== null){
+                callback(retApp['id']);
+            }
+            return retApp;
+        });
+    };
+};
+
+export {Actions};

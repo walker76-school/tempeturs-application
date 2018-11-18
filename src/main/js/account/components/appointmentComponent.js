@@ -12,6 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import * as Bessemer from 'js/alloy/bessemer/components';
 import { Rating } from 'material-ui-rating';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppointmentPetComponent from 'js/account/components/appointmentPetComponent';
 
 const styles = theme => ({
 	heading: {
@@ -32,7 +33,14 @@ class AppointmentComponent extends React.Component {
 		{/* Setup an update state to reload the component on approval */}
 		this.state = {
 			update: false,
-			appointment: '',
+			appointment: null,
+            startDate: 0,
+            endDate: 0,
+            type: '',
+            owner: '',
+            sitter: '',
+            petIds: [],
+            rating: -1,
 			expanded: null,
 		};
 		{/* Bind the onClick functions so they know about the state */}
@@ -47,10 +55,18 @@ class AppointmentComponent extends React.Component {
 			.then(
 				(response) => {
 					{/*The .then waits for a response from the API and then executes the following code */}
+					console.log(response);
 
 					{/* Set the state to the response value, which is a list of possible sitters */}
 					this.setState({
-						appointment: response
+						appointment: response,
+                        startDate: response['startDate'],
+                        endDate: response['endDate'],
+                        type: response['type'],
+                        owner: response['owner'],
+                        sitter: response['sitter'],
+                        petIds: response['petIds'],
+                        rating: response['rating'],
 					});
 				}).catch((error) => {
 			{/* If there is any error then alert the user
@@ -104,25 +120,28 @@ class AppointmentComponent extends React.Component {
 		const { classes } = this.props;
 		const { expanded } = this.state;
 
+        let pets = this.state.petIds.map((i, index) => <AppointmentPetComponent key={index} petKey={i}/>);
+
         return (
 			<ExpansionPanel expanded={expanded === ('panel' + this.props.index)} onChange={this.handleChange('panel' + this.props.index)}>
 				<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-					<Typography className={classes.heading}>Pet: {this.state.appointment.petId}</Typography>
-					<Typography className={classes.secondaryHeading}>Type: {this.state.appointment.type}</Typography>
+					<Typography className={classes.heading}>{(new Date(this.state.startDate)).customFormat( '#DDD# #MMM# #DD#, #YYYY# #hh#:#mm#:#ss# #AMPM#' )} - {(new Date(this.state.endDate)).customFormat( '#DDD# #MMM# #DD#, #YYYY# #hh#:#mm#:#ss# #AMPM#' )}</Typography>
+					<Typography className={classes.secondaryHeading}>Type: {this.state.type}</Typography>
 				</ExpansionPanelSummary>
+                <Divider />
 				<ExpansionPanelDetails>
 					<Typography>
-						Owner: {this.state.appointment.owner}
+						Owner: {this.state.owner}
 						<br/>
-						Sitter: {this.state.appointment.sitter}
+						Sitter: {this.state.sitter}
 						<br/>
 					{(this.props.userType === 'OWNER' || this.props.userType === 'COMBO') &&
-					this.state.appointment.type === 'ACCEPTED' &&
+					this.state.type === 'ACCEPTED' &&
 					<div>
 
                         <MuiThemeProvider>
                         <Rating
-                            value={this.state.appointment.rating}
+                            value={this.state.rating}
                             max={5}
                             onChange={(value) => this.onRate(value)}
                         />
@@ -132,25 +151,31 @@ class AppointmentComponent extends React.Component {
 					}
 
 					{
-						this.state.appointment.type === 'ACCEPTED' &&
-						this.state.appointment.rating !== -1 &&
+						this.state.type === 'ACCEPTED' &&
+						this.state.rating !== -1 &&
 						<div>
-							<label>Rating: {this.state.appointment.rating}</label> <br/>
+							<label>Rating: {this.state.rating}</label> <br/>
 						</div>
 					}
 					</Typography>
 				</ExpansionPanelDetails>
 				<Divider />
+                <ExpansionPanelDetails>
+                    <Typography>
+                        {pets}
+                    </Typography>
+                </ExpansionPanelDetails>
+                <Divider />
 				<ExpansionPanelActions>
-					{(this.props.userType === 'SITTER' || this.props.userType === 'COMBO') && this.state.appointment.type === 'PENDING' &&
+					{(this.props.userType === 'SITTER' || this.props.userType === 'COMBO') && this.state.type === 'PENDING' &&
 					<Bessemer.Button onClick={this.onClickApprove}>Approve</Bessemer.Button>
 					}
 
-					{(this.props.userType === 'SITTER' || this.props.userType === 'COMBO') && this.state.appointment.type === 'PENDING' &&
+					{(this.props.userType === 'SITTER' || this.props.userType === 'COMBO') && this.state.type === 'PENDING' &&
 					<Bessemer.Button onClick={this.onClickReject}>Reject</Bessemer.Button>
 					}
 
-					{this.state.appointment.type === 'ACCEPTED' &&
+					{this.state.type === 'ACCEPTED' &&
 						<Bessemer.Button onClick={this.onClickCancel}>Cancel Appointment</Bessemer.Button>
 					}
 

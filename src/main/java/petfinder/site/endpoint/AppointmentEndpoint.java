@@ -56,11 +56,12 @@ public class AppointmentEndpoint {
     }
 
     @PostMapping(value = "/makeAppointment", produces = "application/json")
-    public void makeAppointment(@RequestBody AppointmentService.AppointmentRequest request) {
+    public AppointmentDto makeAppointment(@RequestBody AppointmentService.AppointmentRequest request) {
         Integer id = generateUniqueId();
         AppointmentDto appointment = new AppointmentDto(id.longValue(), request.getOwner(), request.getSitter(), request.getPetIds(), request.getStartDate(), request.getEndDate());
         appointmentService.save(appointment);
         userService.makeAppointment(request.getOwner(), request.getSitter(), id.longValue());
+        return appointment;
     }
 
     @GetMapping(value = "/getAppointment/{id}", produces = "application/json")
