@@ -9,15 +9,17 @@ public class PetDto implements Identifiable {
 	private Long id;
 	private String name;
 	private String type;
+	private String bio;
 
     public PetDto() {
         // Empty constructor required for deserialization
     }
 
-	public PetDto(Long id, String name, String type) {
+	public PetDto(Long id, String name, String type, String bio) {
 		this.id = id;
 		this.name = name;
 		this.type = type;
+		this.bio = bio;
 	}
 
 	@Override
@@ -44,4 +46,12 @@ public class PetDto implements Identifiable {
 	public void setType(String type) {
 		this.type = type;
 	}
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
 }

@@ -60,6 +60,8 @@ class SitterComponent extends React.Component {
                 </CardContent>
                 <CardActions className={classes.actions} disableActionSpacing>
                     <Bessemer.Button onClick={this.onClick}>Book Sitter</Bessemer.Button>
+                    {/*MN adding button to render map for sitter*/}
+                    <Bessemer.Button onClick={this.onClick}>Directions</Bessemer.Button>
                 </CardActions>
             </Card>
 		);
