@@ -10,6 +10,7 @@ import connect from 'react-redux/es/connect/connect';
 import * as Users from 'js/api/usersAPI';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 const styles = theme => ({
     card: {
@@ -65,13 +66,14 @@ class SitterComponent extends React.Component {
             content: 'Map'
         });
     };
+
     refresh() {
         console.log('Refreshing Sitter...');
         this.setState({
             content: '',
             refresh: !this.state.refresh
         });
-    };
+    }
 
 	render(){
         const { classes } = this.props;
@@ -100,7 +102,9 @@ class SitterComponent extends React.Component {
                     </Card>);
         }
         else if( this.state.content === 'Directions'){
-            // let component be the directions // make your calls to get appropriate information and then make calls to google api
+            // make your calls to get appropriate information and then make calls to google api
+            // get the directions or estimated time and display.\
+            // probably need to get the users information from the redux store.
             component =(
                 <body>
                     <h1> this is the directions</h1>
@@ -109,44 +113,25 @@ class SitterComponent extends React.Component {
                 </body>
         );
         }else if(this.state.content === 'Map'){
+                // this is what the map should look like.
             // component =(
-            // <html>
-            // <head>
-            //     <style>
-            //         /* Set the size of the div element that contains the map */
-            //         #map { height}: 400px;  /* The height is 400 pixels */
-            //         width: 100%;  /* The width is the width of the web page */
-            //         }
-            //     </style>
-            // </head>
-            // <body>
-            // <h3>My Google Maps Demo</h3>
-            // <div id="map"></div>
-            // <script>{
-            //     // Initialize and add the map
-            //     function initMap() {
-            //         // The location of Uluru
-            //         var uluru = {lat: -25.344, lng: 131.036};
-            //         // The map, centered at Uluru
-            //         var map = new google.maps.Map(
-            //             document.getElementById('map'), {zoom: 4, center: uluru});
-            //         // The marker, positioned at Uluru
-            //         var marker = new google.maps.Marker({position: uluru, map: map});
-            //     }
-            // }
-            // </script>
-            // <script async defer
-            //         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDolgtw08Z4fjTc82xfYQufGBoeWWSXve0&callback=initMap">
-            // </script>
-            // </body>
-            // </html>
+            //     <Map google={this.props.google} zoom={14}>
+            //
+            //         <Marker onClick={this.onMarkerClick}
+            //                 name={'Current location'} />
+            //
+            //         <InfoWindow onClose={this.onInfoWindowClose}>
+            //             <div>
+            //                 <h1>{this.state.selectedPlace.name}</h1>
+            //             </div>
+            //         </InfoWindow>
+            //     </Map>
             // );
             component =(
                 <body>
-                <h1>This is the map</h1>
-                <Bessemer.Button onClick={this.showDirections} > Back </Bessemer.Button>
+                 <h1>This is the map</h1>
+                 <Bessemer.Button onClick={this.showDirections} > Back </Bessemer.Button>
                 </body>
-
             );
         }else if(this.state.content === 'Booked'){
             // this is Booked state.
@@ -166,6 +151,13 @@ class SitterComponent extends React.Component {
         );
 	}
 }
+
+    // this is what we need for the map to work material ui also requires another default export
+    // how do we do both in jsx
+// export default GoogleApiWrapper({
+//     apiKey: ('AIzaSyDolgtw08Z4fjTc82xfYQufGBoeWWSXve0')
+// })(SitterComponent);
+
 
 SitterComponent.propTypes = {
     classes: PropTypes.object.isRequired,
