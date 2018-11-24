@@ -7,6 +7,15 @@ import com.sun.tools.javac.util.Pair;
 //import org.json.simple.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URL;
+import java.nio.charset.Charset;
+
+import org.json.JSONException;
 
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
@@ -76,20 +85,26 @@ public class UserDao {
 
 		// now that we have all sitters in the same state we need to get the drive times
 		String durationValue = "";
-		for(UserDto e : ourReturn){
+		for(UserDto e : ourReturn) {
 			//we need to make the http request and store the  value in "duration" : {
 			//                  "text" : "1 hour 48 mins",
 			//                  "value" : 6505
 			//               }
-			String request = "https://maps.googleapis.com/maps/api/directions/json?origin="+addressLine+"%20"+city
-					+"%20"+state+"%20"+zip+"&destination="+e.getAddressLine()+"%20"+e.getCity() +"%20"+e.getState()
-					+"%20"+e.getZip()+"&key=AIzaSyDolgtw08Z4fjTc82xfYQufGBoeWWSXve0";
+			String request = "https://maps.googleapis.com/maps/api/directions/json?origin=" + addressLine + "%20" + city
+					+ "%20" + state + "%20" + zip + "&destination=" + e.getAddressLine() + "%20" + e.getCity() + "%20" + e.getState()
+					+ "%20" + e.getZip() + "&key=AIzaSyDolgtw08Z4fjTc82xfYQufGBoeWWSXve0";
 			// I don't know how to do the actual request and parse only for the value we want.
+			try {
+				JSONObject json = readJsonFromUrl(request);
+				System.out.println(json.get("value"));
 
-
+			} catch (IOException a) {
+				//logger statement here
+			} catch (JSONException b) {
+				//logger statement here
+			}
 		}
-
-		// sort the list
+			// sort the list
 		DriveTimePairs.sort(new Comparator<Pair<UserDto, String>>() {
 			@Override
 			public int compare(Pair<UserDto, String> o1, Pair<UserDto, String> o2) {
@@ -106,6 +121,27 @@ public class UserDao {
 
 		// now we should return drive time pairs to display instead of ourReturn.
 		return ourReturn;
+	}
+
+	private static String readAll(Reader rd) throws IOException {
+		StringBuilder sb = new StringBuilder();
+		int cp;
+		while ((cp = rd.read()) != -1) {
+			sb.append((char) cp);
+		}
+		return sb.toString();
+	}
+
+	public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
+		InputStream is = new URL(url).openStream();
+		try {
+			BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+			String jsonText = readAll(rd);
+			JSONObject json = new JSONObject(jsonText);
+			return json;
+		} finally {
+			is.close();
+		}
 	}
 
 	// code borrowed from user Niranj Patel stack overflow.

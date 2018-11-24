@@ -46,6 +46,11 @@ public class UserService {
         return userDao.findSitters(zip);
     }
 
+    // maybe we should return the pair, maybe miles and time
+    public List<UserDto> findSitters(String addressLine, String city, String state, String zip) {
+		return userDao.findSitters(addressLine, city, state, zip);
+	}
+
     public List<UserDto> findSittersByDate(String zip, String date) {
         return userDao.findSitters(zip);
     }
