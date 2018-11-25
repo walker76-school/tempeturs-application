@@ -11,16 +11,23 @@ BigCalendar.momentLocalizer(moment);
 
 const myEventsList = [
     {
-        start: '2018-11-20',
-        end: '2018-11-21',
+        end: new Date('November 10, 2018 11:13:00'),
+        start: new Date('November 09, 2018 11:13:00'),
         eventClasses: 'optionalEvent',
         title: 'test event',
         description: 'This is a test description of an event',
     },
     {
-        start: '2018-11-19',
-        end: '2018-11-25',
+        end: new Date('November 13, 2018 11:13:00'),
+        start: new Date('November 09, 2018 11:13:00'),
         title: 'test event',
+        description: 'This is a test description of an event',
+        data: 'you can add what ever random data you may want to use later',
+    },
+    {
+        end: new Date('November 25, 2017 11:13:00'),
+        start: new Date('November 20, 2017 11:13:00'),
+        title: 'homework',
         description: 'This is a test description of an event',
         data: 'you can add what ever random data you may want to use later',
     },
