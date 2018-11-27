@@ -2,10 +2,15 @@ import React from 'react';
 
 import {withStyles} from '@material-ui/core/styles/index';
 
+import event from 'js/account/pages/event';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import 'moment/locale/nb';
 import '!style-loader!css-loader!react-big-calendar/lib/css/react-big-calendar.css';
+import connect from 'react-redux/es/connect/connect';
+import * as Users from 'js/api/usersAPI';
+import PropTypes from 'prop-types';
+import EventComponent from 'js/account/components/appointmentComponent';
 
 BigCalendar.momentLocalizer(moment);
 
@@ -33,6 +38,15 @@ const myEventsList = [
     },
 ];
 
+/*
+const event2 = this.props.user.appointments.map((i, index) => {
+
+    return(
+        <AppointmentComponent key={index} userType={this.props.user.type} id={i} index={index}/>
+    );
+});
+*/
+
 let formats = {
     dateFormat: 'dd',
 
@@ -52,19 +66,37 @@ class CalendarPage extends React.Component {
         super(props, context);
     }
 
+
+
+
     render() {
+
+
+        let event2 = this.props.user.appointments.map((i, index) =>
+            <EventComponent key={index} userType={this.props.user.type} id={i} index={index}/>
+        );
+
         return (
+
             <div>
                 <BigCalendar
                     localizer={localizer}
                     format={formats}
                     culture='en-GB'
-                    events={myEventsList}
+                    events={event2}
                     views={['month', 'week']}/>
             </div>
         );
     }
 }
+
+
+
+CalendarPage = connect(
+    state => ({
+        user: Users.State.getUser(state),
+    })
+)(CalendarPage);
 
 
 export default (CalendarPage);

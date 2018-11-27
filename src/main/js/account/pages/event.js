@@ -1,106 +1,80 @@
-export default [
-    {
-        id: 0,
-        title: 'All Day Event very long title',
-        allDay: true,
-        start: new Date(2015, 3, 0),
-        end: new Date(2015, 3, 1),
-    },
-    {
-        id: 1,
-        title: 'Long Event',
-        start: new Date(2015, 3, 7),
-        end: new Date(2015, 3, 10),
-    },
+import React, { Component } from 'react';
+import {approveAppointment, getAppointment, rateAppointment, rejectAppointment, cancelAppointment} from 'js/api/appointmentAPI';
+import PropTypes from 'prop-types';
+import AppointmentPetComponent from 'js/account/components/appointmentPetComponent';
 
-    {
-        id: 2,
-        title: 'DTS STARTS',
-        start: new Date(2016, 2, 13, 0, 0, 0),
-        end: new Date(2016, 2, 20, 0, 0, 0),
+const styles = theme => ({
+    heading: {
+        fontSize: theme.typography.pxToRem(15),
+        flexBasis: '33.33%',
+        flexShrink: 0,
     },
+    secondaryHeading: {
+        fontSize: theme.typography.pxToRem(15),
+        color: theme.palette.text.secondary,
+    },
+});
 
-    {
-        id: 3,
-        title: 'DTS ENDS',
-        start: new Date(2016, 10, 6, 0, 0, 0),
-        end: new Date(2016, 10, 13, 0, 0, 0),
-    },
+class EventComponent extends React.Component {
 
-    {
-        id: 4,
-        title: 'Some Event',
-        start: new Date(2015, 3, 9, 0, 0, 0),
-        end: new Date(2015, 3, 10, 0, 0, 0),
-    },
-    {
-        id: 5,
-        title: 'Conference',
-        start: new Date(2015, 3, 11),
-        end: new Date(2015, 3, 13),
-        desc: 'Big conference for important people',
-    },
-    {
-        id: 6,
-        title: 'Meeting',
-        start: new Date(2015, 3, 12, 10, 30, 0, 0),
-        end: new Date(2015, 3, 12, 12, 30, 0, 0),
-        desc: 'Pre-meeting meeting, to prepare for the meeting',
-    },
-    {
-        id: 7,
-        title: 'Lunch',
-        start: new Date(2015, 3, 12, 12, 0, 0, 0),
-        end: new Date(2015, 3, 12, 13, 0, 0, 0),
-        desc: 'Power lunch',
-    },
-    {
-        id: 8,
-        title: 'Meeting',
-        start: new Date(2015, 3, 12, 14, 0, 0, 0),
-        end: new Date(2015, 3, 12, 15, 0, 0, 0),
-    },
-    {
-        id: 9,
-        title: 'Happy Hour',
-        start: new Date(2015, 3, 12, 17, 0, 0, 0),
-        end: new Date(2015, 3, 12, 17, 30, 0, 0),
-        desc: 'Most important meal of the day',
-    },
-    {
-        id: 10,
-        title: 'Dinner',
-        start: new Date(2015, 3, 12, 20, 0, 0, 0),
-        end: new Date(2015, 3, 12, 21, 0, 0, 0),
-    },
-    {
-        id: 11,
-        title: 'Birthday Party',
-        start: new Date(2015, 3, 13, 7, 0, 0),
-        end: new Date(2015, 3, 13, 10, 30, 0),
-    },
-    {
-        id: 12,
-        title: 'Late Night Event',
-        start: new Date(2015, 3, 17, 19, 30, 0),
-        end: new Date(2015, 3, 18, 2, 0, 0),
-    },
-    {
-        id: 12.5,
-        title: 'Late Same Night Event',
-        start: new Date(2015, 3, 17, 19, 30, 0),
-        end: new Date(2015, 3, 17, 23, 30, 0),
-    },
-    {
-        id: 13,
-        title: 'Multi-day Event',
-        start: new Date(2015, 3, 20, 19, 30, 0),
-        end: new Date(2015, 3, 22, 2, 0, 0),
-    },
-    {
-        id: 14,
-        title: 'Today',
-        start: new Date(new Date().setHours(new Date().getHours() - 3)),
-        end: new Date(new Date().setHours(new Date().getHours() + 3)),
-    },
-]
+    constructor(props){
+        super(props);
+        {/* Setup an update state to reload the component on approval */}
+        this.state = {
+            start: 0,
+            end: 0,
+            title: '',
+        };
+    }
+
+    componentWillMount(){
+        {/* Call getSitters which is located in js/api/appointmentApi */}
+        getAppointment(this.props.id)
+            .then(
+                (response) => {
+                    {/*The .then waits for a response from the API and then executes the following code */}
+                    console.log(response);
+
+                    {/* Set the state to the response value, which is a list of possible sitters */}
+                    this.setState({
+                        appointment: response,
+                        start: response['startDate'],
+                        end: response['endDate'],
+                        title: 'appointment with' + response['type'] + 'for' + response['petIds'],
+                    });
+                }).catch((error) => {
+            {/* If there is any error then alert the user
+			  * TODO - Add some proper alert notifications
+			  */}
+            alert(error);
+        });
+    }
+
+    render() {
+        const { classes } = this.props;
+        const { expanded } = this.state;
+
+        let pets = this.state.petIds.map((i, index) => <AppointmentPetComponent key={index} petKey={i}/>);
+
+        return (
+
+                {
+                    end: this.state.start,
+                    start: this.state.end,
+                    eventClasses: 'optionalEvent',
+                    title: this.state.title,
+                    description: 'This is a test description of an event',
+                }
+
+        );
+    }
+}
+
+
+EventComponent.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
+
+
+
+export default (EventComponent);
