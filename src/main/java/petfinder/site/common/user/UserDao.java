@@ -77,6 +77,6 @@ public class UserDao {
 	}
 
 	public enum AppointmentType {
-		PENDING, ACCEPTED, REJECTED
+		PENDING, ACCEPTED, REJECTED, CANCELLED
 	}
 }

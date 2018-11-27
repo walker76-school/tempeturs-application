@@ -4,6 +4,10 @@ export function getSitters(zip, date) {
 	return axios.get('/api/appointment/findSitters/' + zip);
 }
 
+export function getSuggestedSitters(zip) {
+	return axios.get('/api/appointment/findSitters/' + zip);
+}
+
 export function getRating(){
 	return axios.get('api/appointment/rating');
 }

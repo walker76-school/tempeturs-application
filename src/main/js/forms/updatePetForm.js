@@ -45,7 +45,8 @@ class UpdatePetForm extends React.Component {
 
 		pet['id'] = this.state.id;
 
-		return this.props.updatePet(pet);
+		this.props.updatePet(pet);
+		this.props.refresh(pet);
 	};
 
 	render() {

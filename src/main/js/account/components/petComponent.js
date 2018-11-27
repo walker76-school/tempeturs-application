@@ -54,6 +54,7 @@ class PetComponent extends React.Component {
 		console.log('Constructing PetComponent: ' + this.props.petKey);
 		this.state = {id: '', name: '', type: '', bio: '', expanded: false};
 		this.deletePet = this.deletePet.bind(this);
+		this.refresh = this.refresh.bind(this);
 	}
 
 	componentDidMount() {
@@ -71,6 +72,17 @@ class PetComponent extends React.Component {
 		});
 	}
 
+	refresh = (pet) => {
+		this.setState({
+			expanded: false,
+			id: pet['id'],
+			name: pet['name'],
+			type: pet['type'],
+			bio: pet['bio']
+		});
+		this.props.refresh();
+	};
+
 	deletePet = () => {
 		let updatedUser = this.props.user;
         let temp = [];
@@ -84,7 +96,8 @@ class PetComponent extends React.Component {
 
 		console.log('Updating user...');
 		this.props.updateUser(updatedUser);
-		this.props.callBack();
+		this.props.refresh();
+
 	};
 
 	handleExpandClick = () => {
@@ -120,7 +133,7 @@ class PetComponent extends React.Component {
 				<Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
 					<CardContent>
 						<Typography paragraph>Update Pet:</Typography>
-						<UpdatePetForm petKey={this.props.petKey}/>
+						<UpdatePetForm petKey={this.props.petKey} refresh={this.refresh}/>
 						<Bessemer.Button onClick={this.deletePet}>Delete</Bessemer.Button>
 					</CardContent>
 				</Collapse>

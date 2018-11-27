@@ -38,12 +38,16 @@ import {getRating} from 'js/api/appointmentAPI';
 import SitterList from 'js/account/components/sitterList';
 import DatePicker from 'material-ui/DatePicker/Calendar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import SuggestedSitterList from 'js/account/components/suggestedSitterList';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 const drawerWidth = 240;
 
 const styles = theme => ({
     root: {
         display: 'flex',
+		flexGrow: 1,
     },
     toolbar: {
         paddingRight: 24,
@@ -115,6 +119,11 @@ const styles = theme => ({
     },
     h5: {
         marginBottom: theme.spacing.unit * 2,
+    },
+    paper: {
+        padding: theme.spacing.unit * 2,
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
     },
 });
 
@@ -188,20 +197,24 @@ class Dashboard extends React.Component {
         		component = (<div>Rating: {this.state.rating}</div>);
 			}
             return(
-                <div>
-                    <label>Name: {this.props.user.name}</label>
-                    <br/>
-                    <label>Email: {this.props.user.principal}</label>
-                    <br/>
-                    <label>Phone: {this.props.user.phoneNumber}</label>
-                    <br/>
-                    <label>User Type: {this.props.user.type} </label>
+			<Grid container spacing={12}>
+				<Grid item xs={6}>
+					<label>Name: {this.props.user.name}</label>
+					<br/>
+					<label>Email: {this.props.user.principal}</label>
+					<br/>
+					<label>Phone: {this.props.user.phoneNumber}</label>
+					<br/>
+					<label>User Type: {this.props.user.type} </label>
 					<br/>
 					{component}
 					<br/>
-                    <h5>Suggested Sitters:</h5>
-                    <SitterList zip={this.props.user.zip} />
-                </div>
+				</Grid>
+				<Grid item xs={6}>
+					<h5>Suggested Sitters:</h5>
+					<SuggestedSitterList zip={this.props.user.zip} />
+				</Grid>
+			</Grid>
             );
         }
     }
@@ -247,7 +260,7 @@ class Dashboard extends React.Component {
                                 noWrap
                                 className={classes.title}
                             >
-                                Dashboard
+                                {this.state.component}
                             </Typography>
                             <IconButton color='inherit'>
                                 <Badge badgeContent={4} color='secondary'>
