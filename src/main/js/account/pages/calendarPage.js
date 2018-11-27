@@ -6,7 +6,7 @@ import 'moment/locale/nb';
 import '!style-loader!css-loader!react-big-calendar/lib/css/react-big-calendar.css';
 import connect from 'react-redux/es/connect/connect';
 import * as Users from 'js/api/usersAPI';
-import {getAppointment} from 'js/api/appointmentAPI';
+import {getSuggestedSitters} from 'js/api/appointmentAPI';
 
 BigCalendar.momentLocalizer(moment);
 
@@ -33,7 +33,7 @@ class CalendarPage extends React.Component {
 
     componentWillMount() {
 		{/* Call getSitters which is located in js/api/appointmentApi */}
-		getAppointment(this.props.id)
+		getSuggestedSitters(this.props.user.zip)
 			.then(
 				(response) => {
 					{/*The .then waits for a response from the API and then executes the following code */}
