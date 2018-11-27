@@ -16,7 +16,7 @@ export default class SitterList extends React.Component {
 	componentDidMount(){
 
 		{/* Call getSitters which is located in js/api/appointmentApi */}
-		getSitters(this.props.zip)
+		getSitters(this.props.addressLine, this.props.city, this.props.state, this.props.zip)
 			.then(
 				(response) => {
 				    console.log('Response...');

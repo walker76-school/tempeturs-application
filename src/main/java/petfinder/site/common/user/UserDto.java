@@ -27,7 +27,7 @@ public class UserDto implements Momento<String> {
 	private UserType type;
 	private AvailabilityDto availability;
 	private Map<String, Object> attributes;
-
+	private String currentDriveTime;
 	private UserDto() {
 
 	}
@@ -113,6 +113,13 @@ public class UserDto implements Momento<String> {
 		return zip;
 	}
 
+	public String getCurrentDriveTime(){
+		return currentDriveTime;
+	}
+
+	public void setCurrentDriveTime(String a){
+		this.currentDriveTime = a;
+	}
 	public List<String> getRoles() {
 		return roles;
 	}

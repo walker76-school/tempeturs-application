@@ -28,7 +28,7 @@ public class AppointmentEndpoint {
     }
 
     // when do we call this in js generate list of correct sitters
-    @GetMapping(value = "/findSitters/{addressLine}, {city}, {state},{zip}", produces = "application/json")
+    @GetMapping(value = "/findSitters/{addressLine}/{city}/{state}/{zip}", produces = "application/json")
     public List<UserDto> find(@PathVariable(name = "addressLine") String addressLine,@PathVariable(name="city") String city, @PathVariable(name="state") String state, @PathVariable(name="zip") String zip) {
         return userService.findSitters(addressLine, city, state, zip);
     }

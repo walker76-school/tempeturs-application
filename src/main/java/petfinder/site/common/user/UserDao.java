@@ -3,8 +3,8 @@ package petfinder.site.common.user;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import com.sun.tools.javac.util.Pair;
 //import org.json.simple.JSONObject;
+//import com.sun.tools.javac.util.Pair;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.BufferedReader;
@@ -77,11 +77,11 @@ public class UserDao {
 		// idk if i can directly assign this complex object to the return of this statement.
 		ourReturn =  repository.search(searchSourceBuilder).stream()
 				.map(UserAuthenticationDto::getUser)
-				.filter(user -> user.getZip().equals(state))
+				.filter(user -> user.getState().equals(state))
 				.collect(Collectors.toList());
 
 		// used pair from import com.sun.tools.javac.util.Pair;
-		List< Pair<UserDto,String >> DriveTimePairs = null;
+		//List< Pair<UserDto,String >> DriveTimePairs = null;
 
 		// now that we have all sitters in the same state we need to get the drive times
 		String durationValue = "";
@@ -97,6 +97,7 @@ public class UserDao {
 			try {
 				JSONObject json = readJsonFromUrl(request);
 				System.out.println(json.get("value"));
+				// if we can get the value we can store it in the dto there are getters and setters.
 
 			} catch (IOException a) {
 				//logger statement here
@@ -105,19 +106,19 @@ public class UserDao {
 			}
 		}
 			// sort the list
-		DriveTimePairs.sort(new Comparator<Pair<UserDto, String>>() {
-			@Override
-			public int compare(Pair<UserDto, String> o1, Pair<UserDto, String> o2) {
-				// switch logic if you get the worst drive times.
-				return Integer.parseInt(o1.snd)  - Integer.parseInt(o2.snd);
-				}
-		});
-		// now we need to refine the list maybe return top 5 drive times or something
-
-		for(int i = DriveTimePairs.size()-1; i > 5; i--){
-			// we need to truncate back end of the list
-			DriveTimePairs.remove(i);
-		}
+//		DriveTimePairs.sort(new Comparator<Pair<UserDto, String>>() {
+//			@Override
+//			public int compare(Pair<UserDto, String> o1, Pair<UserDto, String> o2) {
+//				// switch logic if you get the worst drive times.
+//				return Integer.parseInt(o1.snd)  - Integer.parseInt(o2.snd);
+//				}
+//		});
+//		// now we need to refine the list maybe return top 5 drive times or something
+//
+//		for(int i = DriveTimePairs.size()-1; i > 5; i--){
+//			// we need to truncate back end of the list
+//			DriveTimePairs.remove(i);
+//		}
 
 		// now we should return drive time pairs to display instead of ourReturn.
 		return ourReturn;
