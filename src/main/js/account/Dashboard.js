@@ -260,7 +260,7 @@ class Dashboard extends React.Component {
                                 noWrap
                                 className={classes.title}
                             >
-                                Dashboard
+                                {this.state.component}
                             </Typography>
                             <IconButton color='inherit'>
                                 <Badge badgeContent={4} color='secondary'>
