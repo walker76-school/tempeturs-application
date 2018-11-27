@@ -22,8 +22,8 @@ class EventComponent extends React.Component {
         {/* Setup an update state to reload the component on approval */}
         this.state = {
             start: 0,
-            end: 0,
-            title: '',
+			end: 0,
+			title: '',
         };
     }
 
