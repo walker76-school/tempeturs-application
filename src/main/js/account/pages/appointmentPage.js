@@ -59,8 +59,9 @@ class AppointmentPage extends React.Component {
             {/* If the content key is Form then render the PetForm */}
             component = (<AppointmentForm callBack={this.showAppointments}/>);
         } else {
+            console.log(this.props.user);
             {/* If there are available sitters, then map them */}
-            if (this.props.user && this.props.user.appointments.length > 0) {
+            if (this.props.user && this.props.user.appointments != null && this.props.user.appointments.length > 0) {
 
                 {/* Map each appointment to a new appointment component */
                 }
