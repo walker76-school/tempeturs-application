@@ -28,7 +28,7 @@ class CalendarPage extends React.Component {
         super(props);
         this.state = {
             events: []
-        }
+        };
     }
 
     componentWillMount() {
