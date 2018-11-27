@@ -19,19 +19,12 @@ class PetPage extends React.Component {
 
 		{/* Bind the showPetForm function so it knows about the state */}
 		this.showPetForm = this.showPetForm.bind(this);
-        this.showPets = this.showPets.bind(this);
         this.refresh = this.refresh.bind(this);
     }
 
     showPetForm(){
         this.setState({
 			content: 'Form'
-        });
-    }
-
-    showPets(){
-        this.setState({
-            content: ''
         });
     }
 
@@ -45,19 +38,16 @@ class PetPage extends React.Component {
 
     render() {
         {/* Define the content object */}
-        let content;
+        let content = null;
         if(this.state.content === 'Form'){
 			{/* If the content key is Form then render the PetForm */}
-            content = (<PetForm callBack={this.showPets}/>);
+            content = (<PetForm callBack={this.refresh}/>);
         } else {
-            console.log('Rendering pets...');
             {/* If the user is defined and there are pets then render all the pets*/}
             if (this.props.user && this.props.user['petIds'] && this.props.user['petIds'].length > 0) {
-                console.log('petIds: ');
-                console.log(this.props.user.petIds);
-                let tempContent = this.props.user['petIds'].map((i, index) => {
-                    console.log(i);
-                    return(<PetComponent key={i} petKey={i} callBack={this.refresh}/>);
+                let tempContent = null;
+                tempContent = this.props.user['petIds'].map((i, index) => {
+                    return(<PetComponent key={i} petKey={i} refresh={this.refresh}/>);
                 });
                 content = (
                     <div>

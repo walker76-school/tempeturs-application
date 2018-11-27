@@ -62,24 +62,24 @@ export default class UpdateUserForm extends React.Component {
 			<div>
 				<h3>Update User Info</h3>
 				<form name='form' onSubmit={handleSubmit(form => this.onSubmit(form))}>
-					<Bessemer.Field name='name' friendlyName='Name' format1='First_Name Last_Name'
+					<Bessemer.Field name='name' friendlyName='Name' format1=' Format is First_Name Last_Name'
 									field={<input className="form-control" value={this.state.name}/>}
 									validators={[Validation.requiredValidator]} />
 
-					<Bessemer.Field name='phoneNumber' friendlyName='Phone Number'
+					<Bessemer.Field name='phoneNumber' friendlyName='Phone Number' format1 =''
 										field={<input className="form-control" value={this.state.phoneNumber} />}
 									validators={[Validation.requiredValidator, Validation.phoneValidator, Validation.phoneLengthValidator]} />
 
-					<Bessemer.Field name='addressLine' friendlyName='Address Line'
+					<Bessemer.Field name='addressLine' friendlyName='Address Line' format1=''
 									field={<input className="form-control" value={this.state.addressLine} />}
 									validators={[Validation.requiredValidator]} />
-					<Bessemer.Field name='city' friendlyName='City'
+					<Bessemer.Field name='city' friendlyName='City' format1=''
 									field={<input className="form-control" value={this.state.city} />}
 									validators={[Validation.requiredValidator]} />
-					<Bessemer.Field name='state' friendlyName='State'
+					<Bessemer.Field name='state' friendlyName='State' format1=''
 									field={<input className="form-control" value={this.state.state} />}
 									validators={[Validation.requiredValidator]} />
-					<Bessemer.Field name='zip' friendlyName='Zip'
+					<Bessemer.Field name='zip' friendlyName='Zip' format1=''
 									field={<input className="form-control" value={this.state.zip} />}
 									validators={[Validation.requiredValidator, Validation.zipLengthValidator, Validation.zipValidator]} />
 

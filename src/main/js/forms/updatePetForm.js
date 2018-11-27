@@ -45,7 +45,8 @@ class UpdatePetForm extends React.Component {
 
 		pet['id'] = this.state.id;
 
-		return this.props.updatePet(pet);
+		this.props.updatePet(pet);
+		this.props.refresh(pet);
 	};
 
 	render() {
@@ -53,13 +54,13 @@ class UpdatePetForm extends React.Component {
 
 		return (
 			<form name="form" onSubmit={handleSubmit(form => this.onSubmit(form))}>
-				<Bessemer.Field name="name" friendlyName="Pet Name"
+				<Bessemer.Field name="name" friendlyName="Pet Name" format1 =''
 								validators={[]}
 								field={<input className="form-control" placeholder={this.state.name} />}/>
-				<Bessemer.Field name="type" friendlyName="Pet Type"
+				<Bessemer.Field name="type" friendlyName="Pet Type" format1 =''
 								validators={[]}
 								field={<input className="form-control" placeholder={this.state.type} />}/>
-                <Bessemer.Field name="bio" friendlyName="Pet Bio"
+                <Bessemer.Field name="bio" friendlyName="Pet Bio" format1=''
                                 validators={[]}
                                 field={<input className="form-control" placeholder={this.state.bio} />}/>
 				<Bessemer.Button loading={submitting}>Save</Bessemer.Button>
