@@ -197,8 +197,8 @@ class Dashboard extends React.Component {
         		component = (<div>Rating: {this.state.rating}</div>);
 			}
             return(
-			<Grid container spacing={12}>
-				<Grid item xs={6}>
+			<Grid container spacing={16}>
+				<Grid item md={6}>
 					<label>Name: {this.props.user.name}</label>
 					<br/>
 					<label>Email: {this.props.user.principal}</label>
@@ -210,7 +210,7 @@ class Dashboard extends React.Component {
 					{component}
 					<br/>
 				</Grid>
-				<Grid item xs={6}>
+				<Grid item md={6}>
 					<h5>Suggested Sitters:</h5>
 					<SuggestedSitterList zip={this.props.user.zip} />
 				</Grid>
