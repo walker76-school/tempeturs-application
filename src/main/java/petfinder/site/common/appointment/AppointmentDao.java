@@ -34,6 +34,15 @@ public class AppointmentDao {
         }
     }
 
+    public void cancel(Long id) {
+        Optional<AppointmentDto> appointment = appointmentElasticsearchRepository.find(id);
+        if(appointment.isPresent()){
+            AppointmentDto appointmentDto = appointment.get();
+            appointmentDto.setType(UserDao.AppointmentType.CANCELLED);
+            appointmentElasticsearchRepository.save(appointmentDto);
+        }
+    }
+
     public void save(AppointmentDto appointment) {
         appointmentElasticsearchRepository.save(appointment);
     }

@@ -105,7 +105,6 @@ public class AppointmentService {
             if(userAuthenticationDtoOptional.isPresent()){
                 UserAuthenticationDto userAuthenticationDto = userAuthenticationDtoOptional.get();
                 userAuthenticationDto.getUser().getNotifications().add("Appointment " + id + " has been canceled");
-                userAuthenticationDto.getUser().getAppointments().remove(id);
                 userDao.save(userAuthenticationDto);
             }
 
@@ -114,9 +113,9 @@ public class AppointmentService {
             if(userAuthenticationDtoOptional.isPresent()){
                 UserAuthenticationDto userAuthenticationDto = userAuthenticationDtoOptional.get();
                 userAuthenticationDto.getUser().getNotifications().add("Appointment " + id + " has been canceled");
-                userAuthenticationDto.getUser().getAppointments().remove(id);
                 userDao.save(userAuthenticationDto);
             }
+            appointmentDao.cancel(id);
         }
     }
 
