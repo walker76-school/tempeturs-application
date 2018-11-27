@@ -25,28 +25,28 @@ export default class OwnerRegistrationForm extends React.Component {
              in UserService.java*/
 		return (
 			<form name="form" onSubmit={handleSubmit(form => this.onSubmit(form))}>
-				<Bessemer.Field name="name" friendlyName="Name" format1 = 'First_Name Last_Name'
+				<Bessemer.Field name="name" friendlyName="Name" format1 = ' Format is First_Name Last_Name'
 								validators={[Validation.requiredValidator]} />
 
-				<Bessemer.Field name="principal" friendlyName="Email Address" format1 = "X@X.com"
+				<Bessemer.Field name="principal" friendlyName="Email Address" format1 = ' Format is X@X.com'
 								validators={[Validation.requiredValidator, Validation.emailValidator]} />
 
-				<Bessemer.Field name="phoneNumber" friendlyName="Phone Number" format1 = "XXX-XXX-XXXX"
+				<Bessemer.Field name="phoneNumber" friendlyName="Phone Number" format1 = ' Format is XXX-XXX-XXXX'
 								validators={[Validation.requiredValidator, Validation.phoneValidator, Validation.phoneLengthValidator]} />
 
-				<Bessemer.Field name="password" friendlyName="Password" format1 = "at least one of each of the following: lowercase letter, uppercase letter, number, special character."
+				<Bessemer.Field name="password" friendlyName="Password" format1 = ' Format is at least one of each of the following: lowercase letter, uppercase letter, number, special character.'
 								validators={[Validation.requiredValidator, Validation.passwordValidator, Validation.passLongLengthValidator, Validation.passShortLengthValidator]}
 								field={<input className="form-control" type="password" />} />
                 <Bessemer.Field name="addressLine" friendlyName="Address Line" format1 =''
                                 validators={[Validation.requiredValidator]} />
 
-                <Bessemer.Field name="city" friendlyName="City"
+                <Bessemer.Field name="city" friendlyName="City" format1 = ''
                                 validators={[Validation.requiredValidator]} />
 
-                <Bessemer.Field name="state" friendlyName="State" format1='Two letter capitalized abbreviation XX.'
+                <Bessemer.Field name="state" friendlyName="State" format1=' Format is the two letter capitalized abbreviation XX.'
                                 validators={[Validation.requiredValidator]} />
 
-                <Bessemer.Field name="zip" friendlyName="Zip Code" format1='XXXXX'
+                <Bessemer.Field name="zip" friendlyName="Zip Code" format1=' Format is XXXXX'
                                 validators={[Validation.requiredValidator, Validation.zipLengthValidator, Validation.zipValidator]} />
 
 				<Bessemer.Button loading={submitting}>Register</Bessemer.Button>
