@@ -7,10 +7,10 @@ import '!style-loader!css-loader!react-big-calendar/lib/css/react-big-calendar.c
 import connect from 'react-redux/es/connect/connect';
 import * as Users from 'js/api/usersAPI';
 import {getCalendarEvents} from 'js/api/appointmentAPI';
-import Dialog from "@material-ui/core/Dialog/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle";
-import DialogActions from "@material-ui/core/DialogActions/DialogActions";
-import Button from "@material-ui/core/Button/Button";
+import Dialog from '@material-ui/core/Dialog/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions/DialogActions';
+import Button from '@material-ui/core/Button/Button';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 
@@ -89,7 +89,7 @@ class CalendarPage extends React.Component {
                     aria-describedby='alert-dialog-description' >
                     <DialogTitle id='alert-dialog-title'>Details</DialogTitle>
                     <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
+                        <DialogContentText id='alert-dialog-description'>
                             {this.state.expandedText}
                         </DialogContentText>
                     </DialogContent>
