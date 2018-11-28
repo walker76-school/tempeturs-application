@@ -36,6 +36,7 @@ import * as Users from 'js/api/usersAPI';
 import connect from 'react-redux/es/connect/connect';
 import SuggestedSitterList from 'js/account/components/suggestedSitterList';
 import Grid from '@material-ui/core/Grid';
+import {getRating} from 'js/api/appointmentAPI';
 
 const drawerWidth = 240;
 
