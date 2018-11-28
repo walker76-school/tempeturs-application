@@ -6,10 +6,10 @@ import * as Validation from 'js/alloy/utils/validation';
 import * as Bessemer from 'js/alloy/bessemer/components';
 
 import * as Users from 'js/api/usersAPI';
-import Dialog from "@material-ui/core/Dialog/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle";
-import DialogActions from "@material-ui/core/DialogActions/DialogActions";
-import Button from "@material-ui/core/Button/Button";
+import Dialog from '@material-ui/core/Dialog/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions/DialogActions';
+import Button from '@material-ui/core/Button/Button';
 
 class LoginForm extends React.Component {
 
@@ -74,14 +74,15 @@ class LoginForm extends React.Component {
                 {errorDialog}
                 <br/>
 
-                <form name="form" onSubmit={handleSubmit(form => this.onSubmit(form))}>
+                <form name='form' onSubmit={handleSubmit(form => this.onSubmit(form))}>
 
-                    <Bessemer.Field name="principal" friendlyName="Email Address" format1= ' Format is X@X.com'
-                                    validators={[Validation.requiredValidator, Validation.emailValidator]} />
+                    <Bessemer.Field name='principal' friendlyName='Email Address' format1= ' Format is X@X.com'
+                                    validators={[Validation.requiredValidator, Validation.emailValidator]}
+                                    field={<input className='form-control' type='text' placeholder='Email Address'/>}  />
 
-                    <Bessemer.Field name="password" friendlyName="Password" format1 = ' Format is at least one of each of the following: lowercase letter, uppercase letter, number, and special character.'
+                    <Bessemer.Field name='password' friendlyName='Password' format1 = ' Format is at least one of each of the following: lowercase letter, uppercase letter, number, and special character.'
                                     validators={[Validation.requiredValidator, Validation.passwordValidator, Validation.passLongLengthValidator, Validation.passShortLengthValidator]}
-                                    field={<input className="form-control" type="password" />} />
+                                    field={<input className='form-control' type='password' />} />
                                     {/*MN possibly add something a check box that changes the type of the password field to text*/}
                     <Bessemer.Button loading={submitting}>Sign In</Bessemer.Button>
                 </form>

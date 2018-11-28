@@ -120,7 +120,10 @@ class AppointmentComponent extends React.Component {
 		const { classes } = this.props;
 		const { expanded } = this.state;
 
-        let pets = this.state.petIds.map((i, index) => <AppointmentPetComponent key={index} petKey={i}/>);
+        let pets = (<div>There are no pets for this appointment?</div>);
+        if(this.state.petIds != null){
+        	pets = this.state.petIds.map((i, index) => <AppointmentPetComponent key={index} petKey={i}/>);
+		}
 
         return (
 			<ExpansionPanel expanded={expanded === ('panel' + this.props.index)} onChange={this.handleChange('panel' + this.props.index)}>

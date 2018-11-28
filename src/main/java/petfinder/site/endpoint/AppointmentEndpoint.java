@@ -5,10 +5,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import petfinder.site.common.appointment.AppointmentDto;
 import petfinder.site.common.appointment.AppointmentService;
+import petfinder.site.common.appointment.CalendarAppointment;
+import petfinder.site.common.user.UserAuthenticationDto;
 import petfinder.site.common.user.UserDto;
 import petfinder.site.common.user.UserService;
 
+import javax.swing.text.html.Option;
 import javax.websocket.server.PathParam;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -89,6 +93,25 @@ public class AppointmentEndpoint {
         if(rating >= 0 && rating <= 5){
             appointmentService.rateAppointment(id, rating);
         }
+    }
+
+    @GetMapping(value = "/calendarAppointments", produces = "application/json")
+    public List<CalendarAppointment> getCalendarAppointments() {
+        List<CalendarAppointment> calendarAppointments = new ArrayList<>();
+        String principal = SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<UserDto> oudto = userService.findUserByPrincipal(principal);
+        if(oudto.isPresent()){
+            UserDto userDto = oudto.get();
+            for(Long appointmentId : userDto.getAppointments()){
+                Optional<AppointmentDto> optionalAppointmentDto = appointmentService.findAppointment(appointmentId);
+                if(optionalAppointmentDto.isPresent()){
+                    AppointmentDto appointmentDto = optionalAppointmentDto.get();
+                    CalendarAppointment calendarAppointment = new CalendarAppointment(appointmentDto);
+                    calendarAppointments.add(calendarAppointment);
+                }
+            }
+        }
+        return calendarAppointments;
     }
 
     private Integer generateUniqueId()

@@ -34,13 +34,9 @@ import {NotificationPage} from 'js/account/pages/notificationPage';
 import {Logout} from 'js/account/components/logout';
 import * as Users from 'js/api/usersAPI';
 import connect from 'react-redux/es/connect/connect';
-import {getRating} from 'js/api/appointmentAPI';
-import SitterList from 'js/account/components/sitterList';
-import DatePicker from 'material-ui/DatePicker/Calendar';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import SuggestedSitterList from 'js/account/components/suggestedSitterList';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import {getRating} from 'js/api/appointmentAPI';
 
 const drawerWidth = 240;
 
@@ -68,7 +64,7 @@ const styles = theme => ({
     },
     appBarShift: {
         marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
+        width: '100%',
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
@@ -159,14 +155,6 @@ class Dashboard extends React.Component {
                 });
     }
 
-    handleDrawerOpen = () => {
-        this.setState({ open: true });
-    };
-
-    handleDrawerClose = () => {
-        this.setState({ open: false });
-    };
-
     handleButtonClick = (event,variable) => {
         {/* Set the component key */}
         this.setState({
@@ -197,8 +185,8 @@ class Dashboard extends React.Component {
         		component = (<div>Rating: {this.state.rating}</div>);
 			}
             return(
-			<Grid container spacing={12}>
-				<Grid item xs={6}>
+			<Grid container spacing={16}>
+				<Grid item md={6}>
 					<label>Name: {this.props.user.name}</label>
 					<br/>
 					<label>Email: {this.props.user.principal}</label>
@@ -210,16 +198,14 @@ class Dashboard extends React.Component {
 					{component}
 					<br/>
 				</Grid>
-				<Grid item xs={6}>
+                {(this.props.user.type === 'OWNER' || this.props.user.type === 'COMBO') && <Grid item md={6}>
 					<h5>Suggested Sitters:</h5>
 					<SuggestedSitterList zip={this.props.user.zip} />
-				</Grid>
+				</Grid>}
 			</Grid>
             );
         }
     }
-
-
 
     renderRedirect() {
         {/* This method will prevent unauthenticated users from accessing the account pages */
@@ -263,7 +249,9 @@ class Dashboard extends React.Component {
                                 {this.state.component}
                             </Typography>
                             <IconButton color='inherit'>
-                                <Badge badgeContent={4} color='secondary'>
+                                <Badge badgeContent={this.props.user !== null && this.props.user.notifications !== null ? this.props.user.notifications.length : 0}
+                                       color='secondary'
+                                       onClick={event => this.handleButtonClick(event,'Notifications')}>
                                     <NotificationsIcon />
                                 </Badge>
                             </IconButton>
