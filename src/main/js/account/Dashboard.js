@@ -41,6 +41,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import SuggestedSitterList from 'js/account/components/suggestedSitterList';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import * as Bessemer from "js/alloy/bessemer/components";
 
 const drawerWidth = 240;
 
@@ -202,10 +203,10 @@ class Dashboard extends React.Component {
 					{component}
 					<br/>
 				</Grid>
-				<Grid item md={6}>
+                {(this.props.user.type === 'OWNER' || this.props.user.type === 'COMBO') && <Grid item md={6}>
 					<h5>Suggested Sitters:</h5>
 					<SuggestedSitterList zip={this.props.user.zip} />
-				</Grid>
+				</Grid>}
 			</Grid>
             );
         }

@@ -71,7 +71,7 @@ class AppointmentPage extends React.Component {
                 component = (
                     <div>
                         {tempContent}
-                        <Bessemer.Button className='link appointmentlink' onClick={this.showAppointmentForm}>Add Appointment</Bessemer.Button>
+                        {(this.props.user.type === 'OWNER' || this.props.user.type === 'COMBO') && <Bessemer.Button className='link appointmentlink' onClick={this.showAppointmentForm}>Add Appointment</Bessemer.Button>}
                     </div>
                 );
             } else {
@@ -80,7 +80,7 @@ class AppointmentPage extends React.Component {
                 component = (
                     <div>
                         <div>You don't have any appointments.</div>
-                        <Bessemer.Button className='link petlink' onClick={this.showAppointmentForm}>Add Appointment</Bessemer.Button>
+                        {(this.props.user.type === 'OWNER' || this.props.user.type === 'COMBO') && <Bessemer.Button className='link appointmentlink' onClick={this.showAppointmentForm}>Add Appointment</Bessemer.Button>}
                     </div>
                 );
             }
