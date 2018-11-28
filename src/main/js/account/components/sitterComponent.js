@@ -1,5 +1,4 @@
 import React from 'react';
-import {makeAppointment} from 'js/api/appointmentAPI';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -15,10 +14,6 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 const styles = theme => ({
     card: {
         maxWidth: 400,
-    },
-    media: {
-        height: 0,
-        paddingTop: '56.25%', // 16:9
     },
     actions: {
         display: 'flex',
@@ -41,10 +36,7 @@ class SitterComponent extends React.Component {
 
 	bookSitter = () => {
 		{/* Call makeAppointment which is located in js/api/appointmentApi
-		  * This uses values passed in the constructor and from the Redux store
-		makeAppointment(this.props.user.principal, this.props.sitter['principal'], this.props.id);
-		console.log('refreshing');
-		this.props.refresh();*/}
+		  * This uses values passed in the constructor and from the Redux store */}
 		this.props.callBack(this.props.sitter['principal']);
 		// once this sitter is booked change the state to booked and show some confirmation
         this.setState({

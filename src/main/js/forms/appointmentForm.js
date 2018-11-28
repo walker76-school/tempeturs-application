@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as Bessemer from 'js/alloy/bessemer/components';
-import * as PetAPI from 'js/api/petAPI';
 import * as AppointmentAPI from 'js/api/appointmentAPI';
 import * as Users from 'js/api/usersAPI';
 import {PetListComponent} from 'js/account/components/petListComponent';
@@ -12,14 +11,13 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import * as moment from 'moment';
-import TextField from '@material-ui/core/TextField';
 import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
 import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 import DatePicker from 'material-ui-datetimepicker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import DateTimePicker from 'material-ui-datetimepicker';
 import {createMuiTheme} from '@material-ui/core/styles/index';
+import DialogContentText from '@material-ui/core/DialogContentText/DialogContentText';
+import DialogContent from '@material-ui/core/DialogContent/DialogContent';
 
 const styles = theme => ({
     container: {
@@ -108,7 +106,6 @@ class AppointmentForm extends React.Component {
         appointmentRequest['startDate'] = this.state.dateStartTime;
         appointmentRequest['endDate'] = this.state.dateEndTime;
 
-        console.log(appointmentRequest);
         return this.props.registerAppointment(appointmentRequest, this.addAppointment);
     };
 
@@ -121,12 +118,9 @@ class AppointmentForm extends React.Component {
 
     enqueuePet = (id) => {
         this.state.pets.push(id);
-        console.log('Enqueue: ' + id);
-        console.log(this.state.pets);
     };
 
     dequeuePet = (id) => {
-        console.log('Dequeue: ' + id);
         let temp = [];
 
         for( let i = 0; i < this.state.pets.length ; i++){
@@ -134,7 +128,6 @@ class AppointmentForm extends React.Component {
                 temp.push(this.state.pets[i]);
             }
         }
-        console.log(temp);
         this.setState({
             pets: temp
         });
@@ -147,7 +140,14 @@ class AppointmentForm extends React.Component {
             });
             return;
         }
-        console.log('Set showing sitters...');
+
+        if(this.state.dateEndTime <= this.state.dateStartTime){
+            this.setState({
+                errorCode: -2
+            });
+            return;
+        }
+
         this.setState({
             sitters: true
         });
@@ -160,14 +160,28 @@ class AppointmentForm extends React.Component {
     };
 
     render() {
+        let errorContent = '';
+        if(this.state.errorCode === -1){
+            errorContent = 'Please add at least one pet and try again.';
+        } else if(this.state.errorCode === -2) {
+            errorContent = 'End date must be after the start date.';
+        }
+
         let errorDialog = (
             <div>
                 <Dialog
                     open={this.state.errorCode < 0}
                     aria-labelledby='alert-dialog-title'
                     aria-describedby='alert-dialog-description'
+                    fullWidth={true}
+                    maxWidth='sm'
                 >
-                    <DialogTitle id='alert-dialog-title'>Please select at least one pet</DialogTitle>
+                    <DialogTitle id='alert-dialog-title'>Error</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id='alert-dialog-description'>
+                            {errorContent}
+                        </DialogContentText>
+                    </DialogContent>
                     <DialogActions>
                         <Button onClick={this.errorClose} color='primary'>
                             OK
@@ -188,14 +202,13 @@ class AppointmentForm extends React.Component {
         } else {
             if(this.props.user && this.props.user.petIds.length > 0){
                 {/* Map each possible sitter to a new sitter component */}
-                content = this.props.user.petIds.map((i, index) =>
+                content = this.props.user.petIds.map((i) =>
                     <PetListComponent key={i} enqueue={this.enqueuePet} dequeue={this.dequeuePet} id={i}/>
                 );
             }
         }
         let sitterContent;
         if(this.state.sitters && this.props.user){
-            console.log('Showing sitters...');
             sitterContent = ( <SitterList zip={this.props.user.zip} callBack={this.bookAppointment}/> );
         }
 

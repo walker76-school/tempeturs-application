@@ -30,10 +30,6 @@ public class UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	public Optional<UserDto> findUser(String id) {
-		return userDao.findUser(id).map(UserAuthenticationDto::getUser);
-	}
-
 	public Optional<UserDto> findUserByPrincipal(String principal) {
 		return userDao.findUserByPrincipal(principal).map(UserAuthenticationDto::getUser);
 	}

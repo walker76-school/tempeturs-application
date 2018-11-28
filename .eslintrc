@@ -19,12 +19,7 @@
     "import"
   ],
   "rules": {
-    "indent": [
-      "warn",
-      "tab", {
-        "SwitchCase": 1
-      }
-    ],
+    "indent": "off",
     "linebreak-style": [
       "error",
       "unix"

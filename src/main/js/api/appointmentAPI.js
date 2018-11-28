@@ -7,6 +7,11 @@ import axios from 'axios';
 export function getSitters(addressLine, city, state, zip){
     return axios.get('/api/appointment/findSitters/'+addressLine+'/'+city+'/'+state+'/'+zip);
 }
+
+export function getCalendarEvents() {
+    return axios.get('/api/appointment/calendarAppointments');
+}
+
 export function getRating(){
 	return axios.get('api/appointment/rating');
 }

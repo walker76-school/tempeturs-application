@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {approveAppointment, getAppointment, rateAppointment, rejectAppointment, cancelAppointment} from 'js/api/appointmentAPI';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -55,7 +55,6 @@ class AppointmentComponent extends React.Component {
 			.then(
 				(response) => {
 					{/*The .then waits for a response from the API and then executes the following code */}
-					console.log(response);
 
 					{/* Set the state to the response value, which is a list of possible sitters */}
 					this.setState({
@@ -82,8 +81,11 @@ class AppointmentComponent extends React.Component {
 
 		{/* Update the state to force a refresh */}
 		this.setState({
-			update: !this.state.update
+			update: !this.state.update,
+            expanded: false,
+            type: 'APPROVED'
 		});
+        this.props.refresh();
 	};
 
 	onClickReject = () => {
@@ -92,8 +94,11 @@ class AppointmentComponent extends React.Component {
 
 		{/* Update the state to force a refresh */}
 		this.setState({
-			update: !this.state.update
+			update: !this.state.update,
+            expanded: false,
+            type: 'REJECTED'
 		});
+        this.props.refresh();
 	};
 
 	onClickCancel = () => {
@@ -102,12 +107,21 @@ class AppointmentComponent extends React.Component {
 
 		{/* Update the state to force a refresh */}
 		this.setState({
-			update: !this.state.update
+			update: !this.state.update,
+            expanded: false,
+            type: 'CANCELLED'
 		});
+        this.props.refresh();
 	};
 
 	onRate = (val) => {
 		rateAppointment(this.props.id, val);
+        this.setState({
+            update: !this.state.update,
+            expanded: false,
+            rating: val
+        });
+        this.props.refresh();
 	};
 
 	handleChange = panel => (event, expanded) => {
@@ -120,7 +134,10 @@ class AppointmentComponent extends React.Component {
 		const { classes } = this.props;
 		const { expanded } = this.state;
 
-        let pets = this.state.petIds.map((i, index) => <AppointmentPetComponent key={index} petKey={i}/>);
+        let pets = (<div>There are no pets for this appointment</div>);
+        if(this.state.petIds != null){
+        	pets = this.state.petIds.map((i, index) => <AppointmentPetComponent key={index} petKey={i}/>);
+		}
 
         return (
 			<ExpansionPanel expanded={expanded === ('panel' + this.props.index)} onChange={this.handleChange('panel' + this.props.index)}>
@@ -175,7 +192,7 @@ class AppointmentComponent extends React.Component {
 					<Bessemer.Button onClick={this.onClickReject}>Reject</Bessemer.Button>
 					}
 
-					{this.state.type === 'ACCEPTED' &&
+					{(this.state.type === 'ACCEPTED' || (this.state.type === 'PENDING' && (this.props.userType === 'OWNER' || this.props.userType === 'COMBO')))&&
 						<Bessemer.Button onClick={this.onClickCancel}>Cancel Appointment</Bessemer.Button>
 					}
 

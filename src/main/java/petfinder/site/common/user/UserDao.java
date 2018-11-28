@@ -36,12 +36,6 @@ public class UserDao {
 	@Autowired
 	private UserElasticSearchRepository repository;
 
-	// JOHN
-	public Optional<UserAuthenticationDto> findUser(String id) {
-//		return repository.find(id, UserAuthenticationDto.class);
-		return null;
-	}
-
 	public Optional<UserAuthenticationDto> findUserByPrincipal(String principal) {
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 

@@ -42,7 +42,6 @@ class AppointmentPage extends React.Component {
     }
 
     refresh(){
-        console.log('Refreshing AppointmentPage...');
         this.setState({
             content: '',
             refresh: !this.state.refresh
@@ -60,17 +59,17 @@ class AppointmentPage extends React.Component {
             component = (<AppointmentForm callBack={this.showAppointments}/>);
         } else {
             {/* If there are available sitters, then map them */}
-            if (this.props.user && this.props.user.appointments.length > 0) {
+            if (this.props.user && this.props.user.appointments != null && this.props.user.appointments.length > 0) {
 
                 {/* Map each appointment to a new appointment component */
                 }
                 let tempContent = this.props.user.appointments.map((i, index) =>
-                    <AppointmentComponent key={index} userType={this.props.user.type} id={i} index={index}/>
+                    <AppointmentComponent refresh={this.refresh} key={index} userType={this.props.user.type} id={i} index={index}/>
                 );
                 component = (
                     <div>
                         {tempContent}
-                        <Bessemer.Button className='link appointmentlink' onClick={this.showAppointmentForm}>Add Appointment</Bessemer.Button>
+                        {(this.props.user.type === 'OWNER' || this.props.user.type === 'COMBO') && <Bessemer.Button className='link appointmentlink' onClick={this.showAppointmentForm}>Add Appointment</Bessemer.Button>}
                     </div>
                 );
             } else {
@@ -79,7 +78,7 @@ class AppointmentPage extends React.Component {
                 component = (
                     <div>
                         <div>You don't have any appointments.</div>
-                        <Bessemer.Button className='link petlink' onClick={this.showAppointmentForm}>Add Appointment</Bessemer.Button>
+                        {(this.props.user.type === 'OWNER' || this.props.user.type === 'COMBO') && <Bessemer.Button className='link appointmentlink' onClick={this.showAppointmentForm}>Add Appointment</Bessemer.Button>}
                     </div>
                 );
             }

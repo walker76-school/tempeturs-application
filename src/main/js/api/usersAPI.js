@@ -1,13 +1,10 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 
-//how you send objects to java
 export function registerSitter(user) {
 	return axios.post('/api/user/registerSitter', user);
 }
 
-//how the front end connects to the back end
-//user = javascript object
 export function registerOwner(user) {
 	return axios.post('/api/user/registerOwner', user);
 }
@@ -42,6 +39,11 @@ export function getUserDetailsByPrincipal(principal) {
 	return axios.get('/api/user/' + principal);
 }
 
+export function checkUserAvailability(principal) {
+    return axios.get('/tools/availability/' + principal);
+}
+
+
 let State = {};
 
 State.getAuthentication = state => {
@@ -61,20 +63,54 @@ Actions.Types = {
 	SET_USER: 'SET_USER'
 };
 
-Actions.registerSitter = (user, callback) => {
+Actions.checkPrincipalAvailability = (user, callback, errorCallback) => {
+    return (dispatch) => {
+        return checkUserAvailability(user['principal']).then((found) => {
+            if(found){
+                if(errorCallback !== null) {
+                    errorCallback();
+                }
+                return false;
+            } else {
+                if(callback !== null){
+                    callback(user);
+                }
+                return true;
+            }
+
+        }).catch(() => {
+            if(errorCallback !== null) {
+                errorCallback();
+            }
+            return false;
+        });
+    };
+};
+
+Actions.registerSitter = (user, callback, errorCallback) => {
 	return (dispatch) => {
 		//.then says wait for response
 		return registerSitter(user).then(() => {
 			return dispatch(Actions.authenticate(user.principal, user.password, callback));
-		});
+		}).catch(() => {
+            if(errorCallback !== null) {
+                errorCallback();
+            }
+            return false;
+        });
 	};
 };
 
-Actions.registerOwner = (user, callback) => {
+Actions.registerOwner = (user, callback, errorCallback) => {
 	return (dispatch) => {
 		return registerOwner(user).then(() => {
 			return dispatch(Actions.authenticate(user.principal, user.password, callback));
-		});
+		}).catch(() => {
+            if(errorCallback !== null) {
+                errorCallback();
+            }
+            return false;
+        });
 	};
 };
 
@@ -89,19 +125,14 @@ Actions.update = (user) => {
 };
 
 Actions.authenticate = (username, password, callback) => {
-	console.log('Authenticating ' + username + ' with password ' + password);
 	return (dispatch) => {
 		return authenticate(username, password).then(
 			authentication => {
-				console.log('Retrieved auth token .... ');
-				console.log(authentication);
 				dispatch(Actions.setAuthentication(authentication));
 				if(callback !== null){
 					callback();
 				}
 				return getUserDetails().then(user => {
-					console.log('Retrieved user .... ');
-					console.log(user);
 					dispatch(Actions.setUser(user));
 				});
 			}
@@ -109,8 +140,28 @@ Actions.authenticate = (username, password, callback) => {
 	};
 };
 
+Actions.authLogin = (username, password, callback, errorCallback) => {
+    return (dispatch) => {
+        return authenticate(username, password).then(
+            authentication => {
+                dispatch(Actions.setAuthentication(authentication));
+                if(callback !== null){
+                    callback();
+                }
+                return getUserDetails().then(user => {
+                    dispatch(Actions.setUser(user));
+                });
+            }
+        ).catch(() => {
+            if(errorCallback !== null) {
+                errorCallback();
+            }
+           return false;
+        });
+    };
+};
+
 Actions.refresh = () => {
-    console.log('Refreshing user...');
 	return (dispatch) => {
 		return getUserDetails().then(user => {
 			dispatch(Actions.setUser(user));

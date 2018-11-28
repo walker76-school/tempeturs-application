@@ -22,8 +22,6 @@ class LoginPage extends React.Component {
 				redirect: true
 			});
 		}
-
-
 	}
 
 	setRedirect = () => {
@@ -33,7 +31,8 @@ class LoginPage extends React.Component {
 	};
 
 	renderRedirect = () => {
-		if (this.state.redirect) {
+
+		if (this.state.redirect || (this.props.authentication && this.props.user)) {
 			return (
 				<Redirect to='/account' />
 			);
@@ -58,7 +57,8 @@ class LoginPage extends React.Component {
 
 LoginPage = connect(
 	state => ({
-
+		authentication: Users.State.getAuthentication(state),
+		user: Users.State.getUser(state)
 	}),
 	dispatch => ({
 		refresh: () => dispatch(Users.Actions.refresh()),
