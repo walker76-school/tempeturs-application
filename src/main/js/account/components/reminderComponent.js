@@ -1,6 +1,6 @@
 import React from 'react';
-import connect from "react-redux/es/connect/connect";
-import * as Users from "js/api/usersAPI";
+import connect from 'react-redux/es/connect/connect';
+import * as Users from 'js/api/usersAPI';
 
 class ReminderComponent extends React.Component {
     constructor(props, context) {

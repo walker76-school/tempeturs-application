@@ -2,7 +2,7 @@ import React from 'react';
 import {getCalendarEvents} from 'js/api/appointmentAPI';
 import connect from 'react-redux/es/connect/connect';
 import * as Users from 'js/api/usersAPI';
-import ReminderComponent from "js/account/components/reminderComponent";
+import ReminderComponent from 'js/account/components/reminderComponent';
 
 class ReminderList extends React.Component {
 
@@ -51,7 +51,7 @@ class ReminderList extends React.Component {
             let tempReminder = this.state.reminders.filter((i) => {
                 return (i['start'] - date) > 0;
             }).sort((a,b) =>{
-                return (a['start'] - date) - (b['start'] - date)
+                return (a['start'] - date) - (b['start'] - date);
             });
 
             console.log(tempReminder);
@@ -59,7 +59,7 @@ class ReminderList extends React.Component {
             if(tempReminder.length > 0) {
                 {/* Map each possible sitter to a new sitter component */
                 }
-                content = tempReminder.map((i, index) => <ReminderComponent start={i['start']} owner={i['owner']} sitter={i['sitter']}/>);
+                content = tempReminder.map((i, index) => <ReminderComponent key={index} start={i['start']} owner={i['owner']} sitter={i['sitter']}/>);
             }
         }
 
