@@ -103,7 +103,7 @@ MigrateUserForm = connect(
 		user: Users.State.getUser(state)
 	}),
 	dispatch => ({
-		updateUser: (user, callback) => dispatch(Users.Actions.update(user, callback))
+		updateUser: (user, callback) => dispatch(Users.Actions.updateCallback(user, callback))
 	})
 )(MigrateUserForm);
 

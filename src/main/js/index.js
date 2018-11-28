@@ -8,7 +8,7 @@ import {LoginPage} from 'js/login/login';
 import {OwnerRegisterPage} from 'js/registration/registerOwner';
 import Dashboard from 'js/account/Dashboard';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import {Helmet} from "react-helmet";
+import {Helmet} from 'react-helmet';
 import favicon from '../resources/favicon.ico';
 
 const theme = createMuiTheme({
@@ -46,9 +46,9 @@ class Index extends React.Component {
 		return (
 		    <MuiThemeProvider theme={theme} >
 				<Helmet>
-					<meta charSet="utf-8" />
+					<meta charSet='utf-8' />
 					<title>Index</title>
-					<link rel="icon" type="image/png" href={favicon} sizes="16x16" />
+					<link rel='icon' type='image/png' href={favicon} sizes='16x16' />
 				</Helmet>
                 <HashRouter>
                     <div>
