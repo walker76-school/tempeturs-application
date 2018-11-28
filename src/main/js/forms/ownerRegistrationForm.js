@@ -60,33 +60,41 @@ class OwnerRegistrationForm extends React.Component {
                         </Button>
                     </DialogActions>
                 </Dialog>
-                <form name='form' onSubmit={handleSubmit(form => this.onSubmit(form))}>
-                    <Bessemer.Field name='name' friendlyName='Name' format1 = ' Format is First_Name Last_Name'
-                                    validators={[Validation.requiredValidator]} />
+				<form name='form' onSubmit={handleSubmit(form => this.onSubmit(form))}>
+					<Bessemer.Field name='name' friendlyName='Name' format1 = 'Format is First_Name Last_Name'
+									validators={[Validation.requiredValidator]}
+									field={<input className='form-control' type='text' placeholder='Name'/>} />
 
-                    <Bessemer.Field name='principal' friendlyName='Email Address' format1 = ' Format is X@X.com'
-                                    validators={[Validation.requiredValidator, Validation.emailValidator]} />
+					<Bessemer.Field name='principal' friendlyName='Email Address' format1 = ' Format is X@X.com'
+									validators={[Validation.requiredValidator, Validation.emailValidator]}
+									field={<input className='form-control' type='text' placeholder='Email Address'/>} />
 
-                    <Bessemer.Field name='phoneNumber' friendlyName='Phone Number' format1 = ' Format is XXX-XXX-XXXX'
-                                    validators={[Validation.requiredValidator, Validation.phoneValidator, Validation.phoneLengthValidator]} />
+					<Bessemer.Field name='phoneNumber' friendlyName='Phone Number' format1 = ' Format is XXX-XXX-XXXX'
+									validators={[Validation.requiredValidator, Validation.phoneValidator, Validation.phoneLengthValidator]}
+									field={<input className='form-control' type='text' placeholder='Phone Number'/>}/>
 
-                    <Bessemer.Field name='password' friendlyName='Password' format1 = ' Format is at least one of each of the following: lowercase letter, uppercase letter, number, special character.'
-                                    validators={[Validation.requiredValidator, Validation.passwordValidator, Validation.passLongLengthValidator, Validation.passShortLengthValidator]}
-                                    field={<input className='form-control' type='password' />} />
-                    <Bessemer.Field name='addressLine' friendlyName='Address Line' format1 =''
-                                    validators={[Validation.requiredValidator]} />
+					<Bessemer.Field name='password' friendlyName='Password' format1 = ' Format is at least one of each of the following: lowercase letter, uppercase letter, number, and special character.'
+									validators={[Validation.requiredValidator, Validation.passwordValidator, Validation.passLongLengthValidator, Validation.passShortLengthValidator]}
+									field={<input className='form-control' type='password' placeholder='Password'/>} />
 
-                    <Bessemer.Field name='city' friendlyName='City' format1 = ''
-                                    validators={[Validation.requiredValidator]} />
+					<Bessemer.Field name='addressLine' friendlyName='Address Line'
+									validators={[Validation.requiredValidator]}
+									field={<input className='form-control' type='text' placeholder='Address'/>} />
 
-                    <Bessemer.Field name='state' friendlyName='State' format1=' Format is the two letter capitalized abbreviation XX.'
-                                    validators={[Validation.requiredValidator]} />
+					<Bessemer.Field name='city' friendlyName='City'
+									validators={[Validation.requiredValidator]}
+									field={<input className='form-control' type='text' placeholder='City'/>}/>
 
-                    <Bessemer.Field name='zip' friendlyName='Zip Code' format1=' Format is XXXXX'
-                                    validators={[Validation.requiredValidator, Validation.zipLengthValidator, Validation.zipValidator]} />
+					<Bessemer.Field name='state' friendlyName='State'   format1=' Format is the two letter capitalized abbreviation XX.'
+									validators={[Validation.requiredValidator]}
+									field={<input className='form-control' type='text' placeholder='State'/>}/>
 
-                    <Bessemer.Button loading={submitting}>Register</Bessemer.Button>
-                </form>
+					<Bessemer.Field name='zip' friendlyName='Zip Code' format1=' Format is XXXXX'
+									validators={[Validation.requiredValidator, Validation.zipLengthValidator, Validation.zipValidator]}
+									field={<input className='form-control' type='text' placeholder='Zip Code'/>}/>
+
+					<Bessemer.Button loading={submitting}>Register</Bessemer.Button>
+				</form>
             </div>
 		);
 	}
