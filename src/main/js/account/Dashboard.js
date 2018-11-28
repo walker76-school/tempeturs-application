@@ -68,7 +68,7 @@ const styles = theme => ({
     },
     appBarShift: {
         marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
+        width: '100%',
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
@@ -159,14 +159,6 @@ class Dashboard extends React.Component {
                 });
     }
 
-    handleDrawerOpen = () => {
-        this.setState({ open: true });
-    };
-
-    handleDrawerClose = () => {
-        this.setState({ open: false });
-    };
-
     handleButtonClick = (event,variable) => {
         {/* Set the component key */}
         this.setState({
@@ -219,8 +211,6 @@ class Dashboard extends React.Component {
         }
     }
 
-
-
     renderRedirect() {
         {/* This method will prevent unauthenticated users from accessing the account pages */
         }
@@ -263,7 +253,9 @@ class Dashboard extends React.Component {
                                 {this.state.component}
                             </Typography>
                             <IconButton color='inherit'>
-                                <Badge badgeContent={4} color='secondary'>
+                                <Badge badgeContent={this.props.user !== null && this.props.user.notifications !== null ? this.props.user.notifications.length : 0}
+                                       color='secondary'
+                                       onClick={event => this.handleButtonClick(event,'Notifications')}>
                                     <NotificationsIcon />
                                 </Badge>
                             </IconButton>
