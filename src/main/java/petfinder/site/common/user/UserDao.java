@@ -1,5 +1,6 @@
 package petfinder.site.common.user;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 import alloy.util.Tuple;
@@ -89,7 +90,46 @@ public class UserDao {
 				System.out.println(ex.toString());
 			}
 
-			pairs.add(new Pair<Pair<Double, String>, UserDto>(new Pair<>(distance, text), e));
+			boolean isAllowed = true;
+			for (Long date = removeTime(request.getStartDate()); date <= removeTime(request.getEndDate()); date += 86400000){
+				Date d = new Date(date);
+				SimpleDateFormat simpleDateformat = new SimpleDateFormat("EEEE");
+				String day = simpleDateformat.format(d);
+				System.out.println(day);
+
+				boolean dayAvailability = false;
+				switch(day){
+					case "Sunday":
+						dayAvailability = e.getAvailability().isSundayMorning() || e.getAvailability().isSundayMidday() || e.getAvailability().isSundayAfternoon() || e.getAvailability().isSundayEvening();
+						break;
+					case "Monday":
+						dayAvailability = e.getAvailability().isMondayMorning() || e.getAvailability().isMondayMidday() || e.getAvailability().isMondayAfternoon() || e.getAvailability().isMondayEvening();
+						break;
+					case "Tuesday":
+						dayAvailability = e.getAvailability().isTuesdayMorning() || e.getAvailability().isTuesdayMidday() || e.getAvailability().isTuesdayAfternoon() || e.getAvailability().isTuesdayEvening();
+						break;
+					case "Wednesday":
+						dayAvailability = e.getAvailability().isWednesdayMorning() || e.getAvailability().isWednesdayMidday() || e.getAvailability().isWednesdayAfternoon() || e.getAvailability().isWednesdayEvening();
+						break;
+					case "Thursday":
+						dayAvailability = e.getAvailability().isThursdayMorning() || e.getAvailability().isThursdayMidday() || e.getAvailability().isThursdayAfternoon() || e.getAvailability().isThursdayEvening();
+						break;
+					case "Friday":
+						dayAvailability = e.getAvailability().isFridayMorning() || e.getAvailability().isFridayMidday() || e.getAvailability().isFridayAfternoon() || e.getAvailability().isFridayEvening();
+						break;
+					case "Saturday":
+						dayAvailability = e.getAvailability().isSaturdayMorning() || e.getAvailability().isSaturdayMidday() || e.getAvailability().isSaturdayAfternoon() || e.getAvailability().isSaturdayEvening();
+						break;
+					default: break;
+				}
+				if(!dayAvailability){
+					isAllowed = false;
+				}
+			}
+
+			if(isAllowed) {
+				pairs.add(new Pair<Pair<Double, String>, UserDto>(new Pair<>(distance, text), e));
+			}
 		}
 
 		pairs.sort(new Comparator<Pair<Pair<Double, String>, UserDto>>() {
@@ -108,6 +148,17 @@ public class UserDao {
 					return new Sitter(pair.getSecond(), findRating(pair.getSecond().getPrincipal()), pair.getFirst().getSecond());
 				})
 				.collect(Collectors.toList());
+	}
+
+	private Long removeTime(Long time) {
+		Date date = new Date(time);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(Calendar.HOUR_OF_DAY, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		return cal.getTime().getTime();
 	}
 
 	public Integer findRating(String principal){

@@ -26,8 +26,8 @@ class SitterComponent extends React.Component {
 	constructor(props) {
 		super(props);
         this.state = {
-            content: 'Display'
-            // refresh: false
+            content: 'Display',
+            refresh: false
         };
 		{/* Bind the onClick function so it knows about the state */}
 		this.bookSitter = this.bookSitter.bind(this);
@@ -46,7 +46,8 @@ class SitterComponent extends React.Component {
 	};
     showSitter = ()=>{
         this.setState({
-            content: 'Display'
+            content: 'Display',
+			refresh: !this.state.refresh
         });
     };
 	showDirections = ()=>{
