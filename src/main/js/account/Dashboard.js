@@ -34,14 +34,8 @@ import {NotificationPage} from 'js/account/pages/notificationPage';
 import {Logout} from 'js/account/components/logout';
 import * as Users from 'js/api/usersAPI';
 import connect from 'react-redux/es/connect/connect';
-import {getRating} from 'js/api/appointmentAPI';
-import SitterList from 'js/account/components/sitterList';
-import DatePicker from 'material-ui/DatePicker/Calendar';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import SuggestedSitterList from 'js/account/components/suggestedSitterList';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import * as Bessemer from "js/alloy/bessemer/components";
 
 const drawerWidth = 240;
 
