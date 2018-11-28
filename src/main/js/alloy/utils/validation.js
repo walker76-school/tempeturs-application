@@ -46,6 +46,9 @@ export const passShortLengthValidator = new Validator(passShortLength, (details)
 export const passLongLength = (val) => val.toString().length <= 20;
 export const passLongLengthValidator = new Validator(passLongLength, (details) => 'Decrease Password Length');
 
+export const isValidState = (val) => val.match(/^[A-Z]{2}$/);
+export const stateValidator = new Validator(isValidState, (details) => 'Decrease Password Length');
+
 export const zipCorrectLength = (val) => val.toString().length === 5;
 export const zipLengthValidator = new Validator(zipCorrectLength, (details) => details.friendlyName +' requires 5 digits');
 

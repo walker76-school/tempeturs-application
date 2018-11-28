@@ -90,7 +90,7 @@ class SitterRegistrationForm extends React.Component {
 									field={<input className='form-control' type='text' placeholder='City'/>}/>
 
                     <Bessemer.Field name='state' friendlyName='State'   format1=' Format is the two letter capitalized abbreviation XX.'
-                                    validators={[Validation.requiredValidator]}
+                                    validators={[Validation.requiredValidator, Validation.stateValidator]}
 									field={<input className='form-control' type='text' placeholder='State'/>}/>
 
                     <Bessemer.Field name='zip' friendlyName='Zip Code' format1=' Format is XXXXX'

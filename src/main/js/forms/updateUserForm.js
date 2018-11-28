@@ -77,7 +77,7 @@ export default class UpdateUserForm extends React.Component {
 									validators={[Validation.requiredValidator]} />
 					<Bessemer.Field name='state' friendlyName='State' format1=''
 									field={<input className="form-control" value={this.state.state} />}
-									validators={[Validation.requiredValidator]} />
+									validators={[Validation.requiredValidator, Validation.stateValidator]} />
 					<Bessemer.Field name='zip' friendlyName='Zip' format1=''
 									field={<input className="form-control" value={this.state.zip} />}
 									validators={[Validation.requiredValidator, Validation.zipLengthValidator, Validation.zipValidator]} />
