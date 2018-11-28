@@ -45,16 +45,66 @@ public class UserDao {
 		return repository.search(searchSourceBuilder).stream().findFirst();
 	}
 
-	public List<UserDto> findSuggestedSitters(String zip) {
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+	public List<Sitter> findSuggestedSitters(String zip) {
+		String principal = SecurityContextHolder.getContext().getAuthentication().getName();
+		Optional<UserAuthenticationDto> optionalUserAuthenticationDto = findUserByPrincipal(principal);
+		if(optionalUserAuthenticationDto.isPresent()){
+			UserAuthenticationDto userAuthenticationDto = optionalUserAuthenticationDto.get();
+			UserDto userDto = userAuthenticationDto.getUser();
 
-        String queryString = "user.type=\"SITTER\"";
-        searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
+			SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+			searchSourceBuilder.query(QueryBuilders.matchAllQuery());
+			List<UserDto> ourReturn = repository.search(searchSourceBuilder).stream()
+					.map(UserAuthenticationDto::getUser)
+					.filter(user -> user.getType().equals(UserDto.UserType.SITTER) || user.getType().equals(UserDto.UserType.COMBO))
+					.filter(user -> !user.getPrincipal().equals(principal))
+					.collect(Collectors.toList());
 
-        return repository.search(searchSourceBuilder).stream()
-                .map(UserAuthenticationDto::getUser)
-                .filter(user -> user.getZip().equals(zip))
-                .collect(Collectors.toList());
+			List<Pair<Pair<Double, String>, UserDto>> pairs = new ArrayList<>();
+
+			for(UserDto e : ourReturn) {
+
+				String googleRequest = "https://maps.googleapis.com/maps/api/directions/json?origin=" + userDto.getAddressLine() + "%20" + userDto.getCity()
+						+ "%20" + userDto.getState() + "%20" + userDto.getZip() + "&destination=" + e.getAddressLine() + "%20" + e.getCity() + "%20" + e.getState()
+						+ "%20" + e.getZip() + "&key=AIzaSyDolgtw08Z4fjTc82xfYQufGBoeWWSXve0";
+				googleRequest = googleRequest.replaceAll(" ", "%20");
+
+				double distance = Double.POSITIVE_INFINITY;
+				String text = "";
+				try {
+					JSONObject json = readJsonFromUrl(googleRequest);
+					System.out.println(json.toString());
+					text = json.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("duration").get("text").toString();
+					String distanceRaw = json.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("duration").get("value").toString();
+					String[] split = distanceRaw.split(" ");
+					distance = Double.parseDouble(split[0]);
+				} catch (Exception ex) {
+					System.out.println(ex.toString());
+				}
+
+				pairs.add(new Pair<Pair<Double, String>, UserDto>(new Pair<>(distance, text), e));
+
+			}
+
+			pairs.sort(new Comparator<Pair<Pair<Double, String>, UserDto>>() {
+				@Override
+				public int compare(Pair<Pair<Double, String>, UserDto> o1, Pair<Pair<Double, String>, UserDto> o2) {
+					return (int)(o1.getFirst().getFirst()  - o2.getFirst().getFirst());
+				}
+			});
+
+			for(int i = pairs.size()-1; i > 5; i--){
+				pairs.remove(i);
+			}
+
+			return pairs.stream()
+					.map(pair -> {
+						return new Sitter(pair.getSecond(), findRating(pair.getSecond().getPrincipal()), pair.getFirst().getSecond());
+					})
+					.collect(Collectors.toList());
+		} else {
+			return new ArrayList<>();
+		}
     }
 
     public List<Sitter> findSitters(SitterRequest request){

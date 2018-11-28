@@ -26,17 +26,28 @@ class SuggestedSitterComponent extends React.Component {
 	render() {
 		const { classes } = this.props;
 
+		let rating = 'No rating available';
+		if(this.props.sitter.rating !== null && this.props.sitter.rating > 0){
+			rating = this.props.sitter.rating;
+		}
+
 		return (
 			<Card className={classes.card}>
 				<CardHeader
-					title={this.props.sitter['name']}
+					title={this.props.sitter.userDto['name']}
 				/>
 				<CardContent>
 					<Typography component='p'>
-						Email: {this.props.sitter['principal']}
+						Rating: {rating}
 					</Typography>
 					<Typography component='p'>
-						Phone Number: {this.props.sitter['phoneNumber']}
+						Email: {this.props.sitter.userDto['principal']}
+					</Typography>
+					<Typography component='p'>
+						Phone Number: {this.props.sitter.userDto['phoneNumber']}
+					</Typography>
+					<Typography component='p'>
+						Distance: {this.props.sitter.distance}
 					</Typography>
 				</CardContent>
 			</Card>

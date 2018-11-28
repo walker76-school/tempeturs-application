@@ -44,7 +44,7 @@ public class UserService {
         return userDao.findSitters(request);
     }
 
-    public List<UserDto> findSuggestedSitters(String zip) {
+    public List<Sitter> findSuggestedSitters(String zip) {
         return userDao.findSuggestedSitters(zip);
     }
 

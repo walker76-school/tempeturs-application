@@ -30,7 +30,7 @@ public class AppointmentEndpoint {
     }
 
     @GetMapping(value = "/findSuggestedSitters/{zip}", produces = "application/json")
-    public List<UserDto> findSuggestedSitters(@PathVariable(name="zip") String zip) {
+    public List<Sitter> findSuggestedSitters(@PathVariable(name="zip") String zip) {
         return userService.findSuggestedSitters(zip);
     }
 
