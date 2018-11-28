@@ -8,6 +8,10 @@ export function getSuggestedSitters(zip) {
 	return axios.get('/api/appointment/findSitters/' + zip);
 }
 
+export function getCalendarEvents() {
+    return axios.get('/api/appointment/calendarAppointments');
+}
+
 export function getRating(){
 	return axios.get('api/appointment/rating');
 }

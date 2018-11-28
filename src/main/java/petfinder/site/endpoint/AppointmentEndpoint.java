@@ -99,7 +99,7 @@ public class AppointmentEndpoint {
     public List<CalendarAppointment> getCalendarAppointments() {
         List<CalendarAppointment> calendarAppointments = new ArrayList<>();
         String principal = SecurityContextHolder.getContext().getAuthentication().getName();
-        Optional<UserDto> oudto = userService.findUser(principal);
+        Optional<UserDto> oudto = userService.findUserByPrincipal(principal);
         if(oudto.isPresent()){
             UserDto userDto = oudto.get();
             for(Long appointmentId : userDto.getAppointments()){
