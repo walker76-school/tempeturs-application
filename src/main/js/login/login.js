@@ -24,6 +24,14 @@ class LoginPage extends React.Component {
 		}
 	}
 
+	componentDidMount() {
+		document.body.classList.add("background-blue");
+	}
+
+	componentWillUnmount() {
+		document.body.classList.remove("background-blue");
+	}
+
 	setRedirect = () => {
 		this.setState({
 			redirect: true
@@ -43,7 +51,7 @@ class LoginPage extends React.Component {
 		return (
 			<div>
 				{this.renderRedirect()}
-				<div className="regContainer">
+				<div>
 					<div className="innerRegContainer">
 						<h2>Login</h2>
 						<hr />

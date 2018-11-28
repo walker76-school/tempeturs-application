@@ -31,11 +31,19 @@ export class OwnerRegisterPage extends React.Component {
 		}
 	};
 
+	componentDidMount() {
+		document.body.classList.add("background-blue");
+	}
+
+	componentWillUnmount() {
+		document.body.classList.remove("background-blue");
+	}
+
 	render() {
 		return (
 			<div>
 				{this.renderRedirect()}
-				<div className="regContainer">
+				<div>
 					<div className="innerRegContainer">
 						<h2>Register</h2>
 						<hr />
