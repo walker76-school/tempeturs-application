@@ -30,11 +30,6 @@ public class UserEndpoint {
 		return userService.findUserByPrincipal(principal);
 	}
 
-    @GetMapping(value = "/{principal}", produces = "application/json")
-    public Optional<UserDto> getUserDetailsByPrincipal(@PathVariable("principal") String principal) {
-        return userService.findUserByPrincipal(principal);
-    }
-
 	@PostMapping(value = "/registerSitter", produces = "application/json")
 	public UserDto registerSitter(@RequestBody RegistrationRequest request) {
 		return userService.registerSitter(request);

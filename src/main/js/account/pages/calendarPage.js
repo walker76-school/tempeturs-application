@@ -46,7 +46,6 @@ class CalendarPage extends React.Component {
 			.then(
 				(response) => {
 					{/*The .then waits for a response from the API and then executes the following code */}
-					console.log(response);
 				    let events = response.map((i, index) => {
 				       return {
                            end: i['endDate'],

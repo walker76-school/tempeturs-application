@@ -55,7 +55,6 @@ class AppointmentComponent extends React.Component {
 			.then(
 				(response) => {
 					{/*The .then waits for a response from the API and then executes the following code */}
-					console.log(response);
 
 					{/* Set the state to the response value, which is a list of possible sitters */}
 					this.setState({

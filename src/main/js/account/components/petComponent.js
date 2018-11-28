@@ -51,7 +51,6 @@ class PetComponent extends React.Component {
 
 	constructor(props) {
 		super(props);
-		console.log('Constructing PetComponent: ' + this.props.petKey);
 		this.state = {id: '', name: '', type: '', bio: '', expanded: false};
 		this.deletePet = this.deletePet.bind(this);
 		this.refresh = this.refresh.bind(this);
@@ -94,7 +93,6 @@ class PetComponent extends React.Component {
 		}
 		updatedUser['petIds'] = temp;
 
-		console.log('Updating user...');
 		this.props.updateUser(updatedUser);
 		this.props.refresh();
 

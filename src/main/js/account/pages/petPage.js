@@ -29,7 +29,6 @@ class PetPage extends React.Component {
     }
 
     refresh(){
-        console.log('Refreshing PetPage...');
         this.setState({
             content: '',
             refresh: !this.state.refresh

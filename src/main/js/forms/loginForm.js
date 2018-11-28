@@ -8,8 +8,23 @@ import * as Bessemer from 'js/alloy/bessemer/components';
 import * as Users from 'js/api/usersAPI';
 
 class LoginForm extends React.Component {
+
     onSubmit = ({principal, password}) => {
-        return this.props.authenticate(principal, password, this.props.callBack);
+        return this.props.authLogin(principal, password, this.props.callBack, this.setError);
+    };
+
+    //function to set errorCode back to 0 after displaying an error message
+    setError = () => {
+        this.setState({
+            errorCode: -1
+        });
+    };
+
+    //function to set errorCode back to 0 after displaying an error message
+    errorClose = () => {
+        this.setState({
+            errorCode: 0
+        });
     };
 
     render() {
@@ -38,7 +53,7 @@ LoginForm = connect(
 
     }),
     dispatch => ({
-        authenticate: (principal, password, callback) => dispatch(Users.Actions.authenticate(principal, password, callback))
+        authLogin: (principal, password, callback, errorCallback) => dispatch(Users.Actions.authLogin(principal, password, callback, errorCallback))
     })
 )(LoginForm);
 

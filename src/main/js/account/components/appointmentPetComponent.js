@@ -21,7 +21,6 @@ export default class AppointmentPetComponent extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log('Constructing AppointmentPetComponent: ' + this.props.petKey);
         this.state = {id: '', name: '', type: '', expanded: false};
     }
 

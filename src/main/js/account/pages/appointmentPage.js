@@ -42,7 +42,6 @@ class AppointmentPage extends React.Component {
     }
 
     refresh(){
-        console.log('Refreshing AppointmentPage...');
         this.setState({
             content: '',
             refresh: !this.state.refresh
@@ -59,7 +58,6 @@ class AppointmentPage extends React.Component {
             {/* If the content key is Form then render the PetForm */}
             component = (<AppointmentForm callBack={this.showAppointments}/>);
         } else {
-            console.log(this.props.user);
             {/* If there are available sitters, then map them */}
             if (this.props.user && this.props.user.appointments != null && this.props.user.appointments.length > 0) {
 

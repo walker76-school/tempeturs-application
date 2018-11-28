@@ -110,7 +110,6 @@ class AppointmentForm extends React.Component {
         appointmentRequest['startDate'] = this.state.dateStartTime;
         appointmentRequest['endDate'] = this.state.dateEndTime;
 
-        console.log(appointmentRequest);
         return this.props.registerAppointment(appointmentRequest, this.addAppointment);
     };
 
@@ -123,12 +122,9 @@ class AppointmentForm extends React.Component {
 
     enqueuePet = (id) => {
         this.state.pets.push(id);
-        console.log('Enqueue: ' + id);
-        console.log(this.state.pets);
     };
 
     dequeuePet = (id) => {
-        console.log('Dequeue: ' + id);
         let temp = [];
 
         for( let i = 0; i < this.state.pets.length ; i++){
@@ -136,7 +132,6 @@ class AppointmentForm extends React.Component {
                 temp.push(this.state.pets[i]);
             }
         }
-        console.log(temp);
         this.setState({
             pets: temp
         });
@@ -218,7 +213,6 @@ class AppointmentForm extends React.Component {
         }
         let sitterContent;
         if(this.state.sitters && this.props.user){
-            console.log('Showing sitters...');
             sitterContent = ( <SitterList zip={this.props.user.zip} callBack={this.bookAppointment}/> );
         }
 

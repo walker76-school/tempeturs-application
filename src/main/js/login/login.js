@@ -31,8 +31,6 @@ class LoginPage extends React.Component {
 	};
 
 	renderRedirect = () => {
-		console.log(this.props.authentication);
-		console.log(this.props.user);
 
 		if (this.state.redirect || (this.props.authentication && this.props.user)) {
 			return (

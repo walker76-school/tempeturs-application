@@ -35,10 +35,7 @@ class SitterComponent extends React.Component {
 
 	onClick = () => {
 		{/* Call makeAppointment which is located in js/api/appointmentApi
-		  * This uses values passed in the constructor and from the Redux store
-		makeAppointment(this.props.user.principal, this.props.sitter['principal'], this.props.id);
-		console.log('refreshing');
-		this.props.refresh();*/}
+		  * This uses values passed in the constructor and from the Redux store */}
 		this.props.callBack(this.props.sitter['principal']);
 	};
 
