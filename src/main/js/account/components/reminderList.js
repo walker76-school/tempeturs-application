@@ -20,12 +20,17 @@ class ReminderList extends React.Component {
                 (response) => {
                     {/*The .then waits for a response from the API and then executes the following code */}
                     let reminders = response.map((i) => {
-                        return {
-                            end: i['endDate'],
-                            start: i['startDate'],
-                            owner: i['owner'],
-                            sitter: i['sitter'],
-                        };
+                        console.log(i);
+                        if(i['type'] === 'ACCEPTED') {
+							return {
+								end: i['endDate'],
+								start: i['startDate'],
+								owner: i['owner'],
+								sitter: i['sitter'],
+							};
+						} else {
+							return null;
+						}
                     });
 
                     {/* Set the state to the response value, which is a list of possible sitters */}
@@ -47,7 +52,7 @@ class ReminderList extends React.Component {
             let date = new Date().getTime();
 
             let tempReminder = this.state.reminders.filter((i) => {
-                return (i['start'] - date) > 0;
+                return i !== null && (i['start'] - date) > 0;
             }).sort((a,b) =>{
                 return (a['start'] - date) - (b['start'] - date);
             });

@@ -85,7 +85,7 @@ class AppointmentComponent extends React.Component {
 		this.setState({
 			update: !this.state.update,
             expanded: false,
-            type: 'APPROVED'
+            type: 'ACCEPTED'
 		});
         this.props.refresh();
 	};
@@ -154,7 +154,7 @@ class AppointmentComponent extends React.Component {
 						<br/>
 						Sitter: {this.state.sitter}
 						<br/>
-					{(this.props.userType === 'OWNER' || this.props.userType === 'COMBO') &&
+					{(this.props.userType === 'OWNER' || (this.props.userType === 'COMBO' && this.state.owner === this.props.user.principal)) &&
 					this.state.type === 'ACCEPTED' &&
 					<div>
 
@@ -186,11 +186,11 @@ class AppointmentComponent extends React.Component {
                 </ExpansionPanelDetails>
                 <Divider />
 				<ExpansionPanelActions>
-					{(this.props.userType === 'SITTER' || this.props.userType === 'COMBO') && this.state.type === 'PENDING' && this.props.sitter === this.props.user.principal &&
+					{(this.props.userType === 'SITTER' || this.props.userType === 'COMBO') && this.state.type === 'PENDING' && this.state.sitter === this.props.user.principal &&
 					<Bessemer.Button onClick={this.onClickApprove}>Approve</Bessemer.Button>
 					}
 
-					{(this.props.userType === 'SITTER' || this.props.userType === 'COMBO') && this.state.type === 'PENDING' && this.props.sitter === this.props.user.principal &&
+					{(this.props.userType === 'SITTER' || this.props.userType === 'COMBO') && this.state.type === 'PENDING' && this.state.sitter === this.props.user.principal &&
 					<Bessemer.Button onClick={this.onClickReject}>Reject</Bessemer.Button>
 					}
 

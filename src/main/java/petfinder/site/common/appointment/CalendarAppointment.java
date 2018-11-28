@@ -1,5 +1,7 @@
 package petfinder.site.common.appointment;
 
+import petfinder.site.common.user.UserDao;
+
 import java.util.Date;
 
 public class CalendarAppointment {
@@ -8,6 +10,7 @@ public class CalendarAppointment {
     private String sitter;
     private Date startDate;
     private Date endDate;
+    private UserDao.AppointmentType type;
 
     public CalendarAppointment() {
     }
@@ -17,13 +20,15 @@ public class CalendarAppointment {
         this.sitter = appointment.getSitter();
         this.startDate = appointment.getStartDate();
         this.endDate = appointment.getEndDate();
+        this.type = appointment.getType();
     }
 
-    public CalendarAppointment(String owner, String sitter, Date startDate, Date endDate) {
+    public CalendarAppointment(String owner, String sitter, Date startDate, Date endDate, UserDao.AppointmentType type) {
         this.owner = owner;
         this.sitter = sitter;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.type = type;
     }
 
     public String getOwner() {
@@ -56,5 +61,13 @@ public class CalendarAppointment {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public UserDao.AppointmentType getType() {
+        return type;
+    }
+
+    public void setType(UserDao.AppointmentType type) {
+        this.type = type;
     }
 }

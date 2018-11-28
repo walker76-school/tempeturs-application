@@ -47,18 +47,25 @@ class CalendarPage extends React.Component {
 				(response) => {
 					{/*The .then waits for a response from the API and then executes the following code */}
 				    let events = response.map((i) => {
-				       return {
-                           end: i['endDate'],
-                           start: i['startDate'],
-                           title: 'Appointment with ' + (this.props.user.principal === i['owner'] ? i['sitter'] : i['owner']),
-                           description: (new Date(i['startDate'])).customFormat( '#DDD# #MMM# #DD#, #YYYY# #hh#:#mm#:#ss# #AMPM#' ) + ' - ' + (new Date(i['endDate'])).customFormat( '#DDD# #MMM# #DD#, #YYYY# #hh#:#mm#:#ss# #AMPM#' ),
-                           data: '',
-                       };
+				    	console.log(i);
+						if(i['type'] === 'ACCEPTED') {
+							return {
+								end: i['endDate'],
+								start: i['startDate'],
+								title: 'Appointment with ' + (this.props.user.principal === i['owner'] ? i['sitter'] : i['owner']),
+								description: (new Date(i['startDate'])).customFormat( '#DDD# #MMM# #DD#, #YYYY# #hh#:#mm#:#ss# #AMPM#' ) + ' - ' + (new Date(i['endDate'])).customFormat( '#DDD# #MMM# #DD#, #YYYY# #hh#:#mm#:#ss# #AMPM#' ),
+								data: '',
+							};
+						} else {
+							return null;
+						}
                     });
 
 					{/* Set the state to the response value, which is a list of possible sitters */}
 					this.setState({
 						events: events
+					}, () => {
+						console.log(this.state);
 					});
 				}).catch((error) => {
 			alert(error);
