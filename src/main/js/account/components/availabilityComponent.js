@@ -6,44 +6,21 @@ import * as Users from 'js/api/usersAPI';
 
 class AvailabilityComponent extends React.Component {
 
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		{/* Initialize the checkbox to be false, this makes our component managed*/}
 		this.state = {
-			checkedVal: false
+			checkedVal: this.props.initValue,
 		};
 
 		{/* Bind the onClick function so it knows about the state */}
 		this.onClick = this.onClick.bind(this);
 	}
 
-	componentWillMount(){
-		{/* This calls the getAvailability which is located in js/api/availabilityAPI */}
-		getAvailability()
-			.then(
-				(response) => {
-					{/*The .then waits for a response from the API and then executes the following code */}
+	componentWillReceiveProps(nextProps, nextContext) {
 
-					{/* Set the state to the response value, either true or false */}
-					this.setState({
-						'checkedVal': response[this.props.day + this.props.name]
-					}, function () {
-						{/* This is a callback function to the setState.
-						  * Sometimes the state doesn't fully update immediately but by adding a callback function, we
-						  * can make sure that the following code is only called once the state is actually updated
-						  */}
-
-						{/* Call the callBack function to update the parent state in availabilityPage.
-						  * The callBack function is passed in when we use this component in availabilityPage.
-						  * We concat the day and name to create a key like 'MondayEvening'.
-						  */}
-						this.props.callBack(this.props.day + this.props.name, this.state.checkedVal);
-					});
-				}).catch((error) => {
-			{/* If there is any error then alert the user
-			  * TODO - Add some proper alert notifications
-			  */}
-			alert(error);
+		this.setState({
+			checkedVal: nextProps['initValue']
 		});
 	}
 
