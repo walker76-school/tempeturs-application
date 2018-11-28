@@ -141,10 +141,9 @@ class SitterComponent extends React.Component {
         }else if(this.state.content === 'Booked'){
             // this is Booked state.
             // display a booked message.
-            component =(<body>
-            <h1> Sitter booked awaiting approval </h1>
-            <Bessemer.Button onClick={this.showSitter} > Back </Bessemer.Button>
-            </body>
+			{/*<Bessemer.Button onClick={this.showSitter} > Back </Bessemer.Button>*/}
+            component =(
+				<p> Sitter booked. Redirecting... </p>
             );
 
         }

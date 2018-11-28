@@ -25,11 +25,11 @@ class LoginPage extends React.Component {
 	}
 
 	componentDidMount() {
-		document.body.classList.add("background-blue");
+		document.body.classList.add('background-blue');
 	}
 
 	componentWillUnmount() {
-		document.body.classList.remove("background-blue");
+		document.body.classList.remove('background-blue');
 	}
 
 	setRedirect = () => {
@@ -52,7 +52,7 @@ class LoginPage extends React.Component {
 			<div>
 				{this.renderRedirect()}
 				<div>
-					<div className="innerRegContainer">
+					<div className='innerRegContainer'>
 						<h2>Login</h2>
 						<hr />
 						<LoginForm callBack={this.setRedirect}/>

@@ -32,11 +32,11 @@ export class OwnerRegisterPage extends React.Component {
 	};
 
 	componentDidMount() {
-		document.body.classList.add("background-blue");
+		document.body.classList.add('background-blue');
 	}
 
 	componentWillUnmount() {
-		document.body.classList.remove("background-blue");
+		document.body.classList.remove('background-blue');
 	}
 
 	render() {
@@ -44,7 +44,7 @@ export class OwnerRegisterPage extends React.Component {
 			<div>
 				{this.renderRedirect()}
 				<div>
-					<div className="innerRegContainer">
+					<div className='innerRegContainer'>
 						<h2>Register</h2>
 						<hr />
                         {/*js allows you to pass function as parameter
