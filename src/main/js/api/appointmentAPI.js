@@ -1,15 +1,16 @@
 import axios from 'axios';
 
-export function getSitters(zip, date) {
-	return axios.get('/api/appointment/findSitters/' + zip);
-}
-
-export function getSuggestedSitters(zip) {
-	return axios.get('/api/appointment/findSitters/' + zip);
+export function getSitters(request){
+	console.log(request);
+	return axios.post('/api/appointment/findSitters', request);
 }
 
 export function getCalendarEvents() {
     return axios.get('/api/appointment/calendarAppointments');
+}
+
+export function getSuggestedSitters(zip) {
+	return axios.get('/api/appointment/findSuggestedSitters/' + zip);
 }
 
 export function getRating(){

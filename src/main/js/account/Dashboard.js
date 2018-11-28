@@ -182,7 +182,9 @@ class Dashboard extends React.Component {
         }else if(this.state.component === 'Dashboard' && this.props.user){
         	let component = (<div>No rating available</div>);
         	if(this.state.rating !== null && this.state.rating > 0){
-        		component = (<div>Rating: {this.state.rating}</div>);
+        		component = (
+        		    <div>Rating: {this.state.rating}</div>
+                );
 			}
             return(
 			<Grid container spacing={16}>

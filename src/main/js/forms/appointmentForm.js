@@ -209,7 +209,7 @@ class AppointmentForm extends React.Component {
         }
         let sitterContent;
         if(this.state.sitters && this.props.user){
-            sitterContent = ( <SitterList zip={this.props.user.zip} callBack={this.bookAppointment}/> );
+            sitterContent = ( <SitterList start={this.state.dateStartTime} end={this.state.dateEndTime} callBack={this.bookAppointment}/> );
         }
 
         return (
