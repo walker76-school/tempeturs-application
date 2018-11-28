@@ -115,10 +115,13 @@ Actions.registerOwner = (user, callback, errorCallback) => {
 };
 
 
-Actions.update = (user) => {
+Actions.update = (user, callback) => {
 	//dispatch doing an asynchronous call
 	return (dispatch) => {
 		return update(user).then(() => {
+			if(callback !== null){
+				callback();
+			}
 			return dispatch(Actions.setUser(user));
 		});
 	};

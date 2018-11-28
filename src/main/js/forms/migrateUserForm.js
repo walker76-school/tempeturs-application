@@ -28,7 +28,8 @@ class MigrateUserForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			type: ''
+			type: '',
+			confirmationText: ''
 		};
 		this.onSubmit = this.onSubmit.bind(this);
 	}
@@ -37,12 +38,21 @@ class MigrateUserForm extends React.Component {
 		this.setState({ [name]: event.target.value });
 	};
 
+	setConfirm = () => {
+		this.setState({
+			confirmationText: 'Migration done. Please logout and log back in.'
+		});
+	};
+
 	// Update the user on submit
 	onSubmit = () => {
+		this.setState({
+			confirmationText: 'Migrating account, please wait...'
+		});
 		let updatedUser = this.props.user;
 
 		updatedUser['type'] = this.state['type'];
-		return this.props.updateUser(updatedUser);
+		return this.props.updateUser(updatedUser, this.setConfirm);
 	};
 
 	render() {
@@ -75,6 +85,7 @@ class MigrateUserForm extends React.Component {
 					</FormControl>
 				</div>
 				<Bessemer.Button onClick={this.onSubmit} loading={submitting}>Update</Bessemer.Button>
+				<label>{this.state.confirmationText}</label>
 
 			</div>
 		);
@@ -92,7 +103,7 @@ MigrateUserForm = connect(
 		user: Users.State.getUser(state)
 	}),
 	dispatch => ({
-		updateUser: user => dispatch(Users.Actions.update(user))
+		updateUser: (user, callback) => dispatch(Users.Actions.update(user, callback))
 	})
 )(MigrateUserForm);
 

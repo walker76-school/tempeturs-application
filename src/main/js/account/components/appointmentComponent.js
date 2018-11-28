@@ -13,6 +13,8 @@ import * as Bessemer from 'js/alloy/bessemer/components';
 import { Rating } from 'material-ui-rating';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppointmentPetComponent from 'js/account/components/appointmentPetComponent';
+import connect from 'react-redux/es/connect/connect';
+import * as Users from 'js/api/usersAPI';
 
 const styles = theme => ({
 	heading: {
@@ -184,11 +186,11 @@ class AppointmentComponent extends React.Component {
                 </ExpansionPanelDetails>
                 <Divider />
 				<ExpansionPanelActions>
-					{(this.props.userType === 'SITTER' || this.props.userType === 'COMBO') && this.state.type === 'PENDING' &&
+					{(this.props.userType === 'SITTER' || this.props.userType === 'COMBO') && this.state.type === 'PENDING' && this.props.sitter === this.props.user.principal &&
 					<Bessemer.Button onClick={this.onClickApprove}>Approve</Bessemer.Button>
 					}
 
-					{(this.props.userType === 'SITTER' || this.props.userType === 'COMBO') && this.state.type === 'PENDING' &&
+					{(this.props.userType === 'SITTER' || this.props.userType === 'COMBO') && this.state.type === 'PENDING' && this.props.sitter === this.props.user.principal &&
 					<Bessemer.Button onClick={this.onClickReject}>Reject</Bessemer.Button>
 					}
 
@@ -207,5 +209,13 @@ class AppointmentComponent extends React.Component {
 AppointmentComponent.propTypes = {
 	classes: PropTypes.object.isRequired,
 };
+
+
+{/* Connect to the Redux store to have access to the user data */}
+AppointmentComponent = connect(
+	state => ({
+		user: Users.State.getUser(state),
+	})
+)(AppointmentComponent);
 
 export default withStyles(styles)(AppointmentComponent);
