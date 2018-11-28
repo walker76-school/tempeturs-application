@@ -47,18 +47,13 @@ class CalendarPage extends React.Component {
 				(response) => {
 					{/*The .then waits for a response from the API and then executes the following code */}
 				    let events = response.map((i) => {
-				    	console.log(i);
-						// if(i['type'] === 'ACCEPTED') {
-							return {
-								end: i['endDate'],
-								start: i['startDate'],
-								title: 'Appointment with ' + (this.props.user.principal === i['owner'] ? i['sitter'] : i['owner']),
-								description: (new Date(i['startDate'])).customFormat( '#DDD# #MMM# #DD#, #YYYY# #hh#:#mm#:#ss# #AMPM#' ) + ' - ' + (new Date(i['endDate'])).customFormat( '#DDD# #MMM# #DD#, #YYYY# #hh#:#mm#:#ss# #AMPM#' ),
-								data: i['type'],
-							};
-						// } else {
-						// 	return null;
-						// }
+						return {
+							end: i['endDate'],
+							start: i['startDate'],
+							title: 'Appointment with ' + (this.props.user.principal === i['owner'] ? i['sitter'] : i['owner']),
+							description: (new Date(i['startDate'])).customFormat( '#DDD# #MMM# #DD#, #YYYY# #hh#:#mm#:#ss# #AMPM#' ) + ' - ' + (new Date(i['endDate'])).customFormat( '#DDD# #MMM# #DD#, #YYYY# #hh#:#mm#:#ss# #AMPM#' ),
+							data: i['type'],
+						};
                     });
 
 					{/* Set the state to the response value, which is a list of possible sitters */}
@@ -117,19 +112,19 @@ class CalendarPage extends React.Component {
 					eventPropGetter={
 						(event, start, end, isSelected) => {
 							let newStyle = {
-								backgroundColor: "dodgerblue",
+								backgroundColor: '#1e90ff',
 							};
 
 							if (event.data === 'ACCEPTED'){
-								newStyle.backgroundColor = "#1e90ff"
+								newStyle.backgroundColor = '#1e90ff';
 							} else if (event.data === 'PENDING'){
-								newStyle.backgroundColor = "#FF7F50"
+								newStyle.backgroundColor = '#FF7F50';
 							} else if (event.data === 'REJECTED' || event.data === 'CANCELLED'){
-								newStyle.backgroundColor = "#aaaaaa"
+								newStyle.backgroundColor = '#aaaaaa';
 							}
 
 							return {
-								className: "",
+								className: '',
 								style: newStyle
 							};
 						}
