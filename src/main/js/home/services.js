@@ -1,4 +1,5 @@
 import React from 'react';
+import dog from '../../resources/img/dog.jpg';
 
 export class Services extends React.Component {
 	render() {
@@ -11,7 +12,7 @@ export class Services extends React.Component {
 						<div className="col-lg-4 col-sm-6 wow fadeInLeft delay-05s">
 							<div className="service-list animated fadeInUp delay-07s">
 								<div className="service-list-col1">
-									<i className="fa fa-paw"></i>
+									<i className="fa fa-paw" />
 								</div>
 								<div className="service-list-col2">
 									<h3>Convenience</h3>
@@ -20,7 +21,7 @@ export class Services extends React.Component {
 							</div>
 							<div className="service-list animated fadeInUp delay-07s">
 								<div className="service-list-col1">
-									<i className="fa fa-paw"></i>
+									<i className="fa fa-paw" />
 								</div>
 								<div className="service-list-col2">
 									<h3>Availability</h3>
@@ -29,7 +30,7 @@ export class Services extends React.Component {
 							</div>
 							<div className="service-list animated fadeInUp delay-07s">
 								<div className="service-list-col1">
-									<i className="fa fa-paw"></i>
+									<i className="fa fa-paw" />
 								</div>
 								<div className="service-list-col2">
 									<h3>Services for various pets</h3>
@@ -38,7 +39,7 @@ export class Services extends React.Component {
 							</div>
 							<div className="service-list animated fadeInUp delay-07s">
 								<div className="service-list-col1">
-									<i className="fa fa-paw"></i>
+									<i className="fa fa-paw" />
 								</div>
 								<div className="service-list-col2">
 									<h3>110% Satisfaction</h3>
@@ -47,7 +48,7 @@ export class Services extends React.Component {
 							</div>
 						</div>
 						<figure className="col-lg-8 col-sm-6  text-right wow fadeInUp delay-02s">
-							<img src="../../resources/img/puppy.jpg" alt=""></img>
+							<img src={dog}  alt="" />
 						</figure>
 
 					</div>
