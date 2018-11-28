@@ -10,6 +10,8 @@ import Dialog from '@material-ui/core/Dialog/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions/DialogActions';
 import Button from '@material-ui/core/Button/Button';
+import DialogContentText from '@material-ui/core/DialogContentText/DialogContentText';
+import DialogContent from '@material-ui/core/DialogContent/DialogContent';
 
 class LoginForm extends React.Component {
 
@@ -25,18 +27,14 @@ class LoginForm extends React.Component {
     onSubmit = ({principal, password}) => {
         console.log('About to see if the user exists...');
         //check if user does not exist
-        console.log('val is ' + this.props.authLogin(principal, password, this.props.callBack).__await)
-        if(this.props.authLogin(principal, password, this.props.callBack).__await == null){
-            //set errorCode state to -1
-            this.setState({
-                errorCode: -1
-            });
-            return;
-        }
+        return this.props.authLogin(principal, password, this.props.callBack, this.setError);
+    };
 
-        //otherwise, user exists, so authenticate user
-        console.log('User exists, so logging in user...');
-        return this.props.authLogin(principal, password, this.props.callBack);
+    //function to set errorCode back to 0 after displaying an error message
+    setError = () => {
+        this.setState({
+            errorCode: -1
+        });
     };
 
     //function to set errorCode back to 0 after displaying an error message
@@ -58,7 +56,12 @@ class LoginForm extends React.Component {
                     aria-labelledby='alert-dialog-title'
                     aria-describedby='alert-dialog-description'
                 >
-                    <DialogTitle id='alert-dialog-title'>No match for username and password. Please try again.</DialogTitle>
+                    <DialogTitle id='alert-dialog-title'>Uh Oh!</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id='alert-dialog-description'>
+                            No match found for the username/password combination you provided. Please make sure your information is correct and try again.
+                        </DialogContentText>
+                    </DialogContent>
                     <DialogActions>
                         <Button onClick={this.errorClose} color='primary'>
                             OK
@@ -82,7 +85,7 @@ class LoginForm extends React.Component {
 
                     <Bessemer.Field name='password' friendlyName='Password' format1 = ' Format is at least one of each of the following: lowercase letter, uppercase letter, number, and special character.'
                                     validators={[Validation.requiredValidator, Validation.passwordValidator, Validation.passLongLengthValidator, Validation.passShortLengthValidator]}
-                                    field={<input className='form-control' type='password' />} />
+                                    field={<input className='form-control' type='password' placeholder='Password'/>} />
                                     {/*MN possibly add something a check box that changes the type of the password field to text*/}
                     <Bessemer.Button loading={submitting}>Sign In</Bessemer.Button>
                 </form>
@@ -98,7 +101,7 @@ LoginForm = connect(
 
     }),
     dispatch => ({
-        authLogin: (principal, password, callback) => dispatch(Users.Actions.authLogin(principal, password, callback))
+        authLogin: (principal, password, callback, errorCallBack) => dispatch(Users.Actions.authLogin(principal, password, callback, errorCallBack))
     })
 )(LoginForm);
 

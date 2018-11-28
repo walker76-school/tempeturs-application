@@ -109,7 +109,7 @@ Actions.authenticate = (username, password, callback) => {
 	};
 };
 
-Actions.authLogin = (username, password, callback) => {
+Actions.authLogin = (username, password, callback, errorCallback) => {
     console.log('Authenticating ' + username + ' with password ' + password);
     return (dispatch) => {
     	console.log('Trying to get authenticate...');
@@ -128,7 +128,12 @@ Actions.authLogin = (username, password, callback) => {
                     dispatch(Actions.setUser(user));
                 });
             }
-        );
+        ).catch((error) => {
+            if(errorCallback !== null) {
+                errorCallback();
+            }
+           return false;
+        });
     };
 };
 
