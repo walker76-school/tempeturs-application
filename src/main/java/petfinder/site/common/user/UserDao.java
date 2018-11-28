@@ -66,7 +66,7 @@ public class UserDao {
         // Add the appointmentDto
 		ownerDto.getAppointments().add(id);
 		sitterDto.getAppointments().add(id);
-		sitterDto.getNotifications().add("You have a new pending appointmentDto with user: " + ownerDto.getPrincipal());
+		sitterDto.getNotifications().add("You have a new pending appointment with user: " + ownerDto.getPrincipal());
 
 		save(ownerADto.get());
 		save(sitterADto.get());
