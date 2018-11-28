@@ -48,17 +48,17 @@ class CalendarPage extends React.Component {
 					{/*The .then waits for a response from the API and then executes the following code */}
 				    let events = response.map((i) => {
 				    	console.log(i);
-						if(i['type'] === 'ACCEPTED') {
+						// if(i['type'] === 'ACCEPTED') {
 							return {
 								end: i['endDate'],
 								start: i['startDate'],
 								title: 'Appointment with ' + (this.props.user.principal === i['owner'] ? i['sitter'] : i['owner']),
 								description: (new Date(i['startDate'])).customFormat( '#DDD# #MMM# #DD#, #YYYY# #hh#:#mm#:#ss# #AMPM#' ) + ' - ' + (new Date(i['endDate'])).customFormat( '#DDD# #MMM# #DD#, #YYYY# #hh#:#mm#:#ss# #AMPM#' ),
-								data: '',
+								data: i['type'],
 							};
-						} else {
-							return null;
-						}
+						// } else {
+						// 	return null;
+						// }
                     });
 
 					{/* Set the state to the response value, which is a list of possible sitters */}
@@ -106,13 +106,35 @@ class CalendarPage extends React.Component {
                     </DialogActions>
                 </Dialog>
                 <BigCalendar
-                    localizer={localizer}
-                    format={formats}
-                    culture='en-GB'
-                    events={this.state.events}
-                    defaultView={BigCalendar.Views.MONTH}
-                    onSelectEvent={event => this.setExpandedText(event)}
-                    views={['month', 'week']}/>
+					popup
+					localizer={localizer}
+					format={formats}
+					culture='en-GB'
+					events={this.state.events}
+					defaultView={BigCalendar.Views.MONTH}
+					onSelectEvent={event => this.setExpandedText(event)}
+					views={['month', 'week']}
+					eventPropGetter={
+						(event, start, end, isSelected) => {
+							let newStyle = {
+								backgroundColor: "dodgerblue",
+							};
+
+							if (event.data === 'ACCEPTED'){
+								newStyle.backgroundColor = "#1e90ff"
+							} else if (event.data === 'PENDING'){
+								newStyle.backgroundColor = "#FF7F50"
+							} else if (event.data === 'REJECTED' || event.data === 'CANCELLED'){
+								newStyle.backgroundColor = "#aaaaaa"
+							}
+
+							return {
+								className: "",
+								style: newStyle
+							};
+						}
+					}
+				/>
             </div>
         );
     }
