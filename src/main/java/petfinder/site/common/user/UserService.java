@@ -15,6 +15,8 @@ import alloy.util.AlloyAuthentication;
 import alloy.util.Wait;
 import alloy.util._Lists;
 import alloy.util._Maps;
+import petfinder.site.common.appointment.Sitter;
+import petfinder.site.common.appointment.SitterRequest;
 import petfinder.site.common.availability.AvailabilityDto;
 import petfinder.site.common.user.UserDto.UserType;
 
@@ -38,18 +40,17 @@ public class UserService {
 		return userDao.findUserByPrincipal(principal);
 	}
 
-    public List<UserDto> findSitters(String zip) {
-        return userDao.findSitters(zip);
+    public List<Sitter> findSitters(SitterRequest request) {
+        return userDao.findSitters(request);
     }
 
-    // maybe we should return the pair, maybe miles and time
-    public List<UserDto> findSitters(String addressLine, String city, String state, String zip) {
-		return userDao.findSitters(addressLine, city, state, zip);
+    public List<UserDto> findSuggestedSitters(String zip) {
+        return userDao.findSuggestedSitters(zip);
+    }
+
+    public Integer findRating(String principal){
+		return userDao.findRating(principal);
 	}
-
-    public List<UserDto> findSittersByDate(String zip, String date) {
-        return userDao.findSitters(zip);
-    }
 
 	public void makeAppointment(String owner, String sitter, Long id) {
 		userDao.makeAppointment(owner, sitter, id);

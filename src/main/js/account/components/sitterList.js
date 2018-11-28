@@ -1,8 +1,12 @@
 import React from 'react';
 import {getSitters} from 'js/api/appointmentAPI';
 import SitterComponent from 'js/account/components/sitterComponent';
+import connect from 'react-redux/es/connect/connect';
+import * as Users from 'js/api/usersAPI';
+import * as AppointmentAPI from 'js/api/appointmentAPI';
+import {withStyles} from '@material-ui/core';
 
-export default class SitterList extends React.Component {
+class SitterList extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -15,8 +19,17 @@ export default class SitterList extends React.Component {
 
 	componentDidMount(){
 
+		let request = {
+			startDate: this.props.start,
+			endDate: this.props.end,
+			addressLine: this.props.user.addressLine,
+			city: this.props.user.city,
+			state: this.props.user.state,
+			zip: this.props.user.zip
+		};
+
 		{/* Call getSitters which is located in js/api/appointmentApi */}
-		getSitters(this.props.addressLine, this.props.city, this.props.state, this.props.zip)
+		getSitters(request)
 			.then(
 				(response) => {
 					{/*The .then waits for a response from the API and then executes the following code */}
@@ -41,9 +54,10 @@ export default class SitterList extends React.Component {
 		{/* If there are available sitters, then map them */}
 		if(this.state.sitters.length > 0){
 			{/* Map each possible sitter to a new sitter component */}
-			content = this.state.sitters.map((i, index) =>
-				<SitterComponent key={index} sitter={i} callBack={this.props.callBack}/>
-			);
+			content = this.state.sitters.map((i, index) => {
+				console.log(i);
+				return (<SitterComponent key={index} sitter={i} callBack={this.props.callBack}/>);
+			});
 		}
 
 		return (
@@ -54,3 +68,15 @@ export default class SitterList extends React.Component {
 		);
 	}
 }
+
+SitterList = connect(
+	state => ({
+		authentication: Users.State.getAuthentication(state),
+		user: Users.State.getUser(state)
+	}),
+	dispatch => ({
+
+	})
+)(SitterList);
+
+export default (SitterList);

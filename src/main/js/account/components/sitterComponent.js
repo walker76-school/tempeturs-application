@@ -10,6 +10,7 @@ import * as Users from 'js/api/usersAPI';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import {Rating} from 'material-ui-rating';
 
 const styles = theme => ({
     card: {
@@ -37,7 +38,7 @@ class SitterComponent extends React.Component {
 	bookSitter = () => {
 		{/* Call makeAppointment which is located in js/api/appointmentApi
 		  * This uses values passed in the constructor and from the Redux store */}
-		this.props.callBack(this.props.sitter['principal']);
+		this.props.callBack(this.props.sitter.userDto['principal']);
 		// once this sitter is booked change the state to booked and show some confirmation
         this.setState({
             content: 'Booked'
@@ -74,22 +75,33 @@ class SitterComponent extends React.Component {
         let component;
         // finish setting up the different elelmets of a component.
         if(this.state.content === 'Display'){
+			let rating = 'No rating available';
+			if(this.props.sitter.rating !== null && this.props.sitter.rating > 0){
+				rating = this.props.sitter.rating;
+			}
+
             {/* If the content key is Form then render the PetForm */}
             component = (<Card className={classes.card}>
                         <CardHeader
-                            title={this.props.sitter['name']}
+                            title={this.props.sitter.userDto['name']}
                         />
                         <CardContent>
+							<Typography component='p'>
+								Rating: {rating}
+							</Typography>
                             <Typography component='p'>
-                                Email: {this.props.sitter['principal']}
+                                Email: {this.props.sitter.userDto['principal']}
                             </Typography>
                             <Typography component='p'>
-                                Phone Number: {this.props.sitter['phoneNumber']}
+                                Phone Number: {this.props.sitter.userDto['phoneNumber']}
                             </Typography>
+							<Typography component='p'>
+								Distance: {this.props.sitter.distance}
+							</Typography>
                         </CardContent>
                         <CardActions className={classes.actions} disableActionSpacing>
                             <Bessemer.Button onClick={this.bookSitter}>Book Sitter</Bessemer.Button>
-                            <Bessemer.Button onClick={this.showDirections}>Directions</Bessemer.Button>
+                            {/*<Bessemer.Button onClick={this.showDirections}>Directions</Bessemer.Button>*/}
                         </CardActions>
                     </Card>);
         }

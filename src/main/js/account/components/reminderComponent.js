@@ -41,7 +41,7 @@ class ReminderComponent extends React.Component {
         return (
             <div>
                 You have an appointment
-                with {this.props.user.principal === this.props.owner ? this.props.sitter : this.props.sitter} in {Math.floor(Math.floor(weeks) * 7 + days)} days, {Math.floor(hours)} hours
+                with {this.props.user.principal === this.props.owner ? this.props.sitter : this.props.owner} in {Math.floor(Math.floor(weeks) * 7 + days)} days, {Math.floor(hours)} hours
                 and {Math.floor(minutes)} minutes and {Math.floor(seconds)} seconds.
                 <br/>
             </div>
