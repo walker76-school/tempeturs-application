@@ -20,6 +20,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import DateTimePicker from 'material-ui-datetimepicker';
 import {createMuiTheme} from '@material-ui/core/styles/index';
+import DialogContentText from '@material-ui/core/DialogContentText/DialogContentText';
+import DialogContent from '@material-ui/core/DialogContent/DialogContent';
 
 const styles = theme => ({
     container: {
@@ -147,7 +149,14 @@ class AppointmentForm extends React.Component {
             });
             return;
         }
-        console.log('Set showing sitters...');
+
+        if(this.state.dateEndTime <= this.state.dateStartTime){
+            this.setState({
+                errorCode: -2
+            });
+            return;
+        }
+
         this.setState({
             sitters: true
         });
@@ -160,14 +169,28 @@ class AppointmentForm extends React.Component {
     };
 
     render() {
+        let errorContent = '';
+        if(this.state.errorCode === -1){
+            errorContent = 'Please add at least one pet and try again.';
+        } else if(this.state.errorCode === -2) {
+            errorContent = 'End date must be after the start date.';
+        }
+
         let errorDialog = (
             <div>
                 <Dialog
                     open={this.state.errorCode < 0}
                     aria-labelledby='alert-dialog-title'
                     aria-describedby='alert-dialog-description'
+                    fullWidth={true}
+                    maxWidth='sm'
                 >
-                    <DialogTitle id='alert-dialog-title'>Please select at least one pet</DialogTitle>
+                    <DialogTitle id='alert-dialog-title'>Error</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id='alert-dialog-description'>
+                            {errorContent}
+                        </DialogContentText>
+                    </DialogContent>
                     <DialogActions>
                         <Button onClick={this.errorClose} color='primary'>
                             OK
