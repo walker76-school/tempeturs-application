@@ -13,7 +13,7 @@ class NotificationPage extends React.Component {
 		if(this.props.user && this.props.user.notifications.length > 0){
 
 			{/* Map each notification to a new notifications view */}
-			component = this.props.user.notifications.map((i, index) =>
+			component = this.props.user.notifications.map((i) =>
 				<div>
 					<label>{i}</label>
 					<br/>

@@ -1,5 +1,4 @@
 import React from 'react';
-import {makeAppointment} from 'js/api/appointmentAPI';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -14,10 +13,6 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
     card: {
         maxWidth: 400,
-    },
-    media: {
-        height: 0,
-        paddingTop: '56.25%', // 16:9
     },
     actions: {
         display: 'flex',

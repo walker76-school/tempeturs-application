@@ -65,17 +65,13 @@ Actions.Types = {
 
 Actions.checkPrincipalAvailability = (user, callback, errorCallback) => {
     return (dispatch) => {
-        //.then says wait for response
         return checkUserAvailability(user['principal']).then((found) => {
-            console.log(found);
             if(found){
-                console.log('Checking user - found');
                 if(errorCallback !== null) {
                     errorCallback();
                 }
                 return false;
             } else {
-                console.log('Checking user - not found');
                 if(callback !== null){
                     callback(user);
                 }
@@ -83,7 +79,6 @@ Actions.checkPrincipalAvailability = (user, callback, errorCallback) => {
             }
 
         }).catch(() => {
-            console.log('Checking user - error');
             if(errorCallback !== null) {
                 errorCallback();
             }
@@ -157,7 +152,7 @@ Actions.authLogin = (username, password, callback, errorCallback) => {
                     dispatch(Actions.setUser(user));
                 });
             }
-        ).catch((error) => {
+        ).catch(() => {
             if(errorCallback !== null) {
                 errorCallback();
             }

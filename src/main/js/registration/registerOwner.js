@@ -1,6 +1,5 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import {SitterRegistrationForm} from 'js/forms/sitterRegistrationForm';
 import {OwnerRegistrationForm} from 'js/forms/ownerRegistrationForm';
 
 export class OwnerRegisterPage extends React.Component {

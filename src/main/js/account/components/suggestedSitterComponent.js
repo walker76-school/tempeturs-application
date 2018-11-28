@@ -1,11 +1,8 @@
 import React from 'react';
-import {makeAppointment} from 'js/api/appointmentAPI';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
-import * as Bessemer from 'js/alloy/bessemer/components';
 import connect from 'react-redux/es/connect/connect';
 import * as Users from 'js/api/usersAPI';
 import PropTypes from 'prop-types';

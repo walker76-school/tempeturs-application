@@ -3,7 +3,7 @@ import connect from 'react-redux/es/connect/connect';
 import * as Users from 'js/api/usersAPI';
 
 class ReminderComponent extends React.Component {
-    constructor(props, context) {
+    constructor(props) {
         super(props);
         this.state = {
             curr: Date.now(),

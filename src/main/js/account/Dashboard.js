@@ -31,7 +31,6 @@ import { Redirect } from 'react-router-dom';
 import CalendarPage from 'js/account/pages/calendarPage';
 import AppointmentPage from 'js/account/pages/appointmentPage';
 import {NotificationPage} from 'js/account/pages/notificationPage';
-import {Logout} from 'js/account/components/logout';
 import * as Users from 'js/api/usersAPI';
 import connect from 'react-redux/es/connect/connect';
 import SuggestedSitterList from 'js/account/components/suggestedSitterList';
@@ -163,7 +162,7 @@ class Dashboard extends React.Component {
         });
     };
 
-    renderSubComponent(props){
+    renderSubComponent(){
 
         if(this.state.component === 'Update User'){
             return (<UpdateUserPage/>);

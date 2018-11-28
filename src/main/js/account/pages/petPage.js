@@ -2,7 +2,6 @@ import React from 'react';
 import connect from 'react-redux/es/connect/connect';
 import * as Users from 'js/api/usersAPI';
 import {PetForm} from 'js/forms/petForm';
-import SitterList from 'js/account/components/sitterList';
 import PetComponent from 'js/account/components/petComponent';
 import * as Bessemer from 'js/alloy/bessemer/components';
 
@@ -45,7 +44,7 @@ class PetPage extends React.Component {
             {/* If the user is defined and there are pets then render all the pets*/}
             if (this.props.user && this.props.user['petIds'] && this.props.user['petIds'].length > 0) {
                 let tempContent = null;
-                tempContent = this.props.user['petIds'].map((i, index) => {
+                tempContent = this.props.user['petIds'].map((i) => {
                     return(<PetComponent key={i} petKey={i} refresh={this.refresh}/>);
                 });
                 content = (

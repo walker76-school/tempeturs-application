@@ -6,7 +6,7 @@ import ReminderComponent from 'js/account/components/reminderComponent';
 
 class ReminderList extends React.Component {
 
-    constructor(props, context) {
+    constructor(props) {
         super(props);
         this.state = {
             reminders: []
@@ -19,7 +19,7 @@ class ReminderList extends React.Component {
             .then(
                 (response) => {
                     {/*The .then waits for a response from the API and then executes the following code */}
-                    let reminders = response.map((i, index) => {
+                    let reminders = response.map((i) => {
                         return {
                             end: i['endDate'],
                             start: i['startDate'],
@@ -42,8 +42,6 @@ class ReminderList extends React.Component {
         {/* Setup initial content */}
         let content = (<div>There are no reminders available</div>);
 
-
-
         {/* If there are available sitters, then map them */}
         if(this.props.user && this.state.reminders.length > 0){
             let date = new Date().getTime();
@@ -53,8 +51,6 @@ class ReminderList extends React.Component {
             }).sort((a,b) =>{
                 return (a['start'] - date) - (b['start'] - date);
             });
-
-            console.log(tempReminder);
 
             if(tempReminder.length > 0) {
                 {/* Map each possible sitter to a new sitter component */

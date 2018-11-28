@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {getSitters} from 'js/api/appointmentAPI';
 import SitterComponent from 'js/account/components/sitterComponent';
 

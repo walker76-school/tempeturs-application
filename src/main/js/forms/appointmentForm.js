@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as Bessemer from 'js/alloy/bessemer/components';
-import * as PetAPI from 'js/api/petAPI';
 import * as AppointmentAPI from 'js/api/appointmentAPI';
 import * as Users from 'js/api/usersAPI';
 import {PetListComponent} from 'js/account/components/petListComponent';
@@ -12,13 +11,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import * as moment from 'moment';
-import TextField from '@material-ui/core/TextField';
 import TimePickerDialog from 'material-ui/TimePicker/TimePickerDialog';
 import DatePickerDialog from 'material-ui/DatePicker/DatePickerDialog';
 import DatePicker from 'material-ui-datetimepicker';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import DateTimePicker from 'material-ui-datetimepicker';
 import {createMuiTheme} from '@material-ui/core/styles/index';
 import DialogContentText from '@material-ui/core/DialogContentText/DialogContentText';
 import DialogContent from '@material-ui/core/DialogContent/DialogContent';
@@ -206,7 +202,7 @@ class AppointmentForm extends React.Component {
         } else {
             if(this.props.user && this.props.user.petIds.length > 0){
                 {/* Map each possible sitter to a new sitter component */}
-                content = this.props.user.petIds.map((i, index) =>
+                content = this.props.user.petIds.map((i) =>
                     <PetListComponent key={i} enqueue={this.enqueuePet} dequeue={this.dequeuePet} id={i}/>
                 );
             }

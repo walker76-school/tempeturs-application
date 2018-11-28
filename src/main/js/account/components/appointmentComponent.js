@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {approveAppointment, getAppointment, rateAppointment, rejectAppointment, cancelAppointment} from 'js/api/appointmentAPI';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';

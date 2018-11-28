@@ -95,10 +95,6 @@ class OwnerRegistrationForm extends React.Component {
 OwnerRegistrationForm = ReduxForm.reduxForm({form: 'register'})(OwnerRegistrationForm);
 
 OwnerRegistrationForm = connect(
-	state => ({
-
-	}),
-	//these functions you access with props
 	dispatch => ({
         checkUser: (user, callback, errorCallback) => dispatch(Users.Actions.checkPrincipalAvailability(user, callback, errorCallback)),
         register: (user, callback, errorCallback) => dispatch(Users.Actions.registerOwner(user, callback, errorCallback))
