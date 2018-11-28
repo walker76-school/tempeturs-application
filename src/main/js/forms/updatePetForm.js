@@ -72,6 +72,9 @@ class UpdatePetForm extends React.Component {
 UpdatePetForm = ReduxForm.reduxForm({form: 'pet'})(UpdatePetForm);
 
 UpdatePetForm = connect(
+    state => ({
+
+    }),
 	dispatch => ({
 		updatePet: pet => dispatch(PetAPI.Actions.updatePet(pet))
 	})

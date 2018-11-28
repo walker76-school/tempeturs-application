@@ -99,6 +99,9 @@ class SitterRegistrationForm extends React.Component {
 SitterRegistrationForm = ReduxForm.reduxForm({form: 'register'})(SitterRegistrationForm);
 
 SitterRegistrationForm = connect(
+    state => ({
+
+    }),
     dispatch => ({
         checkUser: (user, callback, errorCallback) => dispatch(Users.Actions.checkPrincipalAvailability(user, callback, errorCallback)),
         register: (user, callback, errorCallback) => dispatch(Users.Actions.registerSitter(user, callback, errorCallback))
