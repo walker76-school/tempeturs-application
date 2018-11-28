@@ -109,6 +109,29 @@ Actions.authenticate = (username, password, callback) => {
 	};
 };
 
+Actions.authLogin = (username, password, callback) => {
+    console.log('Authenticating ' + username + ' with password ' + password);
+    return (dispatch) => {
+    	console.log('Trying to get authenticate...');
+    	//console.log(authenticate(username, password));
+        return authenticate(username, password).then(
+            authentication => {
+                console.log('Retrieved auth token .... ');
+                console.log(authentication);
+                dispatch(Actions.setAuthentication(authentication));
+                if(callback !== null){
+                    callback();
+                }
+                return getUserDetails().then(user => {
+                    console.log('Retrieved user .... ');
+                    console.log(user);
+                    dispatch(Actions.setUser(user));
+                });
+            }
+        );
+    };
+};
+
 Actions.refresh = () => {
     console.log('Refreshing user...');
 	return (dispatch) => {
