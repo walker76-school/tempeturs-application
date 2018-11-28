@@ -2,6 +2,7 @@ import React from 'react';
 import {getCalendarEvents} from 'js/api/appointmentAPI';
 import connect from 'react-redux/es/connect/connect';
 import * as Users from 'js/api/usersAPI';
+import ReminderComponent from "js/account/components/reminderComponent";
 
 class ReminderList extends React.Component {
 
@@ -46,48 +47,19 @@ class ReminderList extends React.Component {
         {/* If there are available sitters, then map them */}
         if(this.props.user && this.state.reminders.length > 0){
             let date = new Date().getTime();
-            const SECOND = 1000;        // no. of ms in a second
-            const MINUTE = SECOND * 60; // no. of ms in a minute
-            const HOUR = MINUTE * 60;   // no. of ms in an hour
-            const DAY = HOUR * 24;      // no. of ms in a day
-            const WEEK = DAY * 7;       // no. of ms in a week
 
             let tempReminder = this.state.reminders.filter((i) => {
                 return (i['start'] - date) > 0;
+            }).sort((a,b) =>{
+                return (a['start'] - date) - (b['start'] - date)
             });
+
+            console.log(tempReminder);
 
             if(tempReminder.length > 0) {
                 {/* Map each possible sitter to a new sitter component */
                 }
-                content = this.state.reminders.map((i, index) => {
-
-                    console.log(i['start']);
-                    console.log(date);
-                    let remaining = i['start'] - date;
-                    if (remaining < 0) {
-                        return;
-                    }
-
-                    console.log('Remaining: ' + remaining);
-
-                    let weeks = (remaining / WEEK);
-                    console.log('Weeks: ' + weeks);
-                    let days = (remaining % WEEK) / DAY;
-                    console.log('days: ' + days);
-                    let hours = (remaining % DAY) / HOUR;
-                    console.log('hours: ' + hours);
-                    let minutes = (remaining % HOUR) / MINUTE;
-                    console.log('minutes: ' + minutes);
-
-                    return (
-                        <div>
-                            You have an appointment
-                            with {(this.props.user.principal === i['owner'] ? i['sitter'] : i['owner'])} in {Math.floor(Math.floor(weeks) * 7 + days)} days, {Math.floor(hours)} hours
-                            and {Math.floor(minutes)} minutes.
-                            <br/>
-                        </div>
-                    );
-                });
+                content = tempReminder.map((i, index) => <ReminderComponent start={i['start']} owner={i['owner']} sitter={i['sitter']}/>);
             }
         }
 
