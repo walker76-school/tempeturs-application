@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import {OwnerRegistrationForm} from 'js/forms/ownerRegistrationForm';
+import {Helmet} from 'react-helmet';
 
 export class OwnerRegisterPage extends React.Component {
 
@@ -42,6 +43,9 @@ export class OwnerRegisterPage extends React.Component {
 	render() {
 		return (
 			<div>
+				<Helmet>
+					<title>Register Owner</title>
+				</Helmet>
 				{this.renderRedirect()}
 				<div>
 					<div className='innerRegContainer'>

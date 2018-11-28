@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import * as Users from 'js/api/usersAPI';
 import {LoginForm} from 'js/forms/loginForm';
 import Cookies from 'universal-cookie';
+import {Helmet} from 'react-helmet';
 
 class LoginPage extends React.Component {
 
@@ -50,6 +51,9 @@ class LoginPage extends React.Component {
 	render() {
 		return (
 			<div>
+				<Helmet>
+					<title>Login</title>
+				</Helmet>
 				{this.renderRedirect()}
 				<div>
 					<div className='innerRegContainer'>

@@ -37,6 +37,7 @@ import SuggestedSitterList from 'js/account/components/suggestedSitterList';
 import Grid from '@material-ui/core/Grid';
 import {getRating} from 'js/api/appointmentAPI';
 import ReminderList from 'js/account/components/reminderList';
+import {Helmet} from 'react-helmet';
 
 const drawerWidth = 240;
 
@@ -227,6 +228,9 @@ class Dashboard extends React.Component {
 
         return (
             <React.Fragment>
+				<Helmet>
+					<title>{this.state.component}</title>
+				</Helmet>
                 {this.renderRedirect()}
                 <div className={classes.root}>
                     <AppBar
