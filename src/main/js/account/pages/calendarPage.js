@@ -50,7 +50,7 @@ class CalendarPage extends React.Component {
 				       return {
                            end: i['endDate'],
                            start: i['startDate'],
-                           title: 'Appointment with ' + i['owner'],
+                           title: 'Appointment with ' + (this.props.user.principal === i['owner'] ? i['sitter'] : i['owner']),
                            description: (new Date(i['startDate'])).customFormat( '#DDD# #MMM# #DD#, #YYYY# #hh#:#mm#:#ss# #AMPM#' ) + ' - ' + (new Date(i['endDate'])).customFormat( '#DDD# #MMM# #DD#, #YYYY# #hh#:#mm#:#ss# #AMPM#' ),
                            data: '',
                        };
@@ -111,13 +111,10 @@ class CalendarPage extends React.Component {
     }
 }
 
-
-
 CalendarPage = connect(
     state => ({
         user: Users.State.getUser(state),
     })
 )(CalendarPage);
-
 
 export default (CalendarPage);

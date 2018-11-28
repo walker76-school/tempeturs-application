@@ -37,6 +37,7 @@ import connect from 'react-redux/es/connect/connect';
 import SuggestedSitterList from 'js/account/components/suggestedSitterList';
 import Grid from '@material-ui/core/Grid';
 import {getRating} from 'js/api/appointmentAPI';
+import ReminderList from 'js/account/components/reminderList';
 
 const drawerWidth = 240;
 
@@ -202,6 +203,10 @@ class Dashboard extends React.Component {
 					<h5>Suggested Sitters:</h5>
 					<SuggestedSitterList zip={this.props.user.zip} />
 				</Grid>}
+                <Grid item md={6}>
+                    <h5>Reminders:</h5>
+                    <ReminderList />
+                </Grid>
 			</Grid>
             );
         }

@@ -5,6 +5,7 @@ import java.util.Date;
 public class CalendarAppointment {
 
     private String owner;
+    private String sitter;
     private Date startDate;
     private Date endDate;
 
@@ -13,12 +14,14 @@ public class CalendarAppointment {
 
     public CalendarAppointment(AppointmentDto appointment) {
         this.owner = appointment.getOwner();
+        this.sitter = appointment.getSitter();
         this.startDate = appointment.getStartDate();
         this.endDate = appointment.getEndDate();
     }
 
-    public CalendarAppointment(String owner, Date startDate, Date endDate) {
+    public CalendarAppointment(String owner, String sitter, Date startDate, Date endDate) {
         this.owner = owner;
+        this.sitter = sitter;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -29,6 +32,14 @@ public class CalendarAppointment {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    public String getSitter() {
+        return sitter;
+    }
+
+    public void setSitter(String sitter) {
+        sitter = sitter;
     }
 
     public Date getStartDate() {
