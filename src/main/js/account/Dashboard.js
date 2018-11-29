@@ -201,14 +201,15 @@ class Dashboard extends React.Component {
 					{component}
 					<br/>
 				</Grid>
-                {(this.props.user.type === 'OWNER' || this.props.user.type === 'COMBO') && <Grid item md={6}>
-					<h5>Suggested Sitters:</h5>
-					<SuggestedSitterList zip={this.props.user.zip} />
-				</Grid>}
                 <Grid item md={6}>
                     <h5>Reminders:</h5>
                     <ReminderList />
                 </Grid>
+                {(this.props.user.type === 'OWNER' || this.props.user.type === 'COMBO') && <Grid item md={6}>
+					<h5>Suggested Sitters:</h5>
+					<SuggestedSitterList zip={this.props.user.zip} />
+				</Grid>}
+
 			</Grid>
             );
         }
