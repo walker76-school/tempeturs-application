@@ -108,7 +108,7 @@ class CalendarPage extends React.Component {
 					events={this.state.events}
 					defaultView={BigCalendar.Views.MONTH}
 					onSelectEvent={event => this.setExpandedText(event)}
-					views={['month', 'week']}
+					views={['month']}
 					eventPropGetter={
 						(event, start, end, isSelected) => {
 							let newStyle = {
