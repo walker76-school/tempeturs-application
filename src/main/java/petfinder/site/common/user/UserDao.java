@@ -262,19 +262,27 @@ public class UserDao {
         Optional<UserAuthenticationDto> ownerADto = repository.search(searchSourceBuilder).stream().findFirst();
         UserDto ownerDto = ownerADto.get().getUser();
 
+		System.out.println("Retrieved user");
+
         queryString = String.format("user.principal=\"%s\"", sitter.replace("\"", ""));
         searchSourceBuilder.query(QueryBuilders.queryStringQuery(queryString));
 
         Optional<UserAuthenticationDto> sitterADto = repository.search(searchSourceBuilder).stream().findFirst();
         UserDto sitterDto = sitterADto.get().getUser();
 
+		System.out.println("Retrieved Sitter");
+
         // Add the appointmentDto
 		ownerDto.getAppointments().add(id);
 		sitterDto.getAppointments().add(id);
 		sitterDto.getNotifications().add("You have a new pending appointment with user: " + ownerDto.getPrincipal());
 
+		System.out.println("Updated users");
+
 		save(ownerADto.get());
 		save(sitterADto.get());
+
+		System.out.println("Saved users");
     }
 
 	public void save(UserAuthenticationDto userAuthentication) {
