@@ -73,7 +73,6 @@ public class UserDao {
 				String text = "";
 				try {
 					JSONObject json = readJsonFromUrl(googleRequest);
-					System.out.println(json.toString());
 					text = json.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("duration").get("text").toString();
 					String distanceRaw = json.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("duration").get("value").toString();
 					String[] split = distanceRaw.split(" ");
@@ -109,6 +108,7 @@ public class UserDao {
 
     public List<Sitter> findSitters(SitterRequest request){
 		String principal = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println("Principal - " + principal);
 
 		SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
 		searchSourceBuilder.query(QueryBuilders.matchAllQuery());
@@ -118,9 +118,16 @@ public class UserDao {
 				.filter(user -> !user.getPrincipal().equals(principal))
 				.collect(Collectors.toList());
 
+        System.out.println("ourReturn");
+		for(UserDto e : ourReturn){
+            System.out.println(e.getPrincipal());
+        }
+
 		List<Pair<Pair<Double, String>, UserDto>> pairs = new ArrayList<>();
 
 		for(UserDto e : ourReturn) {
+
+            System.out.println("Now Testing UserDto - " + e.getPrincipal());
 
 			String googleRequest = "https://maps.googleapis.com/maps/api/directions/json?origin=" + request.getAddressLine() + "%20" + request.getCity()
 					+ "%20" + request.getState() + "%20" + request.getZip() + "&destination=" + e.getAddressLine() + "%20" + e.getCity() + "%20" + e.getState()
@@ -131,7 +138,6 @@ public class UserDao {
 			String text = "";
 			try {
 				JSONObject json = readJsonFromUrl(googleRequest);
-				System.out.println(json.toString());
 				text = json.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("duration").get("text").toString();
 				String distanceRaw = json.getJSONArray("routes").getJSONObject(0).getJSONArray("legs").getJSONObject(0).getJSONObject("duration").get("value").toString();
 				String[] split = distanceRaw.split(" ");
@@ -178,6 +184,7 @@ public class UserDao {
 			}
 
 			if(isAllowed) {
+                System.out.println(e.getPrincipal() + " is allowed");
 				pairs.add(new Pair<Pair<Double, String>, UserDto>(new Pair<>(distance, text), e));
 			}
 		}
@@ -189,9 +196,13 @@ public class UserDao {
 			}
 		});
 
+        System.out.println(pairs);
+
 		for(int i = pairs.size()-1; i > 5; i--){
 			pairs.remove(i);
         }
+
+        System.out.println(pairs);
 
 		return pairs.stream()
 				.map(pair -> {

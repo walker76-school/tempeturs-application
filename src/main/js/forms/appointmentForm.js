@@ -84,11 +84,13 @@ class AppointmentForm extends React.Component {
 
 
     setStartDate = (dateTime) => this.setState({
-        dateStartTime: dateTime.getTime()
+        dateStartTime: dateTime.getTime(),
+        sitters: false
     });
 
     setEndDate = (dateTime) => this.setState({
-        dateEndTime: dateTime.getTime()
+        dateEndTime: dateTime.getTime(),
+        sitters: false
     });
 
     bookAppointment = principal => {
