@@ -15,6 +15,7 @@ import {Rating} from 'material-ui-rating';
 const styles = theme => ({
     card: {
         maxWidth: 400,
+        minWidth: 400
     },
     actions: {
         display: 'flex',
@@ -31,8 +32,6 @@ class SitterComponent extends React.Component {
         };
 		{/* Bind the onClick function so it knows about the state */}
 		this.bookSitter = this.bookSitter.bind(this);
-		this.showDirections = this.showDirections.bind(this);
-		this.showMap = this.showMap.bind(this);
 	}
 
 	bookSitter = () => {
@@ -44,22 +43,6 @@ class SitterComponent extends React.Component {
             content: 'Booked'
         });
 	};
-    showSitter = ()=>{
-        this.setState({
-            content: 'Display',
-			refresh: !this.state.refresh
-        });
-    };
-	showDirections = ()=>{
-        this.setState({
-            content: 'Directions'
-        });
-    };
-	showMap = ()=>{
-        this.setState({
-            content: 'Map'
-        });
-    };
 
     refresh() {
         console.log('Refreshing Sitter...');
@@ -74,7 +57,7 @@ class SitterComponent extends React.Component {
 
         {/* Setup initial content */}
         let component;
-        // finish setting up the different elelmets of a component.
+
         if(this.state.content === 'Display'){
 			let rating = 'No rating available';
 			if(this.props.sitter.rating !== null && this.props.sitter.rating > 0){
@@ -105,40 +88,7 @@ class SitterComponent extends React.Component {
                             {/*<Bessemer.Button onClick={this.showDirections}>Directions</Bessemer.Button>*/}
                         </CardActions>
                     </Card>);
-        }
-        else if( this.state.content === 'Directions'){
-            // make your calls to get appropriate information and then make calls to google api
-            // get the directions or estimated time and display.\
-            // probably need to get the users information from the redux store.
-            component =(
-                <body>
-                    <h1> this is the directions</h1>
-                    <Bessemer.Button onClick={this.showMap} > Map </Bessemer.Button>
-                    <Bessemer.Button onClick={this.showSitter}> Back </Bessemer.Button>
-                </body>
-        );
-        }else if(this.state.content === 'Map'){
-                // this is what the map should look like.
-            // component =(
-            //     <Map google={this.props.google} zoom={14}>
-            //
-            //         <Marker onClick={this.onMarkerClick}
-            //                 name={'Current location'} />
-            //
-            //         <InfoWindow onClose={this.onInfoWindowClose}>
-            //             <div>
-            //                 <h1>{this.state.selectedPlace.name}</h1>
-            //             </div>
-            //         </InfoWindow>
-            //     </Map>
-            // );
-            component =(
-                <body>
-                 <h1>This is the map</h1>
-                 <Bessemer.Button onClick={this.showDirections} > Back </Bessemer.Button>
-                </body>
-            );
-        }else if(this.state.content === 'Booked'){
+        } else if(this.state.content === 'Booked'){
             // this is Booked state.
             // display a booked message.
 			{/*<Bessemer.Button onClick={this.showSitter} > Back </Bessemer.Button>*/}
@@ -147,6 +97,7 @@ class SitterComponent extends React.Component {
             );
 
         }
+
         return (
             <div className={classes.root}>
                 {/* Display the content, either the default label or the list of appointments */}
