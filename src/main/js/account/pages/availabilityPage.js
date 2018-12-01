@@ -52,6 +52,7 @@ class AvailabilityPage extends React.Component {
 			'saturdayMidday': false,
 			'saturdayAfternoon': false,
 			'saturdayEvening': false,
+            message: ''
 		};
 	}
 
@@ -113,7 +114,17 @@ class AvailabilityPage extends React.Component {
 		this.state[name.toString()] = value;
 	};
 
+	updateMessage = () => {
+        this.setState({
+            message: 'Availability updated.'
+        });
+    };
+
 	onSubmit = () => {
+	    this.setState({
+            message: 'Updating availability...'
+        });
+
 		{/* Create a copy of the state for use in calling the endpoint */}
 		let availability = Object.assign({}, this.state);
 
@@ -122,7 +133,7 @@ class AvailabilityPage extends React.Component {
 		updatedUser['availability'] = availability;
 
 		{/* Call the update function to set the availability*/}
-		this.props.setAvailability(updatedUser);
+		this.props.setAvailability(updatedUser, this.updateMessage);
 
 	};
 
@@ -195,6 +206,7 @@ class AvailabilityPage extends React.Component {
 				</div>
 				<br/>
 				<Bessemer.Button onClick={this.onSubmit}>Submit</Bessemer.Button>
+                <label>{this.state.message}</label>
 			</div>
 		);
 	}
@@ -208,7 +220,7 @@ AvailabilityPage = connect(
 		user: Users.State.getUser(state),
 	}),
 	dispatch => ({
-		setAvailability: (user) => dispatch(Users.Actions.update(user))
+		setAvailability: (user, callback) => dispatch(Users.Actions.updateCallback(user, callback))
 	})
 )(AvailabilityPage);
 
