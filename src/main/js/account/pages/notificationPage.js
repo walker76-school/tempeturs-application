@@ -1,8 +1,31 @@
 import React from 'react';
 import connect from 'react-redux/es/connect/connect';
 import * as Users from 'js/api/usersAPI';
+import * as Bessemer from 'js/alloy/bessemer/components';
 
 class NotificationPage extends React.Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            notifications: [],
+        };
+    }
+
+    componentWillMount(){
+        this.setState({
+            notifications: this.props.user ? this.props.user.notifications : []
+        });
+    }
+
+    clearNotification = () => {
+        let updatedUser = this.props.user;
+        updatedUser['notifications'] = [];
+        this.props.update(updatedUser);
+        this.setState({
+            notifications: []
+        });
+    };
 
 	render() {
 
@@ -10,7 +33,7 @@ class NotificationPage extends React.Component {
 		let component = (<div>You don't have any notifications.</div>);
 
 		{/* If there are available notifications, then map them */}
-		if(this.props.user && this.props.user.notifications.length > 0){
+		if(this.state.notifications.length > 0){
 
 			{/* Map each notification to a new notifications view */}
 			component = this.props.user.notifications.map((i) =>
@@ -25,7 +48,9 @@ class NotificationPage extends React.Component {
 			<div>
 				{/* Display the content, either the default label or the list of notifications */}
 				{component}
-			</div>
+                <Bessemer.Button className='link appointmentlink' onClick={this.clearNotification}>Clear Notifications</Bessemer.Button>
+
+            </div>
 		);
 	}
 }
@@ -34,7 +59,10 @@ class NotificationPage extends React.Component {
 NotificationPage = connect(
 	state => ({
 		user: Users.State.getUser(state),
-	})
+	}),
+    dispatch => ({
+        update: user => dispatch(Users.Actions.update(user))
+    })
 )(NotificationPage);
 
 export { NotificationPage };
