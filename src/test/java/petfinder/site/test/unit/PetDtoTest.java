@@ -35,6 +35,5 @@ public class PetDtoTest {
         assertEquals(testPetDto.getType().getClass(), typeValue.getClass());
         assertEquals(testPetDto.getBio().getClass(), bioValue.getClass());
 
-
     }
 }

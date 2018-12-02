@@ -13,7 +13,6 @@ import static petfinder.site.common.user.UserDto.UserType.OWNER;
 @RunWith(JUnit4.class)
 public class UserDtoTest {
 
-    //variables used for testing in later tests
     private String testPrincipal1 = "testPrincipal";
     private String testName1 = "testName";
     private String testPhoneNumber1 = "testPhoneNumber";

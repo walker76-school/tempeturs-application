@@ -27,7 +27,7 @@ public class UserDto implements Momento<String> {
 	private UserType type;
 	private AvailabilityDto availability;
 	private Map<String, Object> attributes;
-	private String currentDriveTime;
+
 	private UserDto() {
 
 	}
@@ -113,13 +113,6 @@ public class UserDto implements Momento<String> {
 		return zip;
 	}
 
-	public String getCurrentDriveTime(){
-		return currentDriveTime;
-	}
-
-	public void setCurrentDriveTime(String a){
-		this.currentDriveTime = a;
-	}
 	public List<String> getRoles() {
 		return roles;
 	}
@@ -161,4 +154,47 @@ public class UserDto implements Momento<String> {
 	public enum UserType {
 		OWNER, SITTER, COMBO
 	}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UserDto userDto = (UserDto) o;
+
+        if (!principal.equals(userDto.principal)) return false;
+        if (!name.equals(userDto.name)) return false;
+        if (!phoneNumber.equals(userDto.phoneNumber)) return false;
+        if (!addressLine.equals(userDto.addressLine)) return false;
+        if (!city.equals(userDto.city)) return false;
+        if (!state.equals(userDto.state)) return false;
+        if (!zip.equals(userDto.zip)) return false;
+        if (!roles.equals(userDto.roles)) return false;
+        if (!petIds.equals(userDto.petIds)) return false;
+        if (!appointments.equals(userDto.appointments)) return false;
+        if (!notifications.equals(userDto.notifications)) return false;
+        if (type != userDto.type) return false;
+        if (availability != null ? !availability.equals(userDto.availability) : userDto.availability != null)
+            return false;
+        return attributes.equals(userDto.attributes);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = principal.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + phoneNumber.hashCode();
+        result = 31 * result + addressLine.hashCode();
+        result = 31 * result + city.hashCode();
+        result = 31 * result + state.hashCode();
+        result = 31 * result + zip.hashCode();
+        result = 31 * result + roles.hashCode();
+        result = 31 * result + petIds.hashCode();
+        result = 31 * result + appointments.hashCode();
+        result = 31 * result + notifications.hashCode();
+        result = 31 * result + type.hashCode();
+        result = 31 * result + (availability != null ? availability.hashCode() : 0);
+        result = 31 * result + attributes.hashCode();
+        return result;
+    }
 }
