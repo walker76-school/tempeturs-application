@@ -93,7 +93,16 @@ class SitterComponent extends React.Component {
             // display a booked message.
 			{/*<Bessemer.Button onClick={this.showSitter} > Back </Bessemer.Button>*/}
             component =(
-				<p> Sitter booked. Redirecting... </p>
+                <Card className={classes.card}>
+                    <CardHeader
+                        title={this.props.sitter.userDto['name']}
+                    />
+                    <CardContent>
+                        <Typography component='p'>
+                           Sitter booked. Redirecting...
+                        </Typography>
+                    </CardContent>
+                </Card>
             );
 
         }
@@ -107,17 +116,9 @@ class SitterComponent extends React.Component {
 	}
 }
 
-    // this is what we need for the map to work material ui also requires another default export
-    // how do we do both in jsx
-// export default GoogleApiWrapper({
-//     apiKey: ('AIzaSyDolgtw08Z4fjTc82xfYQufGBoeWWSXve0')
-// })(SitterComponent);
-
-
 SitterComponent.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-
 
 {/* Connect to the Redux store to have access to the user data */}
 SitterComponent = connect(

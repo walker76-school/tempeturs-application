@@ -136,6 +136,10 @@ class AppointmentForm extends React.Component {
     };
 
     showSitters = () => {
+
+        {/* Cannot schedule an appointment before at least 24 hours from now */}
+        let now = new Date().getTime() + 86400000 ;
+
         if(this.state.pets.length <= 0){
             this.setState({
                 errorCode: -1
@@ -146,6 +150,13 @@ class AppointmentForm extends React.Component {
         if(this.state.dateEndTime <= this.state.dateStartTime){
             this.setState({
                 errorCode: -2
+            });
+            return;
+        }
+
+        if(this.state.dateEndTime <= now || this.state.dateStartTime <= now){
+            this.setState({
+                errorCode: -3
             });
             return;
         }
@@ -167,6 +178,8 @@ class AppointmentForm extends React.Component {
             errorContent = 'Please add at least one pet and try again.';
         } else if(this.state.errorCode === -2) {
             errorContent = 'End date must be after the start date.';
+        } else if(this.state.errorCode === -3) {
+            errorContent = 'Please pick dates at least 24 hours after the current date and time.';
         }
 
         let errorDialog = (

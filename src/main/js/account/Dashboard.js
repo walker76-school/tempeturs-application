@@ -166,7 +166,7 @@ class Dashboard extends React.Component {
     renderSubComponent(){
 
         if(this.state.component === 'Update User'){
-            return (<UpdateUserPage/>);
+            return (<UpdateUserPage callback={this.handleButtonClick}/>);
         }else if(this.state.component === 'Calendar'){
             return (<CalendarPage/>);
         }else if(this.state.component === 'Availability'){

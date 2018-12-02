@@ -10,8 +10,12 @@ export default class UpdateUserForm extends React.Component {
 	// Store the values in the state
 	constructor(props) {
 		super(props);
-		this.state = {name: '', phoneNumber: '', addressLine: '', city: '', state:'', zip:''};
+		this.state = {name: '', phoneNumber: '', addressLine: '', city: '', state:'', zip:'', redirect: false};
 	}
+
+	callBack = () => {
+	    this.props.callback(null, 'Dashboard');
+    };
 
 	// Update the user on submit
 	onSubmit = user => {
@@ -51,7 +55,7 @@ export default class UpdateUserForm extends React.Component {
             updatedUser['zip'] = user['zip'];
         }
 
-		return this.props.updateUser(updatedUser);
+		this.props.updateUser(updatedUser, this.callBack);
 	};
 
 	render() {
@@ -97,7 +101,7 @@ UpdateUserForm = connect(
 		user: Users.State.getUser(state)
 	}),
 	dispatch => ({
-		updateUser: user => dispatch(Users.Actions.update(user))
+		updateUser: (user, callback) => dispatch(Users.Actions.updateCallback(user, callback))
 	})
 )(UpdateUserForm);
 
