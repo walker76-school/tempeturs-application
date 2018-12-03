@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 import static petfinder.site.common.user.UserDto.UserType.OWNER;
 
 @RunWith(JUnit4.class)
-public class SitterTest {
+public class SitterDtoTest {
 
     private String testPrincipal1 = "testPrincipal";
     private String testName1 = "testName";
